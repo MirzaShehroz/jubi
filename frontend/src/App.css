@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+a:not([href]):not([class]) {
+  color: none;
+  text-decoration: none;
+}
+p{
+  margin-bottom: 0;
+}

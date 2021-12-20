@@ -1,0 +1,14 @@
+.dashboard_strip {
+    width: 100%;
+    grid-area: strip;
+    background: #DBDBDB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 13px;
+}
+
+.dashboard_strip>img {
+    margin-right: 2px;
+    cursor: pointer;
+}

@@ -1,0 +1,118 @@
+.dd_menu {
+    position: absolute;
+    top: 10.7%;
+    right: 6%;
+    display: flex;
+    background: white;
+    box-shadow: -3px 4px 3px rgb(60 60 60 / 52%);
+    border-radius: 3px;
+    display: none;
+}
+
+.menu_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 6px;
+    width: 303px;
+}
+
+.menu_div>img {
+    margin-bottom: 15px;
+}
+
+.menu_div button {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    padding: 5px 23px;
+    color: #767676;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #767676;
+    margin: 15px 0;
+}
+
+.menu_div button:hover {
+    background: #f7f7f7;
+}
+
+#userName_P {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15000000596046448px;
+    text-align: center;
+    color: #191919;
+}
+
+.menu_div p:not(:first-child) {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    text-align: center;
+    color: #767676;
+}
+
+.openMenu {
+    display: block;
+}
+
+.menu_List {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.menu_List li:not(:first-child) {
+    cursor: pointer;
+    margin-bottom: 17px;
+}
+
+.menu_List li:not(:first-child):hover {
+    background: #E2EFF9;
+}
+
+.menu_List li {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    color: #191919;
+}
+
+.menu_List li img {
+    margin-top: -3px;
+    margin-right: 13px;
+    margin-left: 14px;
+}
+
+.menu_List li:first-child {
+    border-bottom: 1px solid #767676;
+}
+
+.dd_menu li {
+    margin: 11px 0px;
+    list-style: none;
+}
+
+.dd_menu li a {
+    text-decoration: none;
+    color: #191919;
+    cursor: pointer;
+}
+
+.dd_menu::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 30px;
+}

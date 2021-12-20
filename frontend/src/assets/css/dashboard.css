@@ -1,0 +1,18 @@
+.dashboardPanel {
+    height: 100vh;
+}
+
+.dashboard_parent {
+    height: 89.5%;
+    min-height: 89.5%;
+    max-height: 89.5%;
+    display: grid;
+    grid-template-columns: 11.3fr 0.14fr 0.56fr;
+    grid-template-areas: 'dashboard strip sidebar';
+}
+
+.dashboard {
+    width: 100%;
+    grid-area: dashboard;
+    background: #9b9b9b;
+}
