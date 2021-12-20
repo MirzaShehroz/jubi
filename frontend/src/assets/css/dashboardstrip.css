@@ -11,4 +11,6 @@
 .dashboard_strip>img {
     margin-right: 2px;
     cursor: pointer;
+    transition: .3s all ease-in-out;
+    transform: rotate(0deg);
 }

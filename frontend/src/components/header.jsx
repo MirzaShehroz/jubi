@@ -6,10 +6,11 @@ import addIcon from '../assets/img/addicon2.png';
 import userPic from "../assets/img/user_pic.png";
 import ConnectUser from './connectuser';
 import { useRecoilState } from 'recoil';
-import { connectUserShow } from '../data/atom';
+import { connectUserShow, showHeaderProfile } from '../data/atom';
 
 function Header() {
     const [connectMenu, setCmenu] = useRecoilState(connectUserShow);
+    const [showHeaderChild2, setShowHeaderChild2] = useRecoilState(showHeaderProfile);
     const [connectMenuClass, setCmenuClass] = useState("c_menu");
     const [ddMenu, setDDmenu] = useState(false);
     const [ddMenuClass, setDDmenuClass] = useState("dd_menu");
@@ -27,7 +28,7 @@ function Header() {
     }
     return (
         <header className="header">
-            <div className=" containerNav">
+            <div className=" containerNav" style={{ paddingTop: showHeaderChild2.paddingTop }}>
                 <nav>
                     <div className='nav_parent1'>
                         <div className='nav_child1'>
@@ -40,13 +41,17 @@ function Header() {
                             </div>
                         </div>
                         <div className='nav_child2'>
-                            <div className='nav_Child21'>
-                                <p>Dr. Kim’s podiatric clinic</p>
-                                <p>User name / Title</p>
-                            </div>
-                            <div className='nav_Child22'>
-                                <img src={userPic} alt="" onClick={ddMenuShow} />
-                            </div>
+                            {showHeaderChild2.showHProfile ?
+                                <>
+                                    <div className='nav_Child21'>
+                                        <p>Dr. Kim’s podiatric clinic</p>
+                                        <p>User name / Title</p>
+                                    </div>
+                                    <div className='nav_Child22'>
+                                        <img src={userPic} alt="" onClick={ddMenuShow} />
+                                    </div>
+                                </> : null
+                            }
                         </div>
                     </div>
                     <ConnectUser show={connectMenu.connectMenu} />

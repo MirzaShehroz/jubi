@@ -1,0 +1,11 @@
+#overlay_user {
+    height: 89.5%;
+    min-height: 89.5%;
+    max-height: 89.5%;
+    position: absolute;
+    width: 200px;
+    right: 5.8%;
+    top: 10.5%;
+    background-color: yellow;
+    display: block;
+}

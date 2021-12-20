@@ -8,3 +8,11 @@ export const connectUserShow = atom({
         connectClass: 'c_menu'
     }
 });
+
+export const showHeaderProfile = atom({
+    key: "showHeaderIcon",
+    default: {
+        showHProfile: true,
+        paddingTop: "0.8%",
+    }
+});
