@@ -14,5 +14,7 @@ export const showHeaderProfile = atom({
     default: {
         showHProfile: true,
         paddingTop: "0.8%",
+        showUserPanel: false,
+        iconRotate: false,
     }
 });

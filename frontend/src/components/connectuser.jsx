@@ -28,7 +28,7 @@ function ConnectUser({ show }) {
             setCSmenu(false);
             setCSmenuClass("cs_menu")
         }
-    });
+    },[show]);
 
     const csMenuShow = () => {
         setCSmenu(true);
