@@ -21,17 +21,6 @@
     width: 0;
 }
 
-#overlay_user::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-#overlay_user::-webkit-scrollbar-thumb {
-    background: #3E6578;
-}
-
-#overlay_user::-webkit-scrollbar-thumb:hover {
-    background: #3E6578;
-}
 
 .overlay_child1 {
     padding: 6% 6.5%;
