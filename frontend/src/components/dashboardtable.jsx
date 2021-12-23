@@ -70,7 +70,7 @@ function DashboardTable() {
                                         <div className={'col-sm-12 d-flex'}>
                                             <FormControl
                                                 type="search"
-                                                placeholder={'Search'}
+                                                placeholder={'User name/ Insurance/ Medication'}
                                                 className="me-2"
                                                 aria-label="Search"
                                             />

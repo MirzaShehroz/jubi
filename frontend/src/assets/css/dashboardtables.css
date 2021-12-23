@@ -1,43 +1,76 @@
-.dashboard_child2{
+.dashboard_child2 {
     background: #E5E5E5;
     padding: 1.5% 2%;
+    font-family: 'Pretendard', sans-serif;
+    font-style: normal;
 }
-#example_wrapper{
+
+#example_wrapper {
     background: white;
     padding: 2%;
     height: 87%;
     border-radius: 0 0 13px 13px;
 }
-#example{
+
+#example {
     background: white;
 }
-#filters{
+
+#filters {
     border-radius: 13px 13px 0 0 !important;
     background: white;
 }
-.filterButtons{
-    padding-left: 3%;
-    padding-right: 3%;
+
+#filters h5 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    text-align: left;
+}
+
+.filterButtons {
     border: none;
+    padding: 4.5px 10px;
+    border-radius: 2px;
+    margin-right: 5px;
+    margin-bottom: 5px;
     outline: none;
-    height: 30px;
-    margin: 1%;
     background: #3E6578;
     color: white;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: center;
 }
-#commentBadge,#starIcon{
+
+.me-2 {
+    padding: 4.5px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: left;
+}
+
+#commentBadge, #starIcon {
     font-size: 25px;
 }
-#year{
+
+#year {
     color: #767676;
 }
-#percentage{
+
+#percentage {
     font-size: 25px;
 }
-.row img{
+
+.row img {
     height: 23px;
     width: 24px;
 }
-.tableTD > td, #percentage{
+
+.tableTD>td, #percentage {
     vertical-align: middle;
 }
