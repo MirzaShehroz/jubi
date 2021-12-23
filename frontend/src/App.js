@@ -10,6 +10,7 @@ import Forget from './components/forget';
 import EditProfile from './components/editprofile';
 import IdPassword from './components/idpassword';
 import DashboardPanel from './components/dashboardpanel';
+import Chat from "./components/chat";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path='/forget'><Forget /></Route>
         <Route path='/edit-profile'><EditProfile /></Route>
         <Route path='/edit-id-password'><IdPassword /></Route>
+        <Route path='/chat'><Chat /></Route>
       </Router>
     </div>
   );
