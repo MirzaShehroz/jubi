@@ -1,0 +1,43 @@
+.dashboard_child2{
+    background: #E5E5E5;
+    padding: 1.5% 2%;
+}
+#example_wrapper{
+    background: white;
+    padding: 2%;
+    height: 87%;
+    border-radius: 0 0 13px 13px;
+}
+#example{
+    background: white;
+}
+#filters{
+    border-radius: 13px 13px 0 0 !important;
+    background: white;
+}
+.filterButtons{
+    padding-left: 3%;
+    padding-right: 3%;
+    border: none;
+    outline: none;
+    height: 30px;
+    margin: 1%;
+    background: #3E6578;
+    color: white;
+}
+#commentBadge,#starIcon{
+    font-size: 25px;
+}
+#year{
+    color: #767676;
+}
+#percentage{
+    font-size: 25px;
+}
+.row img{
+    height: 23px;
+    width: 24px;
+}
+.tableTD > td, #percentage{
+    vertical-align: middle;
+}
