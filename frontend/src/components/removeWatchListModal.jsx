@@ -19,9 +19,9 @@ function RemoveWatchModal(props)
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-sm-4'}>
-                            <img id={'modalImage'} src={user1} />
+                            <img id={'modalImage'} alt="" src={user1} />
                         </div>
-                        <div className={'col-lg-8 col-sm-8'}>
+                        <div className={'col-lg-8 col-sm-8 pop_username'}>
                             <span>John Doe</span><br/>
                             <span style={{color: '#767676'}}>52 y.o. (02/19/1966)</span>
                         </div>
@@ -37,8 +37,8 @@ function RemoveWatchModal(props)
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button style={{width: '150px',background: '#3E6578'}} onClick={props.onHide}>Cancel</Button>
-                <Button  style={{width: '150px',background: '#3E6578'}}>Remove</Button>
+                <Button className="pop_btn" onClick={props.onHide}>Cancel</Button>
+                <Button  className='pop_btn pop_btn1'>Remove</Button>
             </Modal.Footer>
         </Modal>
     )

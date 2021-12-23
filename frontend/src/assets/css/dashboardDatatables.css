@@ -1,74 +1,164 @@
-#container{
+#container {
     background: #E5E5E5;
-    padding: 1%;
 }
-#example_wrapper{
+
+#example_wrapper {
     background: white;
     padding: 2%;
-    border-radius: 0 0 20px 20px;
     height: 87%;
+    border-radius: 0 0 13px 13px;
 }
-#example{
-    background: white;
-}
-#filters{
-    border-radius: 20px 20px 0 0 !important;
 
+#example {
     background: white;
 }
-.filterButtons{
-    padding-left: 3%;
-    padding-right: 3%;
+
+.filterButtons {
     border: none;
+    padding: 4.5px 10px;
+    border-radius: 2px;
+    margin-right: 5px;
+    margin-bottom: 5px;
     outline: none;
-    height: 30px;
-    margin: 1%;
     background: #3E6578;
     color: white;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: center;
 }
-#commentBadge,#starIcon{
+
+#commentBadge, #starIcon {
     font-size: 25px;
 }
-#year{
+
+#year {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: left;
     color: #767676;
 }
-#percentage{
-    font-size: 25px;
+
+#percentage {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.15000000596046448px;
+    text-align: right;
+    color: #3E6578;
     margin-top: auto;
     margin-bottom: auto;
     font-weight: bold;
 }
-#medication,#chart{
+
+#medication, #chart {
     margin-top: auto;
     margin-bottom: auto;
 }
-#expandButton{
+
+#expandButton {
     position: relative;
     top: 80%;
 }
-.tableTD > td, #percentage,#medication{
+
+.tableTD>td, #percentage, #medication {
     vertical-align: middle;
 }
+
 div.dataTables_info {
-    position:absolute
+    position: absolute
 }
+
 div.dataTables_wrapper div.dataTables_paginate {
-    float:none; text-align:center
+    float: none;
+    text-align: center
 }
-#example_length{
+
+#example_length {
     float: right;
 }
-#datatable{
+
+#datatable {
     overflow-y: auto;
     width: 100%;
     height: 88%;
 }
-.dataTables_scrollBody{
+
+.dataTables_scrollBody {
     max-height: 50vh;
 }
-#modalImage{
+
+#modalImage {
     width: 80px;
     height: 80px;
     border-radius: 100px;
 }
 
+
+
+.dashboard_child2 {
+    background: #E5E5E5;
+    padding: 1.5% 2%;
+    font-family: 'Pretendard', sans-serif;
+    font-style: normal;
+}
+
+#filters {
+    border-radius: 13px 13px 0 0 !important;
+    background: white;
+}
+
+#filters h5 {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    text-align: left;
+}
+
+.me-2 {
+    padding: 4.5px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: left;
+}
+
+.rowImg img {
+    height: 23px;
+    width: 24px;
+}
+
+.row .userPic img {
+    width: 50px;
+    height: 50px;
+}
+
+.verticleMiddle {
+    align-items: center;
+}
+
+.badgeClass .css-1c32n2y-MuiBadge-root {
+    color: #3E6578;
+}
+
+#datatable th {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: center;
+    color: #767676;
+}
+
+#datatable td{
+    font-size: 12.7px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: left;
+}

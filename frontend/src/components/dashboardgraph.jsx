@@ -1,7 +1,30 @@
 import '../assets/css/dashboardgraph.css'
-import React,{useState} from 'react'
+import React, { useState } from 'react'
+import { PieChart, Pie, Cell } from "recharts";
+
+
+const RADIAN = Math.PI / 180;
+
 
 function DashboardGraph() {
+
+    const data = [
+        { name: "Group A", value: 70 },
+        { name: "Group B", value: 20 },
+        { name: "Group C", value: 10 }
+    ];
+    const COLORS = ["#A0B9C8", "#64879B", "#CE747C"];
+    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
+        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+        return (
+            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+                {`${(percent * 100).toFixed(0)}%`}
+            </text>
+        );
+    };
 
     const [btnClr1, setBtnClr1] = useState({
         background: '#4A7389',
@@ -93,6 +116,7 @@ function DashboardGraph() {
         });
     }
 
+
     return (
         <div className='dashboard_child1'>
             <div className='dashboard_child11'>
@@ -144,23 +168,57 @@ function DashboardGraph() {
                         <h4>All</h4>
                         <p className='dashboard_child12_p'>Total 206</p>
                         <div className='dashboard_child12_graphNum'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
+                            <div><p></p><p>12</p></div>
+                            <div><p></p><p>32</p></div>
+                            <div><p></p><p>162</p></div>
                         </div>
                     </div>
                     <div>
-
+                        <PieChart width={180} height={165}>
+                            <Pie
+                                data={data}
+                                cx={77}
+                                cy={77}
+                                innerRadius={45}
+                                outerRadius={80}
+                                labelLine={false}
+                                label={renderCustomizedLabel}
+                                dataKey="value"
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
                     </div>
                 </div>
                 <div className='dashboard_child12_2'>
                     <div>
                         <h4>JUBI Watch Only</h4>
                         <p className='dashboard_child12_p'>Total 206</p>
-
+                        <div className='dashboard_child12_graphNum'>
+                            <div><p></p><p>2</p></div>
+                            <div><p></p><p>9</p></div>
+                            <div><p></p><p>21</p></div>
+                        </div>
                     </div>
                     <div>
-
+                        <PieChart width={180} height={165}>
+                            <Pie
+                                data={data}
+                                cx={77}
+                                cy={77}
+                                innerRadius={45}
+                                outerRadius={80}
+                                labelLine={false}
+                                label={renderCustomizedLabel}
+                                dataKey="value"
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
                     </div>
                 </div>
                 <div className='dashboard_child12_3'>
@@ -177,5 +235,4 @@ function DashboardGraph() {
         </div>
     )
 }
-
-export default DashboardGraph
+export default DashboardGraph;

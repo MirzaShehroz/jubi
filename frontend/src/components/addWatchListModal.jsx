@@ -1,4 +1,4 @@
-import {Modal,Button} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
 import user1 from '../assets/img/user.jpg'
 
 function AddWathListModal(props)
@@ -19,10 +19,10 @@ function AddWathListModal(props)
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-sm-4'}>
-                            <img id={'modalImage'} src={user1} />
+                            <img id={'modalImage'} alt='' src={user1} />
                         </div>
-                        <div className={'col-lg-8 col-sm-8'}>
-                            <span>John Doe</span><br/>
+                        <div className={'col-lg-8 col-sm-8 pop_username'}>
+                            <span >John Doe</span><br/>
                             <span style={{color: '#767676'}}>52 y.o. (02/19/1966)</span>
                         </div>
                     </div>
@@ -37,9 +37,8 @@ function AddWathListModal(props)
                 </div>
             </Modal.Body>
             <Modal.Footer>
-
-                <Button style={{width: '150px',background: '#3E6578'}} onClick={props.onHide}>Cancel</Button>
-                <Button  style={{width: '150px',background: '#3E6578'}}>Add</Button>
+                <button className="pop_btn" onClick={props.onHide}>Cancel</button>
+                <button className="pop_btn pop_btn1">Add</button>
             </Modal.Footer>
         </Modal>
     )
