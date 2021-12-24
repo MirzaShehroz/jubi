@@ -5,6 +5,7 @@ import closeIcon from '../assets/img/cancelicon2.png'
 
 import IndividualPanel2 from "./individualpanel2";
 import IndividualUserPanel from "./individualuserpanel";
+import Alergies from "./alergies";
 
 function IndividualPanel() {
     const history = useHistory();
@@ -26,6 +27,7 @@ function IndividualPanel() {
                 </div>
                 <div className='individualPanel_child2'>
                     {/*<IndividualPanel2/>*/}
+                    <Alergies/>
                 </div>
             </div>
         </div>

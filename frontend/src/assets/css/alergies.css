@@ -1,0 +1,17 @@
+.individualPanel_child3{
+    width: 100%;
+    height: 100%;
+    border-radius: 0 8px 8px 0;
+    background: white;
+    padding: 2%;
+    overflow-y: auto;
+}
+.individualPanel_child3::-webkit-scrollbar{
+    width: 0;
+}
+.alergiesHead{
+    color: #3E6578;
+}
+.alergiesTable{
+    padding: 1% ;
+}
