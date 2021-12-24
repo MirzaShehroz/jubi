@@ -1,10 +1,16 @@
 import '../assets/css/signin.css';
 import React from 'react';
 import logo from '../assets/img/jubiwatch_logo.png';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
 
 function SignIn() {
+    const history = useHistory();
+
+    const loginHandle = (e) => {
+        e.preventDefault()
+        localStorage.setItem('sign-in', 'mockData');
+        history.push('/');
+    }
     return (
         <div className="signin">
             <div className="signin_cont">
@@ -12,7 +18,7 @@ function SignIn() {
                     <img src={logo} alt="Jubiwatch_logo" />
                     <p>for Doctors</p>
                 </div>
-                <form>
+                <form onSubmit={loginHandle}>
                     <div className='signin_fields_cont'>
                         <div className='signin_fields'>
                             <input type="text" placeholder='Email ID' />
@@ -28,7 +34,7 @@ function SignIn() {
                             <Link to='/forget'>Forgot password?</Link>
                         </div>
                         <div className='sign_btn_cont'>
-                            <button className='sign_btn signbtn_clr'>Sign In</button>
+                            <button type='submit' className='sign_btn signbtn_clr'>Sign In</button>
                         </div>
                         <div className='signin_bottom_cont'>
                             <p>New to here? <Link to={'sign-up'}>Create account</Link></p>
