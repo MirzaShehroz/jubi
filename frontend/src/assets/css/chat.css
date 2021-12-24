@@ -61,8 +61,14 @@
     padding: 2%;
     overflow-y: auto;
 }
+#memo::-webkit-scrollbar{
+    width: 0;
+}
+.memoHead{
+    padding-top: 3%;
+}
 .memoHead,.memoHeadIcon{
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
     width: 200px;
 }
@@ -71,6 +77,15 @@
 }
 .memoMsg{
     background: #EEEEEE;
+    padding: 4%;
+    border-radius: 5px;
+    font-size: 12px;
+}
+.memoWatchlist
+{
+    font-size: 12px;
+    margin-top: 5%;
+    background: #E2EFF9;
     padding: 4%;
     border-radius: 9px;
 }
