@@ -9,7 +9,7 @@ import IndividualUserPanel from "./individualuserpanel";
 function IndividualPanel() {
     const history = useHistory();
     const closeHandle = () => {
-        history.push('/chat');
+        history.push('/');
     }
 
 
@@ -25,7 +25,7 @@ function IndividualPanel() {
                     <IndividualUserPanel/>
                 </div>
                 <div className='individualPanel_child2'>
-                    <IndividualPanel2/>
+                    {/*<IndividualPanel2/>*/}
                 </div>
             </div>
         </div>

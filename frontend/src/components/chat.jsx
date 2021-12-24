@@ -54,7 +54,7 @@ function Chat() {
 
                 <div className={'chatParent1'}>
                     <div style={child1_1} className={'child1-1'}>
-                        <p className={'text-center'}><img alt="user" id={'userImg'} src={user}/></p>
+                        <p className={'text-center'}><img alt="user" style={{cursor: 'pointer'}} onClick={()=>history.push('/individual')} id={'userImg'} src={user}/></p>
                         <br/>
                         <h5 className={'text-center'}>John Doe</h5>
                         <p className={'text-center'}>Female</p>

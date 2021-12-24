@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { Chart } from 'react-google-charts';
 import expandButton from '../assets/img/expandButton.png';
 import user from '../assets/img/avatar2.png'
+import {useHistory} from 'react-router-dom';
 
 //jQuery libraries
 
@@ -20,26 +21,10 @@ import $ from 'jquery';
 import AddWathListModal from "./addwatchlistmodal";
 import RemoveWatchModal from "./removewatchlistmodal";
 
-//initialize datatable
-$(document).ready(function () {
-    setTimeout(function () {
-        $('#example').DataTable({
-            pageLength: 5,
-            "scrollCollapse": true,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "bFilter": true,
-            "bInfo": false,
-            "bAutoWidth": false,
-            "searching": false,
-
-            "dom": '<"top"i>rt<"bottom"flp><"clear">',
-
-        });
-    }, 1000);
-});
 
 function DashboardTable() {
+
+    const history=useHistory();
 
     const [modalShowAW, setModalShowAW] = React.useState(false);
     const [modalShowRW, setModalShowRW] = React.useState(false);
@@ -206,10 +191,10 @@ function DashboardTable() {
                                                 <span>Medication name 2</span><br />
                                                 <span>Medication name 3</span><br />
                                                 <span>Medication name 4</span><br />
-                                                <u style={{ color: 'red' }}>+1 more</u>
+                                                <u style={{ color: 'red',cursor: 'pointer' }}>+1 more</u>
                                             </div>
                                             <div className={'col-lg-1 col-sm-1 rowImg'}>
-                                                <img alt='' id={'expandButton'} src={expandButton} />
+                                                <img alt='' style={{cursor: 'pointer'}} onClick={()=>history.push('/individual')} id={'expandButton'} src={expandButton} />
                                             </div>
                                         </div>
                                     </div>
