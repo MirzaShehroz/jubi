@@ -2,15 +2,38 @@ import '../assets/css/signin.css';
 import React from 'react';
 import logo from '../assets/img/jubiwatch_logo.png';
 import { Link, useHistory } from 'react-router-dom';
+import { connectUserShow, showHeaderProfile, sidePanelFunc } from '../data/atom';
+import { useRecoilState } from 'recoil';
 
 function SignIn() {
+
+    const [csMenuAtom, setCsMenuAtom] = useRecoilState(connectUserShow);
+    const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
+    const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
     const history = useHistory();
 
     const loginHandle = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        setCsMenuAtom((obj) => ({
+            connectMenu: false,
+            csMenu: false,
+            connectClass: 'c_menu'
+        }));
+        setShowHeader((obj) => ({
+            showHProfile: true,
+            paddingTop: "0.8%",
+            showUserPanel: false,
+            iconRotate: false,
+        }));
+        setSP((obj) => ({
+            showSP: 'none',
+        }));
+
         localStorage.setItem('sign-in', 'mockData');
         history.push('/');
     }
+
     return (
         <div className="signin">
             <div className="signin_cont">

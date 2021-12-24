@@ -9,6 +9,31 @@ a:not([href]):not([class]) {
   color: none;
   text-decoration: none;
 }
-p{
+
+p {
   margin-bottom: 0;
+}
+
+.bottom {
+  font-family: 'Pretendard', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  font-size: 14px;
+  background: #ebebeb;
+  border-bottom: 1px solid #a3a3a3;
+  padding: 3px 3px 7px 3px;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid #a3a3a3 !important;
+}
+
+#example_previous, #example_next {
+  padding: 3px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  padding: 3px;
 }

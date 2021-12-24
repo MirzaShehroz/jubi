@@ -1,5 +1,5 @@
 import '../assets/css/dashboardDatatables.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Badge from '@mui/material/Badge';
 import { FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,20 +37,6 @@ $(document).ready(function () {
 
         });
     }, 1000);
-
-    // $('#example').DataTable( {
-    //     pageLength : 5,
-    //     "scrollCollapse": true,
-    //     "bPaginate": true,
-    //     "bLengthChange": true,
-    //     "bFilter": true,
-    //     "bInfo": false,
-    //     "bAutoWidth": false,
-    //     "searching": false,
-
-    //     "dom": '<"top"i>rt<"bottom"flp><"clear">',
-
-    // } );
 });
 
 function DashboardTable() {
@@ -58,6 +44,29 @@ function DashboardTable() {
     const [modalShowAW, setModalShowAW] = React.useState(false);
     const [modalShowRW, setModalShowRW] = React.useState(false);
 
+    useEffect(() => {
+        readyPagination();
+    }, [])
+
+    const readyPagination = () => {
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#example').DataTable({
+                    pageLength: 5,
+                    "scrollCollapse": true,
+                    "bPaginate": true,
+                    "bLengthChange": true,
+                    "bFilter": true,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "searching": false,
+
+                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+
+                });
+            }, 1000);
+        });
+    }
     return (
         <div className='dashboard_child2'>
             <div id={'container'}>
