@@ -12,6 +12,7 @@ import EditProfile from './components/editprofile';
 import IdPassword from './components/idpassword';
 import DashboardPanel from './components/dashboardpanel';
 import Chat from "./components/chat";
+import IndividualPanel from './components/individualpanel';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
         <Protected path='/edit-profile' component={EditProfile} />
         <Protected path='/edit-id-password' component={IdPassword} />
         <Protected path='/chat' component={Chat} />
+        <Protected path='/individual' component={IndividualPanel} />
       </Router>
     </div>
   );
