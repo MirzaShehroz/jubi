@@ -7,7 +7,8 @@ import {Badge, Button} from "react-bootstrap";
 import {faBookmark, faComment} from "@fortawesome/free-regular-svg-icons";
 import bookMarkIcon from '../assets/img/bookmark.png'
 import chatUserPic from '../assets/img/chatUserPic.png'
-import Box from "@mui/material/Box";
+import attachPic from '../assets/img/attach.png'
+import sendPic from '../assets/img/send.png'
 
 
 function Chat() {
@@ -42,8 +43,7 @@ function Chat() {
 
     return(
         <div style={{width: '100%',height: '100vh',overflow: 'auto',background: 'gray',margin: 'auto'}}>
-            <br/>
-            <p style={{background: 'gray',width: '100%',fontSize: '25px',fontWeight: 'bold',paddingLeft: '95%',color: 'white'}}>X</p>
+            <p style={{background: 'gray',width: '100%',fontSize: '25px',fontWeight: 'bold',paddingLeft: '95%',color: 'white',paddingTop: '1%'}}>X</p>
             <div style={{margin: 'auto',width: '85%',height: '90%',background: 'white',borderRadius: '10px'}}>
 
                 <div className={'chatParent1'}>
@@ -239,10 +239,47 @@ function Chat() {
                                </div>
                            </div>
                            <div className={'msgChild1-2'}>
-
+                               <div className={'send'}>
+                                   <p className={'sendTime'}>11:15</p>
+                                   <p style={{background: '#E2EFF9'}} className={'sendMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid autem ex exercitationem facere impedit iste reprehenderit? Ea enim esse facere harum nemo, non nulla officiis veritatis. Facere nisi, perferendis.</p>
+                               </div>
+                               <div className={'recieve'}>
+                                   <p className={'recieveTime'}>11:15</p>
+                                   <p style={{background: '#EEEEEE'}} className={'recieveMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid atque consequatur corporis deserunt dolorum enim eos error est et fugit ipsam maiores, minima pariatur quasi quod saepe sed soluta.</p>
+                               </div>
+                               <div className={'recieve'}>
+                                   <p className={'recieveTime'}>11:15</p>
+                                   <p style={{background: '#EEEEEE'}} className={'recieveMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid atque consequatur corporis deserunt dolorum enim eos error est et fugit ipsam maiores, minima pariatur quasi quod saepe sed soluta.</p>
+                               </div>
+                               <div className={'send'}>
+                                   <p className={'sendTime'}>11:15</p>
+                                   <p style={{background: '#E2EFF9'}} className={'sendMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid autem ex exercitationem facere impedit iste reprehenderit? Ea enim esse facere harum nemo, non nulla officiis veritatis. Facere nisi, perferendis.</p>
+                               </div>
+                               <div className={'recieve'}>
+                                   <p className={'recieveTime'}>11:15</p>
+                                   <p style={{background: '#EEEEEE'}} className={'recieveMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid atque consequatur corporis deserunt dolorum enim eos error est et fugit ipsam maiores, minima pariatur quasi quod saepe sed soluta.</p>
+                               </div>
+                               <div className={'send'}>
+                                   <p className={'sendTime'}>11:15</p>
+                                   <p style={{background: '#E2EFF9'}} className={'sendMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid autem ex exercitationem facere impedit iste reprehenderit? Ea enim esse facere harum nemo, non nulla officiis veritatis. Facere nisi, perferendis.</p>
+                               </div>
+                               <div className={'recieve'}>
+                                   <p className={'recieveTime'}>11:15</p>
+                                   <p style={{background: '#EEEEEE'}} className={'recieveMsg'}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aliquid atque consequatur corporis deserunt dolorum enim eos error est et fugit ipsam maiores, minima pariatur quasi quod saepe sed soluta.</p>
+                               </div>
                            </div>
                            <div className={'msgChild1-3'}>
-
+                               <div className={'msgParent3'}>
+                                   <div className={'msgChild3-1'}>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img className={'msgAction'} src={attachPic}/></p>
+                                   </div>
+                                   <div className={'msgChild3-2'}>
+                                       <input className={'form-control'} style={{height: '100%'}} placeholder={'Type your mesage here...'}/>
+                                   </div>
+                                   <div className={'msgChild3-3'}>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img className={'msgAction'} src={sendPic}/></p>
+                                   </div>
+                               </div>
                            </div>
                        </div>
                     </div>

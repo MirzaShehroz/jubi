@@ -106,11 +106,16 @@
 }
 .msgChild1-2{
     height: 85%;
-    background: palegoldenrod;
+    /*background: palegoldenrod;*/
+    padding: 1%;
+    overflow: auto;
+}
+.msgChild1-2::-webkit-scrollbar{
+    width: 0;
 }
 .msgChild1-3{
     height: 7%;
-    background: #CE747C;
+    /*background: #CE747C;*/
 }
 .masgParent2{
     width: 100%;
@@ -137,6 +142,61 @@
 #customBadge{
     transform: translateX(1500%);
 }
+.msgParent3{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.msgChild3-1{
+    width: 7%;
+    /*background: red;*/
+    margin: auto;
+    border: 1px solid gray;
+    height: 100%;
+}
+.msgChild3-2{
+    width: 86%;
+    /*background: blue;*/
+    border: 1px solid gray;
+    height: 100%;
+}
+.msgChild3-3{
+    width: 7%;
+    /*background: red;*/
+    margin: auto;
+    border: 1px solid gray;
+    height: 100%;
+}
+.msgAction{
+    transform: translateY(60%);
+}
+.send{
+    width: 60%;
+    float: right;
+    /*background: #E2EFF9;*/
+    padding: 1%;
+}
+.recieve{
+    margin-top: 1%;
+    width: 60%;
+    float: left;
+    /*background: #EEEEEE;*/
+    padding: 1%;
+
+}
+.sendTime{
+    margin-left: 90%;
+}
+.sendMsg{
+    padding: 2%;
+    border-radius: 10px 0 10px 10px;
+}
+.recieveMsg{
+    padding: 2%;
+    border-radius: 0 10px 10px 10px;
+}
+
+
 
 
 
