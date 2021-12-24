@@ -16,7 +16,7 @@ function Forget5() {
 
                 <div className='signin_fields_cont'>
                     <div className='passComp'>
-                        <img src={logo2} alt="" />
+                        <img src={logo2} alt="logo2" />
                         <p id='passCompMsg'>Complete!</p>
                         <p>Your password has been changed successfully.</p>
                     </div>

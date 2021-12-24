@@ -18,7 +18,7 @@ function DashboardStrip() {
     return (
         <div className='dashboard_strip'>
 
-            {!showHeader.iconRotate ? <img style={{ transform: "rotate(0deg)" }} src={icon} alt="" onClick={showUPanelHandle} /> : <img style={{ transform: "rotate(180deg)" }} src={icon} alt="" onClick={showUPanelHandle} />}
+            {!showHeader.iconRotate ? <img style={{ transform: "rotate(0deg)" }} src={icon} alt="something8" onClick={showUPanelHandle} /> : <img style={{ transform: "rotate(180deg)" }} src={icon} alt="something9" onClick={showUPanelHandle} />}
 
             {showHeader.showUserPanel ?
                 <UserOverlay display='block' animate="animate__animated animate__fadeIn" /> : null

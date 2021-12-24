@@ -36,7 +36,7 @@ function SidePanel({ display }) {
         }
     ]
 
-    const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
+    const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
     const showSidePanelHandle = () => {
         setSP((obj) => ({
             showSP: 'none',
@@ -48,7 +48,7 @@ function SidePanel({ display }) {
         <div id='sidePanel' style={{ display: display }} >
             <div className='sidePanel_child1'></div>
             <div className='sidePanel_child2'>
-                <img style={{ transform: "rotate(180deg)" }} src={icon} alt="" onClick={showSidePanelHandle} />
+                <img style={{ transform: "rotate(180deg)" }} src={icon} alt="something10" onClick={showSidePanelHandle} />
             </div>
             <div className='sidePanel_child3'>
                 <div className='sidePanel_child31'>
@@ -59,7 +59,7 @@ function SidePanel({ display }) {
                         {data.map((item) => (
                             <div className='sidePanel_child31_userChatDiv'>
                                 <div className='sidePanel_child31_img'>
-                                    <img src={item.image} alt="" />
+                                    <img src={item.image} alt="something" />
                                 </div>
                                 <div className='sidePanel_child31_chatDetail'>
                                     <div className='sidePanel_child31_chatDetail1'>

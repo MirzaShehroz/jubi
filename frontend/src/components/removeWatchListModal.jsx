@@ -19,7 +19,7 @@ function RemoveWatchModal(props)
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-4 col-sm-4'}>
-                            <img id={'modalImage'} alt="" src={user1} />
+                            <img id={'modalImage'} alt="something1" src={user1} />
                         </div>
                         <div className={'col-lg-8 col-sm-8 pop_username'}>
                             <span>John Doe</span><br/>

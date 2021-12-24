@@ -10,7 +10,7 @@ function IdPassword() {
 
     const [email, setEmail] = useState(null);
     const [verCode, setVerCode] = useState(null);
-    const [showPass, setShowPass] = useState(false);
+    const [/*showPass*/, setShowPass] = useState(false);
     const [showVerEmailBtn, setShowVerEmailBtn] = useState(true);
     const [emailMsg, setEmailMsg] = useState(false);
     const [showVerification, setshowVer] = useState(false);
@@ -57,7 +57,7 @@ function IdPassword() {
     }
 
     const verOkHandle = () => {
-        if (verCode == 12345) {
+        if (verCode === 12345) {
             setInvalidVer(false);
             setEmailMsg(true);
             setShowVerEmailBtn(false);
@@ -161,19 +161,19 @@ function IdPassword() {
                                 </div>
                                 {passReq ? <div className='forget_showPassVal'>
                                     <div className='forget_field_21 forget_showPassVal1'>
-                                        <img src={lockIcon} alt="" />
+                                        <img src={lockIcon} alt="something" />
                                         <span>Requirements for a password</span>
                                     </div>
                                     <div className='forget_field_21 forget_showPassVal2'>
-                                        <img src={tickIcon} alt="" />
+                                        <img src={tickIcon} alt="something" />
                                         <span>At least 8 characters</span>
                                     </div>
                                     <div className='forget_field_21 forget_showPassVal2'>
-                                        <img src={tickIcon} alt="" />
+                                        <img src={tickIcon} alt="something" />
                                         <span>At least 1 uppercase character</span>
                                     </div>
                                     <div className='forget_field_21 forget_showPassVal2'>
-                                        <img src={wrongIcon} alt="" />
+                                        <img src={wrongIcon} alt="something" />
                                         <span>At least 1 number of symbol</span>
                                     </div>
                                 </div> : null}

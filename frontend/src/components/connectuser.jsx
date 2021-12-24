@@ -69,7 +69,7 @@ function ConnectUser({ show }) {
             {!csMenuAtom.csMenu ?
                 <div className={csMenuAtom.connectClass} style={{ background: "#efefef" }}>
                     <div className='cancelIcon_CMenu'>
-                        <img src={cancelIcon} alt="" onClick={closeComp} />
+                        <img src={cancelIcon} alt="something" onClick={closeComp} />
                     </div>
                     <div className='CMenu_search'>
                         <TextField
@@ -94,11 +94,11 @@ function ConnectUser({ show }) {
                 :
                 <div className={csMenuAtom.connectClass}>
                     <div className='cancelIcon_CMenu'>
-                        <img src={cancelIcon2} alt="" onClick={closeComp} />
+                        <img src={cancelIcon2} alt="something20" onClick={closeComp} />
                     </div>
                     <div className='csMenu_Child1'>
                         <div className='csMenu_Child11' >
-                            <img src={avatar} alt="" style={{ opacity: disableText }} />
+                            <img src={avatar} alt="something21" style={{ opacity: disableText }} />
                             <p style={{ opacity: disableText }}>Jeremy Kim</p>
                             <p style={{ opacity: disableText }}>Male / 52 y.o. (02/19/1969)
                                 Wt:85kg   Ht:185cm</p>
@@ -137,7 +137,7 @@ function ConnectUser({ show }) {
             <div className={csMenuClass}>
                 <div className='csMenuDiv' onClick={showCSConnectMenu}>
                     <div className='csMenuDiv1'>
-                        <img src={avatar} alt="" />
+                        <img src={avatar} alt="something" />
                     </div>
                     <div className='csMenuDiv2'>
                         <p>Jeremy Kim</p>
@@ -146,7 +146,7 @@ function ConnectUser({ show }) {
                 </div>
                 <div className='csMenuDiv'>
                     <div className='csMenuDiv1'>
-                        <img src={avatar} alt="" />
+                        <img src={avatar} alt="something" />
                     </div>
                     <div className='csMenuDiv2'>
                         <p>Jeremy Kim</p>

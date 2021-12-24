@@ -10,8 +10,8 @@ import { connectUserShow, showHeaderProfile } from '../data/atom';
 
 function Header() {
     const [connectMenu, setCmenu] = useRecoilState(connectUserShow);
-    const [showHeaderChild2, setShowHeaderChild2] = useRecoilState(showHeaderProfile);
-    const [connectMenuClass, setCmenuClass] = useState("c_menu");
+    const [showHeaderChild2, /*setShowHeaderChild2*/] = useRecoilState(showHeaderProfile);
+    const [/*connectMenuClass*/, /*setCmenuClass*/] = useState("c_menu");
     const [ddMenu, setDDmenu] = useState(false);
     const [ddMenuClass, setDDmenuClass] = useState("dd_menu");
 
@@ -36,7 +36,7 @@ function Header() {
                                 <img src={logo} alt='' />
                             </div>
                             <div className='nav_connect_btn' onClick={cMenuShow}>
-                                <img src={addIcon} alt="" />
+                                <img src={addIcon} alt="something15" />
                                 <button >Connect  Users</button>
                             </div>
                         </div>
@@ -48,7 +48,7 @@ function Header() {
                                         <p>User name / Title</p>
                                     </div>
                                     <div className='nav_Child22'>
-                                        <img src={userPic} alt="" onClick={ddMenuShow} />
+                                        <img src={userPic} alt="something" onClick={ddMenuShow} />
                                     </div>
                                 </> : null
                             }

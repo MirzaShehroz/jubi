@@ -66,19 +66,19 @@ function Forget4() {
                                         </div>
                                         {passReq ? <div className='forget_showPassVal'>
                                             <div className='forget_field_21 forget_showPassVal1'>
-                                                <img src={lockIcon} alt="" />
+                                                <img src={lockIcon} alt="something4" />
                                                 <span>Requirements for a password</span>
                                             </div>
                                             <div className='forget_field_21 forget_showPassVal2'>
-                                                <img src={tickIcon} alt="" />
+                                                <img src={tickIcon} alt="something6" />
                                                 <span>At least 8 characters</span>
                                             </div>
                                             <div className='forget_field_21 forget_showPassVal2'>
-                                                <img src={tickIcon} alt="" />
+                                                <img src={tickIcon} alt="something13" />
                                                 <span>At least 1 uppercase character</span>
                                             </div>
                                             <div className='forget_field_21 forget_showPassVal2'>
-                                                <img src={wrongIcon} alt="" />
+                                                <img src={wrongIcon} alt="something14" />
                                                 <span>At least 1 number of symbol</span>
                                             </div>
                                         </div> : null}

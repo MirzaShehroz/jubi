@@ -24,7 +24,7 @@ function Forget3() {
     const submitForget3Handle = (e) => {
         e.preventDefault();
         if (btnClr === "#3E6578") {
-            if (emailVer == 12345) {
+            if (emailVer === 12345) {
                 setF4(true);
             } else {
                 setInvalidVer(true);

@@ -49,12 +49,12 @@ function Chat() {
 
     return(
         <div style={{width: '100%',height: '100vh',overflow: 'auto',background: 'gray',margin: 'auto'}}>
-            <p id={'closeButton'} onClick={chatCrossHandle}><img src={closeIcon}/></p>
+            <p id={'closeButton'} onClick={chatCrossHandle}><img  alt={'closeIcon'} src={closeIcon}/></p>
             <div style={{margin: 'auto',width: '85%',height: '90%',background: 'white',borderRadius: '10px'}}>
 
                 <div className={'chatParent1'}>
                     <div style={child1_1} className={'child1-1'}>
-                        <p className={'text-center'}><img id={'userImg'} src={user}/></p>
+                        <p className={'text-center'}><img alt="user" id={'userImg'} src={user}/></p>
                         <br/>
                         <h5 className={'text-center'}>John Doe</h5>
                         <p className={'text-center'}>Female</p>
@@ -87,12 +87,12 @@ function Chat() {
                         </div>
                         <p className={'text-center'}><Button className={'chatButtons'} variant="outline-dark">View Detail Page</Button></p>
 
-                        <p className={'text-center'}><Button className={'chatButtons'} variant="outline-danger"><span><img src={bookMarkIcon}/> </span> Add to Wishlist</Button></p>
+                        <p className={'text-center'}><Button className={'chatButtons'} variant="outline-danger"><span><img  alt={'bookmark'} src={bookMarkIcon}/> </span> Add to Wishlist</Button></p>
                     </div>
                     <div style={child1_2} className={'child1-2'}>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic1" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -106,7 +106,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic2" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -120,7 +120,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic3" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -134,7 +134,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic4" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -148,7 +148,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic5" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -162,7 +162,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic6" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -176,7 +176,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic7" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -190,7 +190,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic8" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -204,7 +204,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic9" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -218,7 +218,7 @@ function Chat() {
                         <hr/>
                         <div className={'userChatParent1'}>
                             <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
-                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic10" id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
                             <div className={'userChatChild1-2'}>
                                 <h6 id={'chatUserName'}>User Name 1</h6>
@@ -236,7 +236,7 @@ function Chat() {
                            <div className={'msgChild1-1'}>
                                <div className={'masgParent2'}>
                                    <div className={'msgChild2-1'}>
-                                       <p className={'text-center'} style={{margin: 'auto'}}><img id={'userMsgImage'} src={chatUserPic}/></p>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic11" id={'userMsgImage'} src={chatUserPic}/></p>
                                    </div>
                                    <div className={'msgChild2-2'} style={{margin: 'auto'}}>
                                        <p id={'customBadge'} style={{background: 'red',borderRadius: '100%',height: '10px',width: '10px'}}></p>
@@ -277,13 +277,13 @@ function Chat() {
                            <div className={'msgChild1-3'}>
                                <div className={'msgParent3'}>
                                    <div className={'msgChild3-1'}>
-                                       <p className={'text-center'} style={{margin: 'auto'}}><img className={'msgAction'} src={attachPic}/></p>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic12" className={'msgAction'} src={attachPic}/></p>
                                    </div>
                                    <div className={'msgChild3-2'}>
                                        <input className={'form-control'} style={{height: '100%'}} placeholder={'Type your mesage here...'}/>
                                    </div>
                                    <div className={'msgChild3-3'}>
-                                       <p className={'text-center'} style={{margin: 'auto'}}><img className={'msgAction'} src={sendPic}/></p>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img alt="chatUserPic13" className={'msgAction'} src={sendPic}/></p>
                                    </div>
                                </div>
                            </div>

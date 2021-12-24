@@ -70,7 +70,7 @@ function EditProfile() {
                                     value={'Add'}
                                     id='addBtn'
                                 />
-                                <img id='addBtnIcon' src={addIcon} alt="" />
+                                <img id='addBtnIcon' src={addIcon} alt="something2" />
                             </div>
 
                             <div className='signup_btn_cont'>

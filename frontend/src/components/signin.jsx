@@ -7,9 +7,9 @@ import { useRecoilState } from 'recoil';
 
 function SignIn() {
 
-    const [csMenuAtom, setCsMenuAtom] = useRecoilState(connectUserShow);
-    const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
-    const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
+    const [/*csMenuAtom*/, setCsMenuAtom] = useRecoilState(connectUserShow);
+    const [/*showHeader*/, setShowHeader] = useRecoilState(showHeaderProfile);
+    const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
     const history = useHistory();
 
     const loginHandle = (e) => {

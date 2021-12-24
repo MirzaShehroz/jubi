@@ -35,15 +35,15 @@ function Sidebar() {
             <div className='sidebar'>
                 <div className='sidebar_icon'>
                     <ul>
-                        <li><img onClick={showSidePanelHandle} src={chatIcon} alt="" /></li>
-                        <li><img onClick={showSidePanelHandle} src={notiIcon} alt="" /></li>
-                        <li><img onClick={showSidePanelHandle} src={hamburgerIcon} alt="" /></li>
+                        <li><img onClick={showSidePanelHandle} src={chatIcon} alt="something" /></li>
+                        <li><img onClick={showSidePanelHandle} src={notiIcon} alt="something" /></li>
+                        <li><img onClick={showSidePanelHandle} src={hamburgerIcon} alt="something" /></li>
                     </ul>
                 </div>
                 <div className='sidebar_icon'>
                     <ul>
-                        <li><img onClick={showUPanelHandle} src={settingIcon} alt="" /></li>
-                        <li><Link to='/sign-in'><img src={signOutIcon} alt="" /></Link></li>
+                        <li><img onClick={showUPanelHandle} src={settingIcon} alt="something" /></li>
+                        <li><Link to='/sign-in'><img src={signOutIcon} alt="something" /></Link></li>
                     </ul>
                 </div>
             </div>

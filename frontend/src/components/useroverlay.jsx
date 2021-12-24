@@ -23,24 +23,24 @@ function UserOverlay({ display, animate }) {
                 <div className='overlay_child1'>
                     <div className='overlay_child11'>
                         <div className='overlay_child11_1'>
-                            <img src={userPic} alt="" />
+                            <img src={userPic} alt="something18" />
                         </div>
                         <div className='overlay_child11_2'>
                             <p>Jamie Oliver</p>
                             <p>31 y.o. (05/17/1990)</p>
                         </div>
                     </div>
-                    <img src={cancelIcon} alt="" onClick={showUPanelHandle} />
+                    <img src={cancelIcon} alt="something19" onClick={showUPanelHandle} />
                 </div>
                 <div className='overlay_child2'>
                     <div className='overlay_child21' >
-                        <img src={activeIcon1} alt="" />
+                        <img src={activeIcon1} alt="something" />
                         <p>Active</p>
                     </div>
                     <div className='overlay_child22'>
                         <div className='overlay_child22_1'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon1} alt="" />
+                                <img src={activeIcon1} alt="something" />
                             </div>
                             <div>
                                 <p>Estrogen</p>
@@ -51,7 +51,7 @@ function UserOverlay({ display, animate }) {
                         </div>
                         <div className='overlay_child22_1'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon1} alt="" />
+                                <img src={activeIcon1} alt="something" />
                             </div>
                             <div>
                                 <p>Medicine Name1</p>
@@ -61,7 +61,7 @@ function UserOverlay({ display, animate }) {
                         </div>
                         <div className='overlay_child22_1'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon1} alt="" />
+                                <img src={activeIcon1} alt="something28" />
                             </div>
                             <div>
                                 <p>Medicine Name2</p>
@@ -72,13 +72,13 @@ function UserOverlay({ display, animate }) {
                 </div>
                 <div className='overlay_child2'>
                     <div className='overlay_child21' >
-                        <img src={activeIcon2} alt="" />
+                        <img src={activeIcon2} alt="something27" />
                         <p>Inactive</p>
                     </div>
                     <div className='overlay_child22'>
                         <div className='overlay_child22_1 overlay_child22_2'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon2} alt="" />
+                                <img src={activeIcon2} alt="something26" />
                             </div>
                             <div>
                                 <p>Medicine Name1</p>
@@ -86,7 +86,7 @@ function UserOverlay({ display, animate }) {
                         </div>
                         <div className='overlay_child22_1 overlay_child22_2'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon2} alt="" />
+                                <img src={activeIcon2} alt="something25" />
                             </div>
                             <div>
                                 <p>Medicine Name2</p>
@@ -94,7 +94,7 @@ function UserOverlay({ display, animate }) {
                         </div>
                         <div className='overlay_child22_1 overlay_child22_2'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon2} alt="" />
+                                <img src={activeIcon2} alt="something24" />
                             </div>
                             <div>
                                 <p>Medicine Name3</p>
@@ -102,7 +102,7 @@ function UserOverlay({ display, animate }) {
                         </div>
                         <div className='overlay_child22_1 overlay_child22_2'>
                             <div className='overlay_child22_1_img'>
-                                <img src={activeIcon2} alt="" />
+                                <img src={activeIcon2} alt="something23" />
                             </div>
                             <div>
                                 <p>Medicine Name4</p>

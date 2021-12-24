@@ -56,7 +56,7 @@ function Forget() {
                                         </div>
                                         <div className='signin_fields_bottom forget_field_2'>
                                             <div className='forget_field_21'>
-                                                <img src={iIcon} alt="" />
+                                                <img src={iIcon} alt="something5" />
                                                 <span>Forgot Email ID?</span>
                                             </div>
                                         </div>

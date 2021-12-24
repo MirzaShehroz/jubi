@@ -58,7 +58,7 @@ function SignUpAddress() {
                                     value={'Add'}
                                     id='addBtn'
                                 />
-                                <img id='addBtnIcon' src={addIcon} alt=""/>
+                                <img id='addBtnIcon' src={addIcon} alt="something17"/>
                             </div>
                             <div className='signup_btn_cont'>
                                 <button type='button' onClick={showPrev} className='signup_btn signup_btn1'>Previous</button>

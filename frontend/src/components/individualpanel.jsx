@@ -11,7 +11,7 @@ function IndividualPanel() {
     return (
         <div className='individualPanel'>
             <div className='individualPanel_close'>
-                <img onClick={closeHandle} src={closeIcon} alt="" />
+                <img onClick={closeHandle} src={closeIcon} alt="something7" />
             </div>
             <div className='individualPanel_main'>
                 <div className='individualPanel_child1'>

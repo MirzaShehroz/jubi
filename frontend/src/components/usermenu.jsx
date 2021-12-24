@@ -13,16 +13,16 @@ function UserMenu({ menu }) {
                 <ul className="menu_List">
                     <li>
                         <div className='menu_div'>
-                            <img src={avatar} alt="" />
+                            <img src={avatar} alt="something3" />
                             <p id='userName_P'>User name</p>
                             <p>Dr.Kim’s podiatric clinic</p>
                             <p>Emailadress@AAclinic.com</p>
                             <Link to='edit-profile'><button>Edit Profile</button></Link>
                         </div>
                     </li>
-                    <li id='li'><Link to='edit-id-password'><img src={lockIcon} alt="" /> Edit ID and Password</Link></li>
-                    <li><img src={helpIcon} alt="" /> Help</li>
-                    <li><Link to='/sign-in'><img src={signOutIcon} alt="" /> Sign out</Link></li>
+                    <li id='li'><Link to='edit-id-password'><img src={lockIcon} alt="something12" /> Edit ID and Password</Link></li>
+                    <li><img src={helpIcon} alt="something16" /> Help</li>
+                    <li><Link to='/sign-in'><img src={signOutIcon} alt="something" /> Sign out</Link></li>
                 </ul>
             </div>
         </>
