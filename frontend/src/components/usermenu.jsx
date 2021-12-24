@@ -22,7 +22,7 @@ function UserMenu({ menu }) {
                     </li>
                     <li id='li'><Link to='edit-id-password'><img src={lockIcon} alt="" /> Edit ID and Password</Link></li>
                     <li><img src={helpIcon} alt="" /> Help</li>
-                    <li><img src={signOutIcon} alt="" /> Sign out</li>
+                    <li><Link to='/sign-in'><img src={signOutIcon} alt="" /> Sign out</Link></li>
                 </ul>
             </div>
         </>
