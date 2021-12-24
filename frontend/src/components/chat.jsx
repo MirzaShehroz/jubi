@@ -1,32 +1,41 @@
 import '../assets/css/chat.css';
-import {useState} from 'react'
+import React, {useState} from 'react'
 import user from '../assets/img/user.jpg';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
-import {Button} from "react-bootstrap";
-import {faBookmark} from "@fortawesome/free-regular-svg-icons";
+import {Badge, Button} from "react-bootstrap";
+import {faBookmark, faComment} from "@fortawesome/free-regular-svg-icons";
 import bookMarkIcon from '../assets/img/bookmark.png'
 import chatUserPic from '../assets/img/chatUserPic.png'
+import Box from "@mui/material/Box";
+
 
 function Chat() {
 
-    let [child1_1,setChild1_1]=useState('none')
-    let [child1_2,setChild1_2]=useState('28%');
-    let [child1_3,setChild1_3]=useState('68%');
+    let [child1_1,setChild1_1]=useState({
+        width: '20%',
+        display: 'none',
+    });
+    let [child1_2,setChild1_2]=useState(
+        {width: '28%',
+        });
+    let [child1_3,setChild1_3]=useState({
+        width: '68%'
+    });
 
 
     function toogleViewProfile() {
-       if (child1_1 === 'none')
+       if (child1_1.display === 'none')
        {
-           setChild1_1('block');
-           setChild1_2('23%');
-           setChild1_3('53%');
+           setChild1_1({width: '20%', display: 'block',});
+           setChild1_2({width: '23%',});
+           setChild1_3({width: '53%'});
        }
        else
        {
-           setChild1_1('none');
-           setChild1_2('28%');
-           setChild1_3('68%');
+           setChild1_1({width: '20%', display: 'none',});
+           setChild1_2({width: '28%',});
+           setChild1_3({width: '68%'});
        }
     }
 
@@ -38,7 +47,7 @@ function Chat() {
             <div style={{margin: 'auto',width: '85%',height: '90%',background: 'white',borderRadius: '10px'}}>
 
                 <div className={'chatParent1'}>
-                    <div style={{width: '20%',display: child1_1}} className={'child1-1'}>
+                    <div style={child1_1} className={'child1-1'}>
                         <p className={'text-center'}><img id={'userImg'} src={user}/></p>
                         <br/>
                         <h5 className={'text-center'}>John Doe</h5>
@@ -56,7 +65,7 @@ function Chat() {
                             </tr>
                         </table>
                         <br/>
-                        <p style={{color: '#3E6578',cursor: 'pointer'}} className={'text-center'}><u>Allergies (11) & Conditions (3)</u></p>
+                        <p style={{color: '#3E6578',cursor: 'pointer'}} id={'alergies'} className={'text-center'}><u>Allergies (11) & Conditions (3)</u></p>
                         <br/>
                         <div id={'memo'}>
                             <table>
@@ -74,202 +83,168 @@ function Chat() {
 
                         <p className={'text-center'}><Button className={'chatButtons'} variant="outline-danger"><span><img src={bookMarkIcon}/> </span> Add to Wishlist</Button></p>
                     </div>
-                    <div style={{width: child1_2}} className={'child1-2'}>
-                        <div>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
+                    <div style={child1_2} className={'child1-2'}>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
                             </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
                             </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
                             </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className={'container'}>
-                                <div className={'row'}>
-                                    <div className={'col-lg-3 col-sm-3'}>
-                                        <p className={'text-center'}>
-                                            <img id={'chatUserPic'} src={chatUserPic}/>
-                                        </p>
-                                    </div>
-                                    <div className={'col-lg-9 col-sm-9'}>
-                                        <table>
-                                            <tr>
-                                                <td id={'chatName'}>Name 1</td>
-                                                <td>11:12, today</td>
-                                            </tr>
-                                        </table>
-                                        <p>Lorem ipsum dolor sit amet</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
                         </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div className={'userChatParent1'}>
+                            <div style={{margin: 'auto'}} className={'userChatChild1-1'}>
+                                <p className={'text-center'} style={{margin: 'auto'}}><img id={'userChatImage'} src={chatUserPic}/></p>
+                            </div>
+                            <div className={'userChatChild1-2'}>
+                                <h6 id={'chatUserName'}>User Name 1</h6>
+                                <p id={'chatUserMsg'}>Lorem ipsum dolor sit amet</p>
+                            </div>
+                            <div className={'userChatChild1-3'}>
+                                <p id={'chatUserDate'}>11:12,today</p>
+                                <p id={'chatUserBadge'}><Badge bg="danger">1</Badge></p>
+                            </div>
+                        </div>
+                        <hr/>
                     </div>
-                    <div style={{width: child1_3}} className={'child1-3'}>
-                        <p onClick={toogleViewProfile}>Hitman</p>
+                    <div style={child1_3} className={'child1-3'}>
+                       <div className={'msgParent1'}>
+                           <div className={'msgChild1-1'}>
+                               <div className={'masgParent2'}>
+                                   <div className={'msgChild2-1'}>
+                                       <p className={'text-center'} style={{margin: 'auto'}}><img id={'userMsgImage'} src={chatUserPic}/></p>
+                                   </div>
+                                   <div className={'msgChild2-2'} style={{margin: 'auto'}}>
+                                       <p id={'customBadge'} style={{background: 'red',borderRadius: '100%',height: '10px',width: '10px'}}></p>
+                                       <h4 id={'msgUserName'} onClick={toogleViewProfile}>User Name 1</h4>
+                                   </div>
+                               </div>
+                           </div>
+                           <div className={'msgChild1-2'}>
+
+                           </div>
+                           <div className={'msgChild1-3'}>
+
+                           </div>
+                       </div>
                     </div>
                 </div>
 
