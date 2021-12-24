@@ -4,14 +4,20 @@ import user from '../assets/img/user.jpg';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import {Badge, Button} from "react-bootstrap";
-import {faBookmark, faComment} from "@fortawesome/free-regular-svg-icons";
 import bookMarkIcon from '../assets/img/bookmark.png'
-import chatUserPic from '../assets/img/chatUserPic.png'
+import chatUserPic from '../assets/img/user_pic.jpg'
 import attachPic from '../assets/img/attach.png'
 import sendPic from '../assets/img/send.png'
+import {useHistory} from 'react-router-dom'
+import closeIcon from '../assets/img/cancelicon2.png'
 
 
 function Chat() {
+
+    const history = useHistory();
+    const chatCrossHandle = () => {
+        history.push('/');
+    }
 
     let [child1_1,setChild1_1]=useState({
         width: '20%',
@@ -43,7 +49,7 @@ function Chat() {
 
     return(
         <div style={{width: '100%',height: '100vh',overflow: 'auto',background: 'gray',margin: 'auto'}}>
-            <p style={{background: 'gray',width: '100%',fontSize: '25px',fontWeight: 'bold',paddingLeft: '95%',color: 'white',paddingTop: '1%'}}>X</p>
+            <p id={'closeButton'} onClick={chatCrossHandle}><img src={closeIcon}/></p>
             <div style={{margin: 'auto',width: '85%',height: '90%',background: 'white',borderRadius: '10px'}}>
 
                 <div className={'chatParent1'}>

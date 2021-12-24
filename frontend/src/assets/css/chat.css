@@ -1,3 +1,13 @@
+#closeButton{
+    background: gray;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    padding-left: 95%;
+    color: white;
+    padding-top: 1%;
+    cursor: pointer;
+}
 .chatParent1{
     display: flex;
     width: 100%;
@@ -86,6 +96,7 @@
 #userChatImage{
     width: 50%;
     height: 50%;
+    border-radius: 100%;
 }
 #chatUserMsg,#chatUserDate{
     font-size: 14px;
@@ -134,6 +145,7 @@
 #userMsgImage{
     width: 40%;
     height: 40%;
+    border-radius: 100%;
 }
 #msgUserName{
     margin: auto;
