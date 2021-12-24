@@ -17,18 +17,20 @@
     width: 90%;
     height: 86%;
     margin: auto;
-    background: wheat;
     display: flex;
+    border-radius: 8px;
 }
 
 .individualPanel_child1 {
     width: 23%;
     background: red;
     height: 100%;
+    border-radius: 8px 0 0 8px;
 }
 
 .individualPanel_child2 {
     width: 77%;
     background: green;
     height: 100%;
+    border-radius: 0 8px 8px 0;
 }
