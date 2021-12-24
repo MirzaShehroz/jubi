@@ -1,4 +1,4 @@
-import '../assets/css/dashboardDatatables.css';
+import '../assets/css/dashboarddatatables.css';
 import React, { useEffect } from 'react';
 import Badge from '@mui/material/Badge';
 import { FormControl } from "react-bootstrap";
@@ -17,8 +17,8 @@ import 'jquery/dist/jquery.min.js';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from 'jquery';
-import AddWathListModal from "./addWatchListModal";
-import RemoveWatchModal from "./removeWatchListModal";
+import AddWathListModal from "./addwatchlistmodal";
+import RemoveWatchModal from "./removewatchlistmodal";
 
 //initialize datatable
 $(document).ready(function () {

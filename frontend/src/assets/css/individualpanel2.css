@@ -1,0 +1,68 @@
+
+.individualPanel_main h4 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    color: #3E6578;
+    letter-spacing: 0.15000000596046448px;
+    margin-bottom: 0;
+}
+
+.individualPanel_main h5 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.10000000149011612px;
+    margin-bottom: 0;
+}
+
+
+.individualPanel_child2 {
+    width: 77%;
+    height: 100%;
+    border-radius: 0 8px 8px 0;
+}
+
+.individualPanel_child21 {
+    display: flex;
+    align-items: center;
+    padding-left: 2.5%;
+    height: 12%;
+    background: #3E6578;
+    border-radius: 0 8px 0 0;
+}
+
+.individualPanel_child22 {
+    height: 88%;
+    background: #EEEEEE;
+    border-radius: 0 0 8px 0;
+    display: flex;
+}
+
+.individualPanel_child22_1::-webkit-scrollbar, .individualPanel_child22_2::-webkit-scrollbar {
+    width: 0;
+}
+
+.individualPanel_child22_1 {
+    width: 70%;
+    height: 100%;
+    background: yellow;
+    margin: 0 3px;
+    overflow-y: auto;
+}
+
+.individualPanel_child22_2 {
+    width: 30%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.individualPanel_child22_2_child {
+    background: white;
+    padding: 4.5% 5.5% 4.5% 5.5%;
+    margin-bottom: 2.5px;
+}
