@@ -18,3 +18,10 @@ export const showHeaderProfile = atom({
         iconRotate: false,
     }
 });
+
+export const sidePanelFunc = atom({
+    key: "sidePanelIcon",
+    default: {
+        showSP: 'none',
+    }
+})
