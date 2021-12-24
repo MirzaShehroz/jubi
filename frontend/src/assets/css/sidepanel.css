@@ -1,0 +1,28 @@
+#sidePanel {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    position: absolute;
+    width: 100%;
+    right: 0;
+    top: 0;
+    grid-template-columns: 9.3fr 0.14fr 3.56fr;
+    grid-template-areas: 'sPchild1 sPchild2 sPchild3';
+    background-color: gray;
+    display: none;
+}
+
+.sidePanel_child1 {
+    background: #FFFFFF;
+    grid-area: sPchild1;
+}
+
+.sidePanel_child2 {
+    background: #e1e1e1;
+    grid-area: sPchild2;
+}
+
+.sidePanel_child3 {
+    background: #FFFFFF;
+    grid-area: sPchild3;
+}

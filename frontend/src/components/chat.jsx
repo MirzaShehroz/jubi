@@ -5,6 +5,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "react-bootstrap";
 import {faBookmark} from "@fortawesome/free-regular-svg-icons";
+import bookMarkIcon from '../assets/img/bookmark.png'
+import chatUserPic from '../assets/img/chatUserPic.png'
 
 function Chat() {
 
@@ -70,10 +72,201 @@ function Chat() {
                         </div>
                         <p className={'text-center'}><Button className={'chatButtons'} variant="outline-dark">View Detail Page</Button></p>
 
-                        <p className={'text-center'}><Button className={'chatButtons'} variant="outline-danger"><span><FontAwesomeIcon icon={faBookmark}/> </span> Add to Wishlist</Button></p>
+                        <p className={'text-center'}><Button className={'chatButtons'} variant="outline-danger"><span><img src={bookMarkIcon}/> </span> Add to Wishlist</Button></p>
                     </div>
                     <div style={{width: child1_2}} className={'child1-2'}>
-                        m
+                        <div>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div className={'container'}>
+                                <div className={'row'}>
+                                    <div className={'col-lg-3 col-sm-3'}>
+                                        <p className={'text-center'}>
+                                            <img id={'chatUserPic'} src={chatUserPic}/>
+                                        </p>
+                                    </div>
+                                    <div className={'col-lg-9 col-sm-9'}>
+                                        <table>
+                                            <tr>
+                                                <td id={'chatName'}>Name 1</td>
+                                                <td>11:12, today</td>
+                                            </tr>
+                                        </table>
+                                        <p>Lorem ipsum dolor sit amet</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                        </div>
                     </div>
                     <div style={{width: child1_3}} className={'child1-3'}>
                         <p onClick={toogleViewProfile}>Hitman</p>
