@@ -1,7 +1,62 @@
 import React, { useState } from 'react'
 import '../assets/css/individualpanel2.css';
-
+import medicAdd from '../assets/img/medicadd.png';
+import medicDel from '../assets/img/medicdel.png';
 function IndividualPanel2() {
+    const data = [
+        {
+            date: '2021.07.31',
+            image: medicAdd,
+            medic: [
+                {
+                    name: 'Medicine Name 1',
+                    time: '12:30 PM',
+                    image: medicDel
+                },
+                {
+                    name: 'Medicine Name 2',
+                    time: '12:30 PM',
+                    image: medicAdd
+                },
+                {
+                    name: 'Medicine Name 3',
+                    time: '12:30 PM',
+                    image: medicDel
+                },
+                {
+                    name: 'Medicine Name 4',
+                    time: '12:30 PM',
+                    image: medicAdd
+                },
+            ]
+        },
+        {
+            date: '2021.07.30',
+            image: medicDel,
+            medic: [
+                {
+                    name: 'Medicine Name 1',
+                    time: '12:30 PM',
+                    image: medicAdd
+                },
+                {
+                    name: 'Medicine Name 2',
+                    time: '12:30 PM',
+                    image: medicAdd
+                },
+                {
+                    name: 'Medicine Name 3',
+                    time: '12:30 PM',
+                    image: medicDel
+                },
+                {
+                    name: 'Medicine Name 4',
+                    time: '12:30 PM',
+                    image: medicAdd
+                },
+            ]
+        }
+    ]
     const [btnClr1, setBtnClr1] = useState({
         background: '#4A7389',
         color: '#C1D6E1'
@@ -14,7 +69,6 @@ function IndividualPanel2() {
         background: '#4A7389',
         color: '#C1D6E1'
     })
-
     const changeBtnClr1 = () => {
         setBtnClr1({
             background: '#FFFFFF',
@@ -57,8 +111,6 @@ function IndividualPanel2() {
             color: '#3E6578'
         });
     }
-
-
     return (
         <>
             <div className='individualPanel_child21'>
@@ -68,7 +120,6 @@ function IndividualPanel2() {
                     <button onClick={changeBtnClr2} style={btnClr2}>Monthly</button>
                     <button onClick={changeBtnClr3} style={btnClr3}>Annual</button>
                 </div>
-
                 <div className='dashboard_child11_2_1'>
                     <form >
                         <select name="months" id="dashboard_month_select">
@@ -104,15 +155,32 @@ function IndividualPanel2() {
                     <div className='individualPanel_child22_2_child'>
                         <h4>History Logs</h4>
                     </div>
-                    <div className='individual_History'>
-                        <div className='individualPanel_child22_2_child'>
-                            <h4>History Logs</h4>
+                    {data.map((item) => (
+                        <div className='individual_History'>
+                            <div className='individual_History_date'>
+                                <p>{item.date}</p>
+                            </div>
+                            {item.medic.map(item1 => (
+                                <div className='individual_History_medics'>
+                                    <div className='medicsImg'>
+                                        <img src={item.image} alt="" />
+                                    </div>
+                                    <div className="individual_History_medic">
+                                        <div className='medicsH5'>
+                                            <h5>{item1.name}</h5>
+                                            <p>{item1.time}</p>
+                                        </div>
+                                        <div>
+                                            <img src={item1.image} style={{ cursor: 'pointer' }} alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </>
     )
 }
-
 export default IndividualPanel2

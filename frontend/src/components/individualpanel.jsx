@@ -26,8 +26,8 @@ function IndividualPanel() {
                     <IndividualUserPanel/>
                 </div>
                 <div className='individualPanel_child2'>
-                    {/*<IndividualPanel2/>*/}
-                    <Alergies/>
+                    <IndividualPanel2/>
+                    {/*<Alergies/>*/}
                 </div>
             </div>
         </div>
