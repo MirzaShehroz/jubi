@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import '../assets/css/individualpanel2.css';
 import medicAdd from '../assets/img/medicadd.png';
 import medicDel from '../assets/img/medicdel.png';
+import frwdBtn from '../assets/img/forward_arrow.png';
+import prevBtn from '../assets/img/previous_arrow.png';
+
 function IndividualPanel2() {
     const data = [
         {
@@ -150,7 +153,32 @@ function IndividualPanel2() {
                 </div>
             </div>
             <div className='individualPanel_child22'>
-                <div className='individualPanel_child22_1'></div>
+                <div className='individualPanel_child22_1'>
+                    <div className='individualPanel_child22_11'>
+                        <div className='individualPanel_child22_head'>
+                            <h4>Medications Adherence rate</h4>
+                            <div className='individualPanel_child22_date'>
+                                <img src={prevBtn} alt="" />
+                                <h5 style={{ fontWeight: '400' }}>W4 Jul. 2021</h5>
+                                <img src={frwdBtn} alt="" />
+                            </div>
+                        </div>
+                        <div className='individualPanel_child22_graph'>
+
+                        </div>
+                    </div>
+                    <div className='individualPanel_child22_12'>
+                        <div className='individualPanel_child22_12child'>
+                            <div className='signin_checkout' style={{ width: '100%' }}>
+                                <input type="checkbox" />
+                                <h5 style={{ color: '#3E6578' }}>JUBI watch (1/1)</h5>
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className='individualPanel_child22_2'>
                     <div className='individualPanel_child22_2_child'>
                         <h4>History Logs</h4>

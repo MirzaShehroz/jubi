@@ -8,6 +8,7 @@
     letter-spacing: 0.15000000596046448px;
     margin-bottom: 0;
 }
+
 .individualPanel_main h5 {
     font-family: 'Pretendard', sans-serif;
     font-size: 14px;
@@ -17,6 +18,7 @@
     letter-spacing: 0.10000000149011612px;
     margin-bottom: 0;
 }
+
 .individualPanel_main p {
     font-family: 'Pretendard', sans-serif;
     font-size: 12px;
@@ -27,11 +29,13 @@
     text-align: left;
     color: #767676;
 }
+
 .individualPanel_child2 {
     width: 77%;
     height: 100%;
     border-radius: 0 8px 8px 0;
 }
+
 .individualPanel_child21 {
     display: flex;
     align-items: center;
@@ -40,22 +44,26 @@
     background: #3E6578;
     border-radius: 0 8px 0 0;
 }
+
 .individualPanel_child22 {
     height: 88%;
     background: #EEEEEE;
     border-radius: 0 0 8px 0;
     display: flex;
 }
+
 .individualPanel_child22_1::-webkit-scrollbar, .individualPanel_child22_2::-webkit-scrollbar {
     width: 0;
 }
+
 .individualPanel_child22_1 {
     width: 70%;
     height: 100%;
-    background: yellow;
+    background: #FFFFFF;
     margin: 0 3px;
     overflow-y: auto;
 }
+
 .individualPanel_child22_2 {
     width: 30%;
     height: 100%;
@@ -64,14 +72,17 @@
     background: #EEEEEE;
     border-radius: 0 0 8px 0;
 }
+
 .individualPanel_child22_2_child {
     background: white;
     padding: 4.5% 5.5%;
     margin-bottom: 2.5px;
 }
+
 .individual_History_date {
     padding: 2% 4.5%;
 }
+
 .individual_History_medics {
     background: white;
     padding: 4.5% 5.5%;
@@ -79,9 +90,11 @@
     display: flex;
     align-items: center;
 }
+
 .medicsImg img {
     margin-right: 10px;
 }
+
 .medicsH5 h5 {
     font-size: 14px;
     font-weight: 400;
@@ -89,9 +102,41 @@
     letter-spacing: 0.25px;
     text-align: left;
 }
+
 .individual_History_medic {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+.individualPanel_child22_head {
+    display: flex;
+    align-items: center;
+    padding: 2% 2.5%;
+    justify-content: space-between;
+}
+
+.individualPanel_child22_graph {
+    height: 200px;
+    background: bisque;
+    width: 100%;
+}
+
+.individualPanel_child22_date {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 125px;
+}
+
+.individualPanel_child22_date img {
+    cursor: pointer;
+}
+
+.individualPanel_child22_12child {
+    padding: 2% 2.5%;
+}
+.individualPanel_child22_12child input{
+    margin-right: 20px;
 }
