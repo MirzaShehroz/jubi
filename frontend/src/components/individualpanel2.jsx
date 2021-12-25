@@ -225,7 +225,8 @@ function IndividualPanel2() {
                             </div>
                         </div>
                         <div className='individualPanel_child22_graph'>
-
+                            <div className='individualPanel_graph1'></div>
+                            <div className='individualPanel_graph2'></div>
                         </div>
                     </div>
                     <div className='individualPanel_child22_12'>
