@@ -60,6 +60,58 @@ function IndividualPanel2() {
             ]
         }
     ]
+    const data2 = [
+        {
+            head: 'JUBI watch (1/1)',
+            image: medicAdd,
+            medic: [
+                {
+                    name: 'Medicine Name 1',
+                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
+                    percentage: '100%'
+                },
+            ]
+        },
+        {
+
+            head: 'Active Medications (2/2)',
+            image: medicAdd,
+            medic: [
+                {
+                    name: 'Medicine Name 1',
+                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
+                    percentage: '16%'
+                },
+                {
+                    name: 'Medicine Name 2',
+                    detail: 'Every weekdays(1 pills) / 8:00 AM',
+                    percentage: '16%'
+                },
+            ]
+        },
+        {
+            head: 'Inactive Medications (2/3)',
+            image: medicAdd,
+            medic: [
+                {
+                    name: 'Medicine Name 1',
+                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
+                    percentage: '16%'
+                },
+                {
+                    name: 'Medicine Name 2',
+                    detail: 'Every weekdays(1 pills) / 8:00 AM',
+                    percentage: '16%'
+                },
+                {
+                    name: 'Medicine Name 3',
+                    detail: 'Every weekdays(1 pills) / 8:00 AM',
+                    percentage: '0%'
+                },
+            ]
+        }
+    ]
+
     const [btnClr1, setBtnClr1] = useState({
         background: '#4A7389',
         color: '#C1D6E1'
@@ -168,48 +220,30 @@ function IndividualPanel2() {
                         </div>
                     </div>
                     <div className='individualPanel_child22_12'>
-                        <div className='individualPanel_child22_12child'>
-                            <div className='signin_checkout' style={{ width: '100%',background:'#EEEEEE',padding:'2% 2.5%' }}>
-                                <input type="checkbox" />
-                                <h5 style={{ color: '#3E6578' }}>JUBI watch (1/1)</h5>
-                            </div>
-                            <div className='individual_History_medics' style={{padding:'2% 2.5%'}}>
-                                <div className='medicsImg'>
-                                    <img src={medicAdd} alt="" />
+                        {data2.map((item) => (
+                            < div className='individualPanel_child22_12child'>
+                                <div className='signin_checkout' style={{ width: '100%', background: '#EEEEEE', padding: '2% 2.5%' }}>
+                                    <input type="checkbox" />
+                                    <h5 style={{ color: '#3E6578' }}>{item.head}</h5>
                                 </div>
-                                <div className="individual_History_medic">
-                                    <div className='medicsH5'>
-                                        <h5>Medicine name 1</h5>
-                                        <p>2 times everyday(2 pills) / 8:00 AM and 1:00PM</p>
+                                {item.medic.map(item2 => (
+                                    <div className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
+                                        <div className='medicsImg'>
+                                            <img src={medicAdd} alt="" />
+                                        </div>
+                                        <div className="individual_History_medic">
+                                            <div className='medicsH5'>
+                                                <h5>{item2.name}</h5>
+                                                <p>{item2.detail}</p>
+                                            </div>
+                                            <div>
+                                                <h4>{item2.percentage}</h4>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div>
-                                       <h4>100%</h4>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
-                        </div>
-                        {/*//////*/}
-                        <div className='individualPanel_child22_12child'>
-                            <div className='signin_checkout' style={{ width: '100%',background:'#EEEEEE',padding:'2% 2.5%' }}>
-                                <input type="checkbox" />
-                                <h5 style={{ color: '#3E6578' }}>JUBI watch (1/1)</h5>
-                            </div>
-                            <div className='individual_History_medics' style={{padding:'2% 2.5%'}}>
-                                <div className='medicsImg'>
-                                    <img src={medicAdd} alt="" />
-                                </div>
-                                <div className="individual_History_medic">
-                                    <div className='medicsH5'>
-                                        <h5>Medicine name 1</h5>
-                                        <p>2 times everyday(2 pills) / 8:00 AM and 1:00PM</p>
-                                    </div>
-                                    <div>
-                                        <h4>100%</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/*///*/}
+                        ))}
                     </div>
                 </div>
                 <div className='individualPanel_child22_2'>
