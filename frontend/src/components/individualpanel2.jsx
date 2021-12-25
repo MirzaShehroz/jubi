@@ -4,8 +4,51 @@ import medicAdd from '../assets/img/medicadd.png';
 import medicDel from '../assets/img/medicdel.png';
 import frwdBtn from '../assets/img/forward_arrow.png';
 import prevBtn from '../assets/img/previous_arrow.png';
+import LBChart from './linebarchart';
+
+import { PieChart, Pie, Sector ,Cell} from "recharts";
+
+const gdata = [{ name: "Jul 2021", value: 400 },{ name: "Jul 2021", value: 100 }];
+const COLORS = ["#7D9DAE", "#EEEEEE"];
+const renderActiveShape = (props) => {
+
+    const {
+        cx,
+        cy,
+        innerRadius,
+        outerRadius,
+        startAngle,
+        endAngle,
+        fill,
+        payload
+    } = props;
+
+
+
+    return (
+        <g>
+            <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+                {payload.name}
+            </text>
+            <Sector
+                cx={cx}
+                cy={cy}
+                innerRadius={innerRadius}
+                outerRadius={outerRadius}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                fill={fill}
+            />
+        </g>
+    );
+};
+
+
 
 function IndividualPanel2() {
+
+    const [activeIndex] = useState(0);
+
     const data = [
         {
             date: '2021.07.31',
@@ -225,8 +268,28 @@ function IndividualPanel2() {
                             </div>
                         </div>
                         <div className='individualPanel_child22_graph'>
-                            <div className='individualPanel_graph1'></div>
-                            <div className='individualPanel_graph2'></div>
+                            <div className='individualPanel_graph1'style={{margin: 'auto'}}>
+                                <PieChart width={400} height={400} style={{margin: 'auto'}}>
+                                    <Pie
+                                        activeIndex={activeIndex}
+                                        activeShape={renderActiveShape}
+                                        data={gdata}
+                                        cx={120}
+                                        cy={90}
+                                        innerRadius={60}
+                                        outerRadius={80}
+                                        fill="#7D9DAE"
+                                        dataKey="value"
+                                    >
+                                        {data.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                </PieChart>
+                            </div>
+                            <div className='individualPanel_graph2'>
+                                <LBChart/>
+                            </div>
                         </div>
                     </div>
                     <div className='individualPanel_child22_12'>

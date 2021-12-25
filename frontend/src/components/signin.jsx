@@ -90,7 +90,7 @@ function SignIn() {
                         </div>
                         <div className='signin_fields_bottom'>
                             <div className='signin_checkout'>
-                                <input type="checkbox" />
+                                <input type="checkbox" required/>
                                 <span>Remember me</span>
                             </div>
                             <Link to='/forget'>Forgot password?</Link>

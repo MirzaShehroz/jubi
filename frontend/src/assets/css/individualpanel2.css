@@ -119,7 +119,7 @@
 
 .individualPanel_child22_graph {
     height: 200px;
-    background: bisque;
+    /*background: bisque;*/
     width: 100%;
     display: flex;
 }
@@ -140,13 +140,12 @@
 }
 
 .individualPanel_graph1 {
-    background: green;
+    /*background: green;*/
     width: 35%;
     height: 100%;
 }
 
 .individualPanel_graph2 {
-    background: yellow;
     height: 100%;
     width: 65%;
 }
