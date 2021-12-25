@@ -64,8 +64,10 @@ function IndividualPanel2() {
         {
             head: 'JUBI watch (1/1)',
             image: medicAdd,
+            checked: true,
             medic: [
                 {
+                    checked: true,
                     name: 'Medicine Name 1',
                     detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
                     percentage: '100%'
@@ -76,13 +78,16 @@ function IndividualPanel2() {
 
             head: 'Active Medications (2/2)',
             image: medicAdd,
+            checked: false,
             medic: [
                 {
+                    checked: true,
                     name: 'Medicine Name 1',
                     detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
-                    percentage: '16%'
+                    percentage: '56%'
                 },
                 {
+                    checked: true,
                     name: 'Medicine Name 2',
                     detail: 'Every weekdays(1 pills) / 8:00 AM',
                     percentage: '16%'
@@ -92,18 +97,22 @@ function IndividualPanel2() {
         {
             head: 'Inactive Medications (2/3)',
             image: medicAdd,
+            checked: false,
             medic: [
                 {
+                    checked: false,
                     name: 'Medicine Name 1',
                     detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
                     percentage: '16%'
                 },
                 {
+                    checked: false,
                     name: 'Medicine Name 2',
                     detail: 'Every weekdays(1 pills) / 8:00 AM',
-                    percentage: '16%'
+                    percentage: '30%'
                 },
                 {
+                    checked: false,
                     name: 'Medicine Name 3',
                     detail: 'Every weekdays(1 pills) / 8:00 AM',
                     percentage: '0%'
@@ -223,11 +232,14 @@ function IndividualPanel2() {
                         {data2.map((item) => (
                             < div className='individualPanel_child22_12child'>
                                 <div className='signin_checkout' style={{ width: '100%', background: '#EEEEEE', padding: '2% 2.5%' }}>
-                                    <input type="checkbox" />
+                                    <input type="checkbox" defaultChecked={item.checked} />
                                     <h5 style={{ color: '#3E6578' }}>{item.head}</h5>
                                 </div>
                                 {item.medic.map(item2 => (
                                     <div className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
+                                        <div className='signin_checkout' style={{ width: '7%', paddingLeft: '0' }}>
+                                            <input type="checkbox" defaultChecked={item2.checked} />
+                                        </div>
                                         <div className='medicsImg'>
                                             <img src={medicAdd} alt="" />
                                         </div>
