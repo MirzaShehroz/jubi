@@ -295,13 +295,13 @@ function IndividualPanel2() {
                     <div className='individualPanel_child22_12'>
                         {data2.map((item) => (
                             < div className='individualPanel_child22_12child'>
-                                <div className='signin_checkout' style={{ width: '100%', background: '#EEEEEE', padding: '2% 2.5%' }}>
+                                <div className='signin_checkout individual2_input'>
                                     <input type="checkbox" defaultChecked={item.checked} />
-                                    <h5 style={{ color: '#3E6578' }}>{item.head}</h5>
+                                    <h5>{item.head}</h5>
                                 </div>
                                 {item.medic.map(item2 => (
                                     <div className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
-                                        <div className='signin_checkout' style={{ width: '7%', paddingLeft: '0' }}>
+                                        <div className='signin_checkout individual2_input2'>
                                             <input type="checkbox" defaultChecked={item2.checked} />
                                         </div>
                                         <div className='medicsImg'>

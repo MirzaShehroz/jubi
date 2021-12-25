@@ -148,7 +148,33 @@
     height: 100%;
     width: 65%;
 }
-.chartBox{
+
+.chartBox {
     width: 100%;
     height: 100%;
+}
+
+.individual2_input {
+    width: 100%;
+    background: #EEEEEE;
+    padding: 2% 2.5%;
+}
+
+.individual2_input h5 {
+    color: #3E6578;
+}
+
+.individual2_input>input:checked::before {
+    left: 20px;
+    top: 11px;
+}
+
+.individual2_input2 {
+    width: 7%;
+    padding-left: 0;
+}
+
+.individual2_input2>input:checked::before {
+    left: 3px;
+    top: -2px;
 }

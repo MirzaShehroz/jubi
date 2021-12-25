@@ -1,304 +1,336 @@
-#closeButton{
+#closeButton {
     background: gray;
     width: 100%;
     font-size: 25px;
     font-weight: bold;
-    padding-left: 95%;
+    text-align: end;
     color: white;
-    padding-top: 1%;
     cursor: pointer;
 }
-.chatParent1{
+
+#closeButton img {
+    margin-right: 2%;
+    margin-top: 2%;
+}
+
+.chatParent1 {
     display: flex;
     width: 100%;
     height: 100%;
     margin: auto;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #e3e3e3;
 }
-.child1-1{
-    width: 20%;
-    padding-left: 1%;
-    padding-right: 1%;
-    padding-top: 5%;
-    padding-bottom: 2%;
-    height: 100%;
+
+.child1-1>div {
+    width: 100%;
     background: white;
-    border-radius: 10px 0 0 10px;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    padding: 7% 3.5%;
+    overflow-y: auto;
 }
-.child1-2{
+
+.child1-1>div::-webkit-scrollbar {
+    width: 0;
+}
+
+.child1-2 {
     padding: 1%;
     height: 95%;
     background: white;
-    border-radius: 10px 0 0 10px;
+    border-radius: 3px;
     margin: auto;
     overflow-y: auto;
 }
-.child1-2::-webkit-scrollbar{
+
+.child1-2::-webkit-scrollbar {
     width: 0;
 }
-.child1-3{
+
+.child1-3 {
     padding: 1%;
     height: 95%;
     background: white;
     margin: auto;
-    border-radius: 0 10px 10px 0;
+    border-radius: 3px;
 }
-#userImg{
+
+#userImg {
     width: 130px;
     height: 130px;
     border-radius: 100%;
 }
-.emailHead,.phoneHead{
+
+.emailHead, .phoneHead {
     width: 70px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #999999;
 }
-#memo{
-    margin: auto;
-    width: 86%;
-    height: 30%;
-    border: 1px solid gray;
-    border-radius: 10px 10px 10px 10px;
-    padding: 2%;
+
+#memo {
+    width: 100%;
+    height: 50%;
+    border: 1px solid #C6C6C6;
+    border-radius: 4px;
+    padding: 4%;
     overflow-y: auto;
 }
-#memo::-webkit-scrollbar{
+
+#memo::-webkit-scrollbar {
     width: 0;
 }
-.memoHead{
+
+.memoHead {
     padding-top: 3%;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #999999;
+    width: 100%;
 }
-.memoHead,.memoHeadIcon{
-    font-size: 15px;
-    font-weight: bold;
+
+.memoHeadIcon {
     width: 200px;
+    text-align: end;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: right;
+    text-decoration: underline;
 }
-.memoHeadIcon{
-    padding-left: 30%;
-}
-.memoMsg{
+
+.memoMsg {
     background: #EEEEEE;
+    margin-top: 2%;
     padding: 4%;
     border-radius: 5px;
     font-size: 12px;
+
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: black;
 }
-.memoWatchlist
-{
+
+.memoWatchlist {
     font-size: 12px;
     margin-top: 5%;
     background: #E2EFF9;
     padding: 4%;
     border-radius: 9px;
 }
-.chatButtons{
+
+.chatButtons {
     width: 250px;
     margin-top: 8%;
 }
-.userChatParent1{
+
+.userChatParent1 {
     display: flex;
 }
-.userChatChild1-1{
+
+.userChatChild1-1 {
     width: 25%;
 
 }
-.userChatChild1-2{
+
+.userChatChild1-2 {
     width: 50%;
 
 }
-.userChatChild1-3{
+
+.userChatChild1-3 {
     width: 25%;
 
 }
-#userChatImage{
+
+#userChatImage {
     width: 50%;
     height: 50%;
     border-radius: 100%;
 }
-#chatUserMsg,#chatUserDate{
+
+#chatUserMsg, #chatUserDate {
     font-size: 14px;
 }
-#chatUserDate{
+
+#chatUserDate {
     padding-left: 18%;
 }
-#chatUserBadge{
+
+#chatUserBadge {
     padding-left: 65%;
 }
-.msgParent1{
+
+.msgParent1 {
     width: 100%;
     height: 100%;
 }
-.msgChild1-1{
+
+.msgChild1-1 {
     height: 8%;
-    /*background: red;*/
 }
-.msgChild1-2{
+
+.msgChild1-2 {
     height: 85%;
-    /*background: palegoldenrod;*/
     padding: 1%;
     overflow: auto;
 }
-.msgChild1-2::-webkit-scrollbar{
+
+.msgChild1-2::-webkit-scrollbar {
     width: 0;
 }
-.msgChild1-3{
+
+.msgChild1-3 {
     height: 7%;
-    /*background: #CE747C;*/
 }
-.masgParent2{
+
+.masgParent2 {
     width: 100%;
     height: 100%;
     display: flex;
 }
-.msgChild2-1{
+
+.msgChild2-1 {
     width: 15%;
-    /*background: paleturquoise;*/
     margin: auto;
 }
-.msgChild2-2{
+
+.msgChild2-2 {
     width: 85%;
-    /*background: blue;*/
 }
-#userMsgImage{
+
+#userMsgImage {
     width: 40%;
     height: 40%;
     border-radius: 100%;
 }
-#msgUserName{
+
+#msgUserName {
     margin: auto;
     cursor: pointer;
 }
-#customBadge{
+
+#customBadge {
     transform: translateX(1500%);
 }
-.msgParent3{
+
+.msgParent3 {
     width: 100%;
     height: 100%;
     display: flex;
 }
-.msgChild3-1{
+
+.msgChild3-1 {
     width: 7%;
-    /*background: red;*/
     margin: auto;
     border: 1px solid gray;
     height: 100%;
 }
-.msgChild3-2{
+
+.msgChild3-2 {
     width: 86%;
-    /*background: blue;*/
     border: 1px solid gray;
     height: 100%;
 }
-.msgChild3-3{
+
+.msgChild3-3 {
     width: 7%;
-    /*background: red;*/
     margin: auto;
     border: 1px solid gray;
     height: 100%;
 }
-.msgAction{
+
+.msgAction {
     transform: translateY(60%);
 }
-.send{
+
+.send {
     width: 60%;
     float: right;
-    /*background: #E2EFF9;*/
     padding: 1%;
 }
-.recieve{
+
+.recieve {
     margin-top: 1%;
     width: 60%;
     float: left;
-    /*background: #EEEEEE;*/
     padding: 1%;
 
 }
-.sendTime{
+
+.sendTime {
     margin-left: 90%;
 }
-.sendMsg{
+
+.sendMsg {
     padding: 2%;
     border-radius: 10px 0 10px 10px;
 }
-.recieveMsg{
+
+.recieveMsg {
     padding: 2%;
     border-radius: 0 10px 10px 10px;
 }
 
+#alergies {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #3E6578;
+    cursor: pointer
+}
 
+.userPanelInd_btn {
+    margin: 65px 0 12px 0;
+}
 
+.userPanelInd_btn button {
+    border: 1px solid #3E6578;
+    background: transparent;
+    border-radius: 5px;
+    color: #3E6578;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    width: 100%;
+    margin-bottom: 7px;
+    padding: 3% 0;
+}
 
+.userPanelInd_btn img {
+    margin-right: 6px;
+}
 
+@media screen and (max-width:1360px) {
+    #userImg {
+        width: 85px;
+        height: 85px;
+    }
 
-
-
-@media screen and (max-width: 1366px) {
-    .chatParent1{
-        display: flex;
-        width: 100%;
-        height: 100%;
-        margin: auto;
-        border-radius: 10px;
-        background: #e3e3e3;
-    }
-    .child1-1{
-        padding-left: 1%;
-        padding-right: 1%;
-        padding-top: 5%;
-        padding-bottom: 2%;
-        height: 100%;
-        background: white;
-        border-radius: 10px 0 0 10px;
-    }
-    .child1-2{
-        padding: 1%;
-        height: 95%;
-        background: white;
-        border-radius: 10px 0 0 10px;
-        margin: auto;
-        overflow-y: auto;
-    }
-    .child1-3{
-        padding: 1%;
-        height: 95%;
-        background: white;
-        margin: auto;
-        border-radius: 0 10px 10px 0;
-    }
-    #userImg{
-        width: 80px;
-        height: 80px;
-        border-radius: 100%;
-    }
-    .emailHead,.phoneHead{
-        width: 70px;
-    }
-    #memo{
-        margin: auto;
-        width: 86%;
-        height: 30%;
-        border: 1px solid gray;
-        border-radius: 10px 10px 10px 10px;
-        padding: 2%;
-        overflow-y: auto;
-    }
-    .memoHead,.memoHeadIcon{
-        font-size: 15px;
-        font-weight: bold;
-        width: 200px;
-    }
-    .memoHeadIcon{
-        padding-left: 30%;
-    }
-    .memoMsg{
-        background: #EEEEEE;
-        padding: 4%;
-        border-radius: 5px;
-        font-size:13px
-    }
-    .chatButtons{
-        width: 200px;
-        margin-top: 7%;
-    }
-    #alergies{
-        font-size: 15px;
-    }
 }

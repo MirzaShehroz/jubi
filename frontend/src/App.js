@@ -15,9 +15,6 @@ import Chat from "./components/chat";
 import IndividualPanel from './components/individualpanel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {authData} from "./data/atom";
-import {Notifications} from './helpers/helpersfunctions'
-
 
 function App() {
 

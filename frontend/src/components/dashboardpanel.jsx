@@ -5,13 +5,13 @@ import Dashboard from './dashboard';
 import DashboardStrip from './dashboardstrip';
 import Sidebar from './sidebar';
 import {useEffect} from 'react';
-import {authData} from "../data/atom";
-import {useRecoilState} from "recoil";
+// import {authData} from "../data/atom";
+// import {useRecoilState} from "recoil";
 
 
 function DashboardPanel() {
 
-    const [authUserData,setAD] = useRecoilState(authData);
+    // const [authUserData,setAD] = useRecoilState(authData);
     useEffect(()=>{
         console.log(sessionStorage.getItem('authData'));
     },[])

@@ -56,5 +56,7 @@ export const Notifications = (type,msg) =>
             });
             break;
         }
+        default:
+            return;
     }
 }

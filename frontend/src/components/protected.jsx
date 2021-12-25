@@ -1,9 +1,7 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom';
-import {Notifications} from '../helpers/helpersfunctions'
 
 export default function Protected({ component: Cmp, ...rest }) {
-
 
     return <Route
         {...rest}
@@ -15,7 +13,6 @@ export default function Protected({ component: Cmp, ...rest }) {
 
                    </>
             ) :
-
                 <Redirect to='/sign-in' />
         )} />
 }
