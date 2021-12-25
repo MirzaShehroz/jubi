@@ -59,10 +59,6 @@ const data = {
 };
 
 function LBChart() {
-    // return
-    // (
-    //     <Chart type='bar' data={data} />
-    // )
     return(
        <div className={'chartBox'}>
            <Chart
