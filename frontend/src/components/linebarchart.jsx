@@ -22,7 +22,7 @@ ChartJS.register(
     Tooltip
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ['W1', 'W2', 'W3', 'W4','W5','W1', 'W2', 'W3', 'W4','W5','W1', 'W2', 'W3', 'W4','W5'];
 const options= {
     plugins: {
         legend: {
@@ -30,12 +30,7 @@ const options= {
 
         }
     },
-    scales: {
-        xAxes: [{
-            barThickness: 6,  // number (pixels) or 'flex'
-            maxBarThickness: 8 // number (pixels)
-        }]
-    }
+   maintainAspectRatio: false
 }
 const data = {
     labels,
@@ -47,13 +42,13 @@ const data = {
             borderColor: 'rgb(255, 99, 132)',
             borderWidth: 3,
             fill: false,
-            data: labels.map(() => faker.datatype.number({ min: 1, max: 1000 })),
+            data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
         },
         {
             type: 'bar' ,
             label: '',
             backgroundColor: '#7D9DAE',
-            data: labels.map(() => faker.datatype.number({ min: 1, max: 1000 })),
+            data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
             borderColor: 'white',
             borderWidth: 0,
             borderRadius: 100,
@@ -69,12 +64,14 @@ function LBChart() {
     //     <Chart type='bar' data={data} />
     // )
     return(
-        <Chart
-            type='bar'
-            data={data}
-            options={options}
+       <div className={'chartBox'}>
+           <Chart
+               type='bar'
+               data={data}
+               options={options}
 
-        />
+           />
+       </div>
 
     )
 
