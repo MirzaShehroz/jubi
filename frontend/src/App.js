@@ -13,6 +13,11 @@ import IdPassword from './components/idpassword';
 import DashboardPanel from './components/dashboardpanel';
 import Chat from "./components/chat";
 import IndividualPanel from './components/individualpanel';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {authData} from "./data/atom";
+import {Notifications} from './helpers/helpersfunctions'
+
 
 function App() {
 
@@ -28,6 +33,20 @@ function App() {
         <Protected path='/chat' component={Chat} />
         <Protected path='/individual' component={IndividualPanel} />
       </Router>
+
+      <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme={"colored"}
+      />
+
     </div>
   );
 }

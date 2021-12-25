@@ -25,3 +25,11 @@ export const sidePanelFunc = atom({
         showSP: 'none',
     }
 })
+
+export const authData= atom({
+    key: "authData",
+    default: {
+        email:'email',
+        token:'token'
+    }
+})
