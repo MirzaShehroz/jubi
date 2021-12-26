@@ -259,3 +259,46 @@
     top: -20px;
     right: 30px;
 }
+
+
+@media screen and (min-width:1920px) {
+    .c_menu {
+        top: 7.2%;
+        left: 341px;
+        height: 70%;
+        min-height: 70%;
+        width: 22%;
+        min-width: 420px;
+    }
+
+    .cancelIcon_CMenu {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .cs_menu {
+        position: absolute;
+        max-width: 361px;
+        min-width: 361px;
+        width: 361px;
+        top: 18.7%;
+        left: 370.5px;
+    }
+
+    .csMenu_Child11>img {
+        margin-bottom: 10%;
+    }
+
+    .csMenu_Child11>p {
+        margin-bottom: 6%;
+    }
+
+    .csMenu_Child1 {
+
+        justify-content: space-around;
+        height: 63%;
+    }
+    .csMenu_Child2 {
+        margin: 10% 8%;
+    }
+}

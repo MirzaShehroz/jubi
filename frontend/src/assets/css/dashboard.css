@@ -50,7 +50,8 @@
     text-align: left;
     color: #191919;
 }
-.pop_btn{
+
+.pop_btn {
     color: #3E6578;
     background: #FFFFFF;
     border-radius: 3px;
@@ -58,17 +59,28 @@
     width: 100px;
     border: 1px solid #3E6578;
 }
-.pop_btn:hover{
+
+.pop_btn:hover {
     background: #e1e1e1;
     color: #3E6578;
 }
-.pop_btn1:hover{
+
+.pop_btn1:hover {
     background: #57849b;
     color: #FFFFFF;
 }
-.pop_btn1{
+
+.pop_btn1 {
     color: white;
     background: #3E6578;
     border-radius: 3px;
     border: 0;
+}
+
+@media screen and (min-width:1920px) {
+    .dashboard_parent {
+        height: 93%;
+        min-height: 93%;
+        max-height: 93%;
+    }
 }

@@ -250,3 +250,24 @@
 .dashboard_child12_31>div:last-child p {
     background: #A0B9C8;
 }
+
+@media screen and (min-width:1920px) {
+    .dashboard_child12_graphNum {
+        justify-content: space-evenly;
+    }
+
+    .dashboard_child12_graphNum>div {
+        height: 89%;
+        width: 21%;
+    }
+
+    .dashboard_child12>div {
+        height: 193px;
+        min-height: 193px;
+        max-height: 193px;
+    }
+
+    .dashboard_child12>div:last-child {
+        width: 20%;
+    }
+}

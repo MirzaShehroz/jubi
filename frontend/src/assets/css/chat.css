@@ -18,15 +18,15 @@
     width: 100%;
     height: 100%;
     margin: auto;
-    border-radius: 8px;
-    background: #e3e3e3;
+    border-radius: 3px;
+    background: #EEEEEE;
 }
 
 .child1-1>div {
     width: 100%;
     background: white;
     height: 100%;
-    border-radius: 8px 0 0 8px;
+    border-radius: 3px 0 0 3px;
     padding: 7% 3.5%;
     overflow-y: auto;
 }
@@ -36,12 +36,88 @@
 }
 
 .child1-2 {
-    padding: 1%;
+    padding: 0.35% 1% 0.35% 1%;
     height: 95%;
     background: white;
     border-radius: 3px;
     margin: auto;
     overflow-y: auto;
+}
+
+.child1-2>div:last-child {
+    border-bottom: 0;
+}
+
+.userChatParent1 {
+    padding: 9px 0 12px 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EEEEEE;
+    cursor: pointer;
+}
+
+.userChatParent1:hover {
+    background: #E2EFF9;
+}
+
+.userChatParent1 p {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    color: #767676;
+}
+
+.userChatChild11 {
+    margin-right: 10px;
+}
+
+.userChatChild11 img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+
+.userChatChild12 {
+    width: 100%;
+}
+
+.userChatChild12-1 {
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.userChatChild12-1 h5 {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14.5px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.10000000149011612px;
+    text-align: left;
+    margin-bottom: 3.5px;
+}
+
+.userChatChild12-2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userChatChild12-2 .badge {
+    display: inline-block;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.25px;
+    text-align: center;
+    padding: 4px 6px;
+    border-radius: 3px;
 }
 
 .child1-2::-webkit-scrollbar {
@@ -57,9 +133,10 @@
 }
 
 #userImg {
-    width: 130px;
-    height: 130px;
-    border-radius: 100%;
+    cursor: pointer;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
 }
 
 .emailHead, .phoneHead {
@@ -76,7 +153,7 @@
 
 #memo {
     width: 100%;
-    height: 50%;
+    height: 45%;
     border: 1px solid #C6C6C6;
     border-radius: 4px;
     padding: 4%;
@@ -143,42 +220,6 @@
     margin-top: 8%;
 }
 
-.userChatParent1 {
-    display: flex;
-}
-
-.userChatChild1-1 {
-    width: 25%;
-
-}
-
-.userChatChild1-2 {
-    width: 50%;
-
-}
-
-.userChatChild1-3 {
-    width: 25%;
-
-}
-
-#userChatImage {
-    width: 50%;
-    height: 50%;
-    border-radius: 100%;
-}
-
-#chatUserMsg, #chatUserDate {
-    font-size: 14px;
-}
-
-#chatUserDate {
-    padding-left: 18%;
-}
-
-#chatUserBadge {
-    padding-left: 65%;
-}
 
 .msgParent1 {
     width: 100%;
@@ -186,11 +227,51 @@
 }
 
 .msgChild1-1 {
-    height: 8%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid #dfdfdf;
+}
+
+.msgChild1-1-img {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.msgChild1-1-img img {
+    border-radius: 50%;
+    width: 43px;
+}
+
+.msgChild1-1-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.msgChild1-1-name p {
+    background: #D7575F;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translateX(13px);
+}
+
+.msgChild1-1-name h4 {
+    margin-bottom: 0;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15000px;
+    text-align: left;
+    cursor: pointer;
 }
 
 .msgChild1-2 {
-    height: 85%;
+    height: 83%;
     padding: 1%;
     overflow: auto;
 }
@@ -200,7 +281,14 @@
 }
 
 .msgChild1-3 {
-    height: 7%;
+    height: 9%;
+    border-top: 2px solid #dfdfdf;
+    display: flex;
+    align-items: center;
+}
+
+.msgChild1-3 img {
+    cursor: pointer;
 }
 
 .masgParent2 {
@@ -209,58 +297,39 @@
     display: flex;
 }
 
-.msgChild2-1 {
-    width: 15%;
-    margin: auto;
-}
-
-.msgChild2-2 {
-    width: 85%;
-}
-
-#userMsgImage {
-    width: 40%;
-    height: 40%;
-    border-radius: 100%;
-}
-
-#msgUserName {
-    margin: auto;
-    cursor: pointer;
-}
-
-#customBadge {
-    transform: translateX(1500%);
-}
-
-.msgParent3 {
-    width: 100%;
-    height: 100%;
-    display: flex;
-}
-
 .msgChild3-1 {
     width: 7%;
-    margin: auto;
-    border: 1px solid gray;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid #dfdfdf;
 }
 
 .msgChild3-2 {
     width: 86%;
-    border: 1px solid gray;
     height: 100%;
+}
+
+.msgChild3-2 input {
+    height: 100%;
+    border: 0;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: black;
 }
 
 .msgChild3-3 {
     width: 7%;
-    margin: auto;
-    border: 1px solid gray;
     height: 100%;
-}
-
-.msgAction {
-    transform: translateY(60%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .send {
@@ -270,25 +339,48 @@
 }
 
 .recieve {
-    margin-top: 1%;
     width: 60%;
     float: left;
     padding: 1%;
-
 }
 
 .sendTime {
-    margin-left: 90%;
+    text-align: end;
+}
+
+.sendTime, .recieveTime {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px;
+    letter-spacing: 0.01em;
+    color: #999999;
+    margin-bottom: 5px;
 }
 
 .sendMsg {
     padding: 2%;
-    border-radius: 10px 0 10px 10px;
+    border-radius: 7px 0 7px 7px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    background: #E2EFF9;
 }
 
 .recieveMsg {
+    background: #EEEEEE;
     padding: 2%;
-    border-radius: 0 10px 10px 10px;
+    border-radius: 0 7px 7px 7px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.25px;
 }
 
 #alergies {
@@ -327,10 +419,22 @@
     margin-right: 6px;
 }
 
-@media screen and (max-width:1360px) {
+@media screen and (min-width:1920px) {
+    .msgChild1-1 {
+        height: 6%;
+    }
+
+    .msgChild1-2 {
+        height: 89%;
+    }
+
+    .msgChild1-3 {
+        height: 7%;
+    }
+
     #userImg {
-        width: 85px;
-        height: 85px;
+        width: 109px;
+        height: 109px;
     }
 
 }

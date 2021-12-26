@@ -367,3 +367,9 @@
         margin: 0% 0 13% 0;
     }
 }
+
+@media screen and (max-width:1920px) {
+    .passIconSet>img{
+        margin-top: 2.5%;
+    }
+}

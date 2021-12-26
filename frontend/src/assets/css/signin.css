@@ -185,3 +185,14 @@
         top: -1.1px;
     }
 }
+
+@media screen and (max-width:1920px) {
+    .signin_cont {
+        width: 31.5%;
+        height: 71%;
+    }
+
+    .signin_logo_cont {
+        margin-top: 1%;
+    }
+}

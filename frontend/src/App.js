@@ -28,7 +28,8 @@ function App() {
         <Protected path='/edit-profile' component={EditProfile} />
         <Protected path='/edit-id-password' component={IdPassword} />
         <Protected path='/chat' component={Chat} />
-        <Protected path='/individual' component={IndividualPanel} />
+        <Protected exact path='/individual' component={IndividualPanel} />
+        <Protected path='/allergies-condition' component={IndividualPanel} />
       </Router>
 
       <ToastContainer

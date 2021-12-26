@@ -45,9 +45,6 @@ function SignIn() {
             showSP: 'none',
         }));
 
-        // localStorage.setItem('sign-in', 'mockData');
-        // history.push('/');
-
         const data={
             username: username,
             password: password
@@ -56,7 +53,6 @@ function SignIn() {
 
         axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/user/login',data)
             .then((response)=>{
-                // console.log(response.data.success)
                 setAuthData((obj)=>({
                     email: response.data.data.username,
                     token: response.data.data.token,
@@ -67,7 +63,6 @@ function SignIn() {
                 history.push('/');
             })
             .catch((err)=>{
-                //console.log(err.response.data.success)
                 resetFieldsData();
                 Notifications('error','Invalid Credentals! Try Again')
             });
@@ -80,7 +75,7 @@ function SignIn() {
                     <img src={logo} alt="Jubiwatch_logo" />
                     <p>for Doctors</p>
                 </div>
-                <form onSubmit={loginHandle}>
+                <form onSubmit={loginHandle} autocomplete="on">
                     <div className='signin_fields_cont'>
                         <div className='signin_fields'>
                             <input type="email" placeholder='Email ID' onChange={(e)=>setUsername(e.target.value)} required/>
@@ -90,7 +85,7 @@ function SignIn() {
                         </div>
                         <div className='signin_fields_bottom'>
                             <div className='signin_checkout'>
-                                <input type="checkbox" required/>
+                                <input type="checkbox"/>
                                 <span>Remember me</span>
                             </div>
                             <Link to='/forget'>Forgot password?</Link>

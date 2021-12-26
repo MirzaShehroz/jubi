@@ -1,8 +1,7 @@
 import '../assets/css/individualpanel.css';
 import React from 'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import closeIcon from '../assets/img/cancelicon2.png'
-
 import IndividualPanel2 from "./individualpanel2";
 import IndividualUserPanel from "./individualuserpanel";
 import Alergies from "./alergies";
@@ -13,9 +12,6 @@ function IndividualPanel() {
         history.push('/');
     }
 
-
-
-
     return (
         <div className='individualPanel'>
             <div className='individualPanel_close'>
@@ -23,11 +19,12 @@ function IndividualPanel() {
             </div>
             <div className='individualPanel_main'>
                 <div className='individualPanel_child1'>
-                    <IndividualUserPanel/>
+                    <IndividualUserPanel />
                 </div>
                 <div className='individualPanel_child2'>
-                    <IndividualPanel2/>
-                    {/*<Alergies/>*/}
+                    {useLocation().pathname === '/individual' ? <IndividualPanel2 /> : null}
+                    {useLocation().pathname === '/allergies-condition' ? <Alergies /> : null}
+
                 </div>
             </div>
         </div>

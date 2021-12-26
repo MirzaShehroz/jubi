@@ -2,15 +2,28 @@ import user from "../assets/img/user.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import cancelButton from "../assets/img/closeButton.png";
-import { Button } from "react-bootstrap";
 import chatIcon from "../assets/img/chaticon.png";
+import watchListIcon from "../assets/img/bookmark.png";
 import exportIcon from "../assets/img/export.png";
 import React from "react";
+import { useHistory, useLocation } from 'react-router-dom';
 
 function IndividualUserPanel() {
+    const history = useHistory();
+
+    const showChat = () => {
+        history.push('/chat')
+    }
+    const showIndividual = () => {
+        history.push('/individual')
+    }
+    const showAllergies = () => {
+        history.push('/allergies-condition')
+    }
+
     return (
         <>
-            <p className={'text-center'}><img alt="user" id={'userImg'} src={user} /></p>
+            <p className={'text-center'}><img onClick={showIndividual} alt="user" id={'userImg'} src={user} /></p>
             <br />
             <h5 className={'text-center'} style={{ fontSize: '16px' }}>John Doe</h5>
             <p className={'text-center'} style={{ fontSize: '13px' }}>Female</p>
@@ -28,7 +41,7 @@ function IndividualUserPanel() {
                 </tr>
             </table>
             <br />
-            <p id={'alergies'}><u>Allergies (11) & Conditions (3)</u></p>
+            <p onClick={showAllergies} id={'alergies'}><u>Allergies (11) & Conditions (3)</u></p>
             <br />
             <div id={'memo'}>
                 <table>
@@ -58,9 +71,17 @@ function IndividualUserPanel() {
                 </div>
             </div>
             <div className="userPanelInd_btn">
-                <button><img src={chatIcon} alt={'chatIcon'} />Send Message</button>
-                <button><img src={exportIcon} alt={'exportIcon'} />View Detail Page</button>
-                <button style={{background:'#D7575F',color:'#FFFFFF',borderColor:'#D7575F'}}>Remove from Watchlist</button>
+                {useLocation().pathname === '/chat' ?
+                    <>
+                        <button onClick={showIndividual} >View detailed page</button>
+                        <button style={{ color: '#D7575F', borderColor: '#D7575F' }}><img src={watchListIcon} alt={'exportIcon'} />Add to watchlist</button>
+                    </>
+                    :
+                    <>
+                        <button onClick={showChat}><img src={chatIcon} alt={'chatIcon'} />Send Message</button>
+                        <button><img src={exportIcon} alt={'exportIcon'} />Export to PDF</button>
+                        <button style={{ background: '#D7575F', color: '#FFFFFF', borderColor: '#D7575F' }}>Remove from Watchlist</button>
+                    </>}
             </div>
         </>
     )

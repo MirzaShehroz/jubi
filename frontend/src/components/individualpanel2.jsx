@@ -43,8 +43,6 @@ const renderActiveShape = (props) => {
     );
 };
 
-
-
 function IndividualPanel2() {
 
     const [activeIndex] = useState(0);
@@ -268,13 +266,14 @@ function IndividualPanel2() {
                             </div>
                         </div>
                         <div className='individualPanel_child22_graph'>
-                            <div className='individualPanel_graph1'style={{margin: 'auto'}}>
-                                <PieChart width={400} height={400} style={{margin: 'auto'}}>
+                            <div className='individualPanel_graph1'>
+                                <h5>Total</h5>
+                                <PieChart width={400} height={400}>
                                     <Pie
                                         activeIndex={activeIndex}
                                         activeShape={renderActiveShape}
                                         data={gdata}
-                                        cx={120}
+                                        cx={115}
                                         cy={90}
                                         innerRadius={60}
                                         outerRadius={80}

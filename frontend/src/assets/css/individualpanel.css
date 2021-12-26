@@ -18,14 +18,14 @@
     height: 88.5%;
     margin: auto;
     display: flex;
-    border-radius: 8px;
+    border-radius: 3px;
 }
 
 .individualPanel_child1 {
     width: 23%;
     background: white;
     height: 100%;
-    border-radius: 8px 0 0 8px;
+    border-radius: 3px 0 0 3px;
     padding: 2% 1.5%;
     overflow-y: auto;
 }

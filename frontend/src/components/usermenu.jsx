@@ -4,9 +4,14 @@ import avatar from "../assets/img/signup_avatar.png";
 import lockIcon from "../assets/img/lockicon2.png";
 import signOutIcon from "../assets/img/signouticon.png";
 import helpIcon from "../assets/img/helpicon.png";
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 function UserMenu({ menu }) {
+    const history = useHistory();
+    const logoutHandle = () => {
+        sessionStorage.clear();
+        history.push('/');
+    }
     return (
         <>
             <div className={menu}>
@@ -22,7 +27,7 @@ function UserMenu({ menu }) {
                     </li>
                     <li id='li'><Link to='edit-id-password'><img src={lockIcon} alt="something12" /> Edit ID and Password</Link></li>
                     <li><img src={helpIcon} alt="something16" /> Help</li>
-                    <li><Link to='/sign-in'><img src={signOutIcon} alt="something" /> Sign out</Link></li>
+                    <li onClick={logoutHandle}><img src={signOutIcon} alt="something" /> Sign out</li>
                 </ul>
             </div>
         </>

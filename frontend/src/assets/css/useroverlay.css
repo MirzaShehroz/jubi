@@ -149,3 +149,16 @@
 .overlay_child3 button:hover {
     background-color: #3e6578e6;
 }
+
+@media screen and (min-width:1920px) {
+    #overlay_user {
+        height: 93%;
+        min-height: 93%;
+        max-height: 93%;
+        top: 7%;
+    }
+
+    .overlay_child1 {
+        padding: 8% 6.5%;
+    }
+}

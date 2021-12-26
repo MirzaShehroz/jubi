@@ -54,7 +54,7 @@ function SignUp2() {
     }
 
     const verOkHandle = () => {
-        if (verCode === 12345) {
+        if (verCode === '12345') {
             setInvalidVer(false);
             setEmailMsg(true);
             setShowVerEmailBtn(false);

@@ -8,11 +8,12 @@ import settingIcon from '../assets/img/settingicon.png'
 import signOutIcon from '../assets/img/signouticon.png'
 import { useRecoilState } from 'recoil'
 import { showHeaderProfile, sidePanelFunc } from '../data/atom'
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Sidebar() {
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
     const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
+    const history = useHistory();
 
     const showUPanelHandle = () => {
         setShowHeader((obj) => ({
@@ -29,6 +30,10 @@ function Sidebar() {
             showSP: 'grid',
         }))
     }
+    const logoutHandle = () => {
+        sessionStorage.clear();
+        history.push('/');
+    }
 
     return (
         <>
@@ -43,7 +48,7 @@ function Sidebar() {
                 <div className='sidebar_icon'>
                     <ul>
                         <li><img onClick={showUPanelHandle} src={settingIcon} alt="something" /></li>
-                        <li><Link to='/sign-in'><img src={signOutIcon} alt="something" /></Link></li>
+                        <li><img onClick={logoutHandle} src={signOutIcon} alt="something" /></li>
                     </ul>
                 </div>
             </div>

@@ -117,3 +117,10 @@
     top: -20px;
     right: 30px;
 }
+
+@media screen and (min-width:1920px) {
+    .dd_menu{
+        top: 7.2%;
+        right: 5%;
+    }
+}

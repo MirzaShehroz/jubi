@@ -39,8 +39,8 @@ function DashboardGraph() {
         color: '#C1D6E1'
     })
     const [btnClr4, setBtnClr4] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
+        background: '#FFFFFF',
+        color: '#3E6578'
     })
 
     const changeBtnClr1 = () => {

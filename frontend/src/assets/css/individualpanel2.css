@@ -33,7 +33,7 @@
 .individualPanel_child2 {
     width: 77%;
     height: 100%;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 3px 3px 0;
 }
 
 .individualPanel_child21 {
@@ -41,14 +41,14 @@
     align-items: center;
     padding-left: 2.5%;
     height: 12%;
-    background: #3E6578;
-    border-radius: 0 8px 0 0;
+    background: rgb(62, 101, 120);
+    border-radius: 0 3px 0 0;
 }
 
 .individualPanel_child22 {
     height: 88%;
     background: #EEEEEE;
-    border-radius: 0 0 8px 0;
+    border-radius: 0 0 3px 0;
     display: flex;
 }
 
@@ -70,7 +70,7 @@
     padding-bottom: 3%;
     overflow-y: auto;
     background: #EEEEEE;
-    border-radius: 0 0 8px 0;
+    border-radius: 0 0 3px 0;
 }
 
 .individualPanel_child22_2_child {
@@ -119,7 +119,6 @@
 
 .individualPanel_child22_graph {
     height: 200px;
-    /*background: bisque;*/
     width: 100%;
     display: flex;
 }
@@ -144,9 +143,16 @@
     height: 100%;
 }
 
+.individualPanel_graph1 h5 {
+    color: #999999;
+    height: 12px;
+    transform: translate(104px, -2px);
+}
+
+
 .individualPanel_graph2 {
     height: 100%;
-    width: 65%;
+    width: 64%;
 }
 
 .chartBox {
@@ -177,4 +183,37 @@
 .individual2_input2>input:checked::before {
     left: 3px;
     top: -2px;
+}
+
+@media screen and (min-width:1920px) {
+
+    .individualPanel_child21 {
+        height: 10%;
+    }
+
+    .individualPanel_child22 {
+        height: 90%;
+    }
+
+    .individual2_input>input:checked::before {
+        left: 26px;
+        top: 16px;
+    }
+
+    .individual2_input2>input:checked::before {
+        top: -3px;
+    }
+
+    #memo {
+        height: 31%;
+    }
+
+    .userPanelInd_btn button {
+        margin-bottom: 11px;
+    }
+
+    .individualPanel_graph1 h5 {
+        transform: translate(104px, -9px);
+        height: 6px;
+    }
 }
