@@ -261,6 +261,28 @@
 }
 
 
+@media screen and (max-width:1280px) {
+    .c_menu {
+        top: 8.7%;
+        height: 75%;
+        min-height: 75%;
+    }
+
+    .cancelIcon_CMenu {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .cs_menu {
+        top: 23.7%;
+    }
+
+    .csMenu_Child1 {
+        justify-content: space-around;
+        height: 68%;
+    }
+}
+
 @media screen and (min-width:1920px) {
     .c_menu {
         top: 7.2%;
@@ -277,7 +299,6 @@
     }
 
     .cs_menu {
-        position: absolute;
         max-width: 361px;
         min-width: 361px;
         width: 361px;
@@ -298,6 +319,7 @@
         justify-content: space-around;
         height: 63%;
     }
+
     .csMenu_Child2 {
         margin: 10% 8%;
     }

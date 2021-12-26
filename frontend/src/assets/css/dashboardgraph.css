@@ -251,6 +251,31 @@
     background: #A0B9C8;
 }
 
+@media screen and (max-width:1024px) {
+    .dashboard_child12 h4 {
+        font-size: 19px;
+    }
+
+    .dashboard_child12>div:last-child {
+        width: 19%;
+    }
+
+    .dashboard_child12>div {
+        width: 39.7%;
+    }
+
+    .dashboard_child12_graphNum {
+        height: 70%;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .dashboard_child12_graphNum>div {
+        margin-right: 5%;
+        width: 90%;
+    }
+}
+
 @media screen and (min-width:1920px) {
     .dashboard_child12_graphNum {
         justify-content: space-evenly;

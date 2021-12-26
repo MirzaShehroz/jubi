@@ -118,8 +118,15 @@
     right: 30px;
 }
 
+@media screen and (max-width:1280px) {
+    .dd_menu {
+        top: 8.7%;
+        right: 5%;
+    }
+}
+
 @media screen and (min-width:1920px) {
-    .dd_menu{
+    .dd_menu {
         top: 7.2%;
         right: 5%;
     }

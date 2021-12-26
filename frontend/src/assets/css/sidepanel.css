@@ -160,3 +160,9 @@
     font-size: 13px;
     font-weight: bolder;
 }
+
+@media screen and (max-width:1024px) {
+    #sidePanel {
+        grid-template-columns: 7.3fr 0.14fr 4.56fr;
+    }
+}

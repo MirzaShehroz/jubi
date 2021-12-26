@@ -77,6 +77,13 @@
     border: 0;
 }
 
+@media screen and (max-width:1280px) {
+    .dashboard_parent {
+        height: 91.5%;
+        min-height: 91.5%;
+        max-height: 91.5%;
+    }
+}
 @media screen and (min-width:1920px) {
     .dashboard_parent {
         height: 93%;

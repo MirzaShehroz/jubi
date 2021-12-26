@@ -419,6 +419,50 @@
     margin-right: 6px;
 }
 
+@media screen and (max-width:1024px) {
+    .msgChild1-1-name h4 {
+        font-size: 16px;
+    }
+
+    .recieveMsg, .sendMsg {
+        font-size: 12px;
+    }
+
+    .userChatParent1 p {
+        font-size: 11px;
+    }
+
+    .userChatChild12-1 h5 {
+        font-size: 13px;
+    }
+    .userChatChild11 img {
+        height: 28px;
+        width: 28px;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .msgChild1-1 {
+        height: 7%;
+    }
+
+    .msgChild1-2 {
+        height: 87%;
+    }
+
+    .msgChild1-3 {
+        height: 7%;
+    }
+
+    .msgChild1-1-img img {
+        width: 40px;
+    }
+
+    #memo {
+        height: 39%;
+    }
+}
+
 @media screen and (min-width:1920px) {
     .msgChild1-1 {
         height: 6%;
@@ -430,11 +474,6 @@
 
     .msgChild1-3 {
         height: 7%;
-    }
-
-    #userImg {
-        width: 109px;
-        height: 109px;
     }
 
 }

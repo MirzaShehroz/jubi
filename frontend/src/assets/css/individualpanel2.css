@@ -185,6 +185,43 @@
     top: -2px;
 }
 
+@media screen and (max-width:1024px) {
+    .individualPanel_child22_12child input {
+        margin-right: 14px;
+    }
+
+    .individualPanel_graph1 {
+        width: 43%;
+    }
+
+    .individualPanel_graph2 {
+        width: 57%;
+    }
+}
+
+@media screen and (max-width:1280px) {
+    .individualPanel_child1 {
+        width: 25%;
+    }
+
+    .individualPanel_child2 {
+        width: 75%;
+    }
+
+    .individual2_input>input:checked::before {
+        left: 18px;
+        top: 10px;
+    }
+
+    .individualPanel_child21 {
+        height: 10%;
+    }
+
+    .individualPanel_child22 {
+        height: 90%;
+    }
+}
+
 @media screen and (min-width:1920px) {
 
     .individualPanel_child21 {
@@ -205,7 +242,7 @@
     }
 
     #memo {
-        height: 31%;
+        height: 28.6%;
     }
 
     .userPanelInd_btn button {
