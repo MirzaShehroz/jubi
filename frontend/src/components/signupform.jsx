@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import SignUpAddress from './signupaddress';
 import logo from '../assets/img/jubiwatch_logo2.png';
-import avatar from '../assets/img/signup_avatar.png';
 import passIcon1 from '../assets/img/passwordicon1.png';
+import picUpload from '../assets/img/pic_upload_icon.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
+import { useRecoilState } from 'recoil';
+import { userPicUpload } from '../data/atom';
 
 function SignUp2() {
 
@@ -18,6 +20,7 @@ function SignUp2() {
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [okBtnClr, setOkBtnClr] = useState('#C6C6C6');
     const [passVisi, setPassVisi] = useState(false);
+    const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
 
     const submitSignForm = (e) => {
         e.preventDefault();
@@ -70,6 +73,17 @@ function SignUp2() {
     const showPassVisibility = () => {
         setPassVisi(!passVisi);
     }
+    const updateProfileDataChange = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setAvatarPreview((obj) => ({
+                    avatar: reader.result
+                }));
+            }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
 
     return (
         <>
@@ -77,10 +91,22 @@ function SignUp2() {
                 <div className="signup" >
                     <div className="signup_cont signup_cont2">
                         <p className='signup_heading'>Sign up</p>
-                        <form onSubmit={submitSignForm}>
+                        <form onSubmit={submitSignForm} encType="multipart/form-data">
                             <div className='signin_fields_cont'>
                                 <div className='signup_avatar'>
-                                    <img src={avatar} alt="avatar" />
+                                    <img src={avatarPreview.avatar} alt="avatar" />
+                                    <div class="custom-file">
+                                        <div>
+                                            <input
+                                                type="file"
+                                                class="custom-file-input"
+                                                id="images"
+                                                accept="image/*"
+                                                onChange={updateProfileDataChange}
+                                            />
+                                            <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <label className='signup_label'>Name <span>*</span></label>
                                 <div className='signin_fields'>

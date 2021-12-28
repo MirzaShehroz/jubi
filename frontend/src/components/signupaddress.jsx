@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import logo from '../assets/img/jubiwatch_logo2.png';
-import avatar from '../assets/img/signup_avatar.png';
 import addIcon from '../assets/img/addicon.png';
 import SignUp2 from './signupform';
+import picUpload from '../assets/img/pic_upload_icon.png';
+import { useRecoilState } from 'recoil';
+import { userPicUpload } from '../data/atom';
 
 function SignUpAddress() {
     const [showPrevPage, setShowPrevPage] = useState(false);
+    const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
+
 
     const submitSignAddress = (e) => {
         e.preventDefault();
@@ -14,16 +18,39 @@ function SignUpAddress() {
     const showPrev = () => {
         setShowPrevPage(true);
     }
+    const updateProfileDataChange = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setAvatarPreview((obj) => ({
+                    avatar: reader.result
+                }));
+            }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
 
     return (
         <>
             {!showPrevPage ? <div className="signup" >
                 <div className="signup_cont signup_cont2">
                     <p className='signup_heading'>Sign up</p>
-                    <form onSubmit={submitSignAddress}>
+                    <form onSubmit={submitSignAddress} encType="multipart/form-data">
                         <div className='signin_fields_cont'>
                             <div className='signup_avatar'>
-                                <img src={avatar} alt="avatar" />
+                                <img src={avatarPreview.avatar} alt="avatar" />
+                                <div class="custom-file">
+                                    <div>
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            id="images"
+                                            accept="image/*"
+                                            onChange={updateProfileDataChange}
+                                        />
+                                        <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar"  /></label>
+                                    </div>
+                                </div>
                             </div>
                             <label className='signup_label'>Office <span>*</span></label>
                             <div className='signin_fields'>
@@ -58,7 +85,7 @@ function SignUpAddress() {
                                     value={'Add'}
                                     id='addBtn'
                                 />
-                                <img id='addBtnIcon' src={addIcon} alt="something17"/>
+                                <img id='addBtnIcon' src={addIcon} alt="something17" />
                             </div>
                             <div className='signup_btn_cont'>
                                 <button type='button' onClick={showPrev} className='signup_btn signup_btn1'>Previous</button>

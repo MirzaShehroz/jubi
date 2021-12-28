@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import avatar from '../assets/img/signup_avatar.png';
 
 export const connectUserShow = atom({
     key: "connect_atom",
@@ -31,5 +32,12 @@ export const authData= atom({
     default: {
         email:'email',
         token:'token'
+    }
+})
+
+export const userPicUpload= atom({
+    key: "userPic",
+    default: {
+        avatar:avatar,
     }
 })

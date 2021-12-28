@@ -2,13 +2,26 @@ import React from 'react'
 import logo from '../assets/img/jubiwatch_logo2.png';
 import avatar from '../assets/img/signup_avatar.png';
 import addIcon from '../assets/img/addicon.png';
+import picUpload from '../assets/img/pic_upload_icon.png';
+import { userPicUpload } from '../data/atom';
+import { useRecoilState } from 'recoil';
 
 function EditProfile() {
-
+    const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
     const submitSignForm = (e) => {
         e.preventDefault();
-
     }
+    const updateProfileDataChange = (e) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setAvatarPreview((obj) => ({
+                    avatar: reader.result
+                }));
+            }
+        };
+        reader.readAsDataURL(e.target.files[0]);
+    };
     return (
         <>
             <div className="signup" >
@@ -17,7 +30,19 @@ function EditProfile() {
                     <form onSubmit={submitSignForm}>
                         <div className='signin_fields_cont'>
                             <div className='signup_avatar'>
-                                <img src={avatar} alt="avatar" />
+                                <img src={avatarPreview.avatar} alt="avatar" />
+                                <div class="custom-file">
+                                    <div>
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            id="images"
+                                            accept="image/*"
+                                            onChange={updateProfileDataChange}
+                                        />
+                                        <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar"  /></label>
+                                    </div>
+                                </div>
                             </div>
                             <label className='signup_label'>Name <span>*</span></label>
                             <div className='signin_fields'>

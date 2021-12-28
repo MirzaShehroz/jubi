@@ -194,7 +194,7 @@
     }
 }
 
-@media screen and (max-width:1280px) {
+@media screen and (max-width:1280px)and (min-width:1026px) {
     .signin_cont {
         width: 38.5%;
         height: 73%;
