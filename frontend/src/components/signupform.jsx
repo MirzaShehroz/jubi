@@ -94,17 +94,19 @@ function SignUp2() {
                         <form onSubmit={submitSignForm} encType="multipart/form-data">
                             <div className='signin_fields_cont'>
                                 <div className='signup_avatar'>
-                                    <img src={avatarPreview.avatar} alt="avatar" />
-                                    <div class="custom-file">
-                                        <div>
-                                            <input
-                                                type="file"
-                                                class="custom-file-input"
-                                                id="images"
-                                                accept="image/*"
-                                                onChange={updateProfileDataChange}
-                                            />
-                                            <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
+                                    <div>
+                                        <img src={avatarPreview.avatar} alt="avatar" />
+                                        <div class="custom-file">
+                                            <div>
+                                                <input
+                                                    type="file"
+                                                    class="custom-file-input"
+                                                    id="images"
+                                                    accept="image/*"
+                                                    onChange={updateProfileDataChange}
+                                                />
+                                                <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
