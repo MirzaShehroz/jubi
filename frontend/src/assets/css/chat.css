@@ -306,6 +306,45 @@
     border-right: 2px solid #dfdfdf;
 }
 
+.custom-file1 {
+    display: flex;
+    position: absolute;
+    transform: translate(10px, 0px);
+}
+
+.custom-file1>div {
+    height: 27px;
+    border-radius: 50%;
+    display: flex;
+    width: 27px;
+
+}
+
+.custom-file1-input {
+    user-select: auto;
+    width: 100%;
+    opacity: 0;
+}
+
+.custom-file1-label {
+    cursor: pointer;
+    z-index: 5;
+    user-select: auto;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.custom-file1-label::after {
+    display: none;
+}
+
+.custom-file1-label img {
+    user-select: auto;
+}
+
+
 .msgChild3-2 {
     width: 86%;
     height: 100%;
@@ -435,6 +474,7 @@
     .userChatChild12-1 h5 {
         font-size: 13px;
     }
+
     .userChatChild11 img {
         height: 28px;
         width: 28px;

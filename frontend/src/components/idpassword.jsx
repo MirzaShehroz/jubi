@@ -5,6 +5,7 @@ import passIcon1 from '../assets/img/passwordicon1.png';
 import tickIcon from '../assets/img/tickicon.png';
 import wrongIcon from '../assets/img/wrongicon.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
+import { useHistory } from 'react-router-dom';
 
 function IdPassword() {
 
@@ -21,6 +22,10 @@ function IdPassword() {
     const [cPass, setCPass] = useState(null);
     const [invalidVer, setInvalidVer] = useState(false);
     const [passReq, setPassReq] = useState(false);
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/')
+    }
 
     const passHandle = () => {
         setPassReq(true);
@@ -188,7 +193,7 @@ function IdPassword() {
                                 {invalidVer ? <p className='passErr'>Passwords do not match</p> : null}
                             </div>
                             <div className='signup_btn_cont'>
-                                <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                 <button type='submit' className='signup_btn signup_btn2' style={{ background: '#3E6578' }}>Save</button>
                             </div>
                         </div>

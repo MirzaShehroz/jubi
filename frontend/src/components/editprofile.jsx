@@ -1,16 +1,22 @@
 import React from 'react'
 import logo from '../assets/img/jubiwatch_logo2.png';
-import avatar from '../assets/img/signup_avatar.png';
 import addIcon from '../assets/img/addicon.png';
 import picUpload from '../assets/img/pic_upload_icon.png';
 import { userPicUpload } from '../data/atom';
 import { useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 
 function EditProfile() {
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/')
+    }
+
     const submitSignForm = (e) => {
         e.preventDefault();
     }
+
     const updateProfileDataChange = (e) => {
         const reader = new FileReader();
         reader.onload = () => {
@@ -101,7 +107,7 @@ function EditProfile() {
                             </div>
 
                             <div className='signup_btn_cont'>
-                                <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                 <button type='submit' className='signup_btn signup_btn2' style={{ background: '#3E6578' }}>Save</button>
                             </div>
                         </div>

@@ -149,7 +149,16 @@ function Chat() {
                             </div>
                             <div className={'msgChild1-3'}>
                                 <div className='msgChild3-1'>
-                                    <img src={attachPic} alt="" />
+                                    <div class="custom-file1">
+                                        <div>
+                                            <input
+                                                type="file"
+                                                class="custom-file1-input"
+                                                id="files"
+                                            />
+                                            <label for="files" class="custom-file1-label"> <img src={attachPic} alt="avatar" /></label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className={'msgChild3-2'}>
                                     <input
