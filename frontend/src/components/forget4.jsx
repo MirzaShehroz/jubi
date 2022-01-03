@@ -7,6 +7,7 @@ import wrongIcon from '../assets/img/wrongicon.png';
 import passIcon1 from '../assets/img/passwordicon1.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
 import Forget5 from './forget5';
+import { useHistory } from 'react-router-dom';
 
 
 function Forget4() {
@@ -16,7 +17,10 @@ function Forget4() {
     const [invalidVer, setInvalidVer] = useState(false);
     const [passVisi, setPassVisi] = useState(false);
     const [passReq, setPassReq] = useState(false);
-
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
     const passHandle = () => {
         setPassReq(true);
     }
@@ -93,7 +97,7 @@ function Forget4() {
                                         {invalidVer ? <p className='passErr'>Passwords do not match</p> : null}
                                     </div>
                                     <div className='signup_btn_cont'>
-                                        <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                        <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                         <button type='submit' className='signup_btn signup_btn2' style={{ background: '#3E6578' }}>Continue</button>
                                     </div>
                                 </div>

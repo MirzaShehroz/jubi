@@ -2,11 +2,15 @@ import '../assets/css/signup.css';
 import React, { useState } from 'react';
 import SignUp2 from './signupform';
 import logo from '../assets/img/jubiwatch_logo.png';
+import { useHistory } from 'react-router-dom';
 
 function SignUp() {
     const [show, setShow] = useState(false);
     const [checkboxShow, setCBS] = useState(false);
-
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
     const submitTermsHandle = (e) => {
         e.preventDefault();
         if (checkboxShow) {
@@ -62,7 +66,7 @@ function SignUp() {
                                 </div>
                             </div>
                             <div className='signup_btn_cont'>
-                                <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                 <button type='submit' style={{ background: checkboxShow ? '#3E6578' : '#c6c6c6' }} className='signup_btn signup_btn2'>Next</button>
                             </div>
                         </div>

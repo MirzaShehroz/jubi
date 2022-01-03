@@ -1,11 +1,14 @@
 import '../assets/css/forget.css';
 import React from 'react';
 import logo from '../assets/img/jubiwatch_logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 function Forget2() {
-    
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
     return (
         <div className="signin">
             <div className="signin_cont">
@@ -25,7 +28,7 @@ function Forget2() {
                         </div>
 
                         <div className='signup_btn_cont'>
-                            <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                            <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                             <Link to='sign-up'><button type='button' className='signup_btn signup_btn2' style={{ background: "#3E6578" }} >Sign up</button></Link>
                         </div>
                         <div className='signin_bottom_cont'>

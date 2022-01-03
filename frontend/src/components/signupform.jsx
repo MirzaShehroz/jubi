@@ -6,6 +6,7 @@ import picUpload from '../assets/img/pic_upload_icon.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
 import { useRecoilState } from 'recoil';
 import { userPicUpload } from '../data/atom';
+import { useHistory } from 'react-router-dom';
 
 function SignUp2() {
 
@@ -21,7 +22,10 @@ function SignUp2() {
     const [okBtnClr, setOkBtnClr] = useState('#C6C6C6');
     const [passVisi, setPassVisi] = useState(false);
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
-
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
     const submitSignForm = (e) => {
         e.preventDefault();
         setShowSign3(true);
@@ -174,7 +178,7 @@ function SignUp2() {
                                     </div>
                                 </div> : null}
                                 <div className='signup_btn_cont'>
-                                    <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                    <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                     <button type='submit' className='signup_btn signup_btn2'>Next</button>
                                 </div>
                             </div>

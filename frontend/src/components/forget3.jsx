@@ -2,6 +2,7 @@ import '../assets/css/forget.css';
 import React, { useState } from 'react';
 import logo from '../assets/img/jubiwatch_logo.png';
 import Forget4 from './forget4';
+import { useHistory } from 'react-router-dom';
 
 
 function Forget3() {
@@ -9,7 +10,10 @@ function Forget3() {
     const [emailVer, setEmailVer] = useState(null);
     const [showF4, setF4] = useState(false);
     const [invalidVer, setInvalidVer] = useState(false);
-
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
 
     const emailVerHandle = (e) => {
         setEmailVer(e.target.value);
@@ -66,7 +70,7 @@ function Forget3() {
                                         </div>
                                     </div>
                                     <div className='signup_btn_cont'>
-                                        <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                        <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                         <button type='submit' className='signup_btn signup_btn2' style={{ background: btnClr }}>Continue</button>
                                     </div>
                                 </div>

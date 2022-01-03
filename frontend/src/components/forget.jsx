@@ -4,13 +4,17 @@ import Forget2 from './forget2';
 import Forget3 from './forget3';
 import logo from '../assets/img/jubiwatch_logo.png';
 import iIcon from '../assets/img/coolicon.png';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 function Forget() {
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [email, setEmail] = useState(null);
     const [showF2, setF2] = useState(false);
     const [showF3, setF3] = useState(false);
+    const history = useHistory();
+    const cancelButton = () => {
+        history.push('/sign-in')
+    }
 
     const emailHandle = (e) => {
         setEmail(e.target.value);
@@ -61,7 +65,7 @@ function Forget() {
                                             </div>
                                         </div>
                                         <div className='signup_btn_cont'>
-                                            <button type='button' className='signup_btn signup_btn1'>Cancel</button>
+                                            <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
                                             <button type='submit' className='signup_btn signup_btn2' style={{ background: btnClr }}>Continue</button>
                                         </div>
                                         <div className='signin_bottom_cont'>

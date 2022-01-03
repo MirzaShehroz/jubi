@@ -10,7 +10,6 @@ function SignUpAddress() {
     const [showPrevPage, setShowPrevPage] = useState(false);
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
 
-
     const submitSignAddress = (e) => {
         e.preventDefault();
     }
