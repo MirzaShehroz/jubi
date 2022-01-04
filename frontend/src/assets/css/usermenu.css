@@ -19,8 +19,17 @@
     width: 303px;
 }
 
-.menu_div>img {
-    margin-bottom: 15px;
+.menu_div>div {
+    width: 60px;
+    height: 60px;
+}
+
+.menu_div>div>img {
+    width: 100%;
+    border-radius: 50%;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
 }
 
 .menu_div button {

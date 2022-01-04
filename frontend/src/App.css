@@ -4,6 +4,9 @@
   box-sizing: border-box;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
 
 a:not([href]):not([class]) {
   color: none;

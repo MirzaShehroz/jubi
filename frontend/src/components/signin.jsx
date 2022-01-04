@@ -50,7 +50,6 @@ function SignIn() {
             password: password
         }
 
-
         axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/user/login',data)
             .then((response)=>{
                 setAuthData((obj)=>({
@@ -64,7 +63,7 @@ function SignIn() {
             })
             .catch((err)=>{
                 resetFieldsData();
-                Notifications('error','Invalid Credentals! Try Again')
+                Notifications('error','Invalid Credentials! Try Again')
             });
     }
 

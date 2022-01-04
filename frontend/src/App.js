@@ -9,7 +9,8 @@ import SignIn from './components/signin';
 import SignUp from './components/signupterms';
 import Forget from './components/forget';
 import EditProfile from './components/editprofile';
-import IdPassword from './components/idpassword';
+import EditId from './components/editid';
+import EditPassword from './components/editpassword';
 import DashboardPanel from './components/dashboardpanel';
 import Chat from "./components/chat";
 import IndividualPanel from './components/individualpanel';
@@ -25,24 +26,25 @@ function App() {
         <Route path='/sign-in' render={props => (<SignIn {...props} />)} />
         <Route path='/sign-up'><SignUp /></Route>
         <Route path='/forget'><Forget /></Route>
-        <Protected path='/edit-profile' component={EditProfile} />
-        <Protected path='/edit-id-password' component={IdPassword} />
+        <Route path='/edit-password'><EditPassword /></Route>
+        <Route path='/edit-id'><EditId /></Route>
         <Protected path='/chat' component={Chat} />
+        <Protected path='/edit-profile' component={EditProfile} />
         <Protected exact path='/individual' component={IndividualPanel} />
         <Protected path='/allergies-condition' component={IndividualPanel} />
       </Router>
 
       <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme={"colored"}
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={"colored"}
       />
 
     </div>

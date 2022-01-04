@@ -27,17 +27,35 @@ export const sidePanelFunc = atom({
     }
 })
 
-export const authData= atom({
+export const authData = atom({
     key: "authData",
     default: {
-        email:'email',
-        token:'token'
+        email: 'email',
+        token: 'token'
     }
 })
 
-export const userPicUpload= atom({
+export const userPicUpload = atom({
     key: "userPic",
     default: {
-        avatar:avatar,
+        avatar: avatar,
+    }
+})
+
+export const userIDedit = atom({
+    key: "edit ID",
+    default: {
+        currentPass: true,
+        editEmail: false,
+        successEmail: false,
+    }
+})
+
+export const userPassEdit = atom({
+    key: "edit Password",
+    default: {
+        currentPass: true,
+        editPass: false,
+        successPass: false,
     }
 })
