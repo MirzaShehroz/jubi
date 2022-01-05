@@ -30,7 +30,7 @@ export const sidePanelFunc = atom({
 export const authData = atom({
     key: "authData",
     default: {
-        email: 'email',
+        email: 'username',
         token: 'token'
     }
 })

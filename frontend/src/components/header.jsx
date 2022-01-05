@@ -3,18 +3,18 @@ import React, { useState } from 'react'
 import UserMenu from './usermenu';
 import logo from '../assets/img/jubiwatch_logo.png';
 import addIcon from '../assets/img/addicon2.png';
-import userPic from "../assets/img/user_pic.png";
 import ConnectUser from './connectuser';
-import { useRecoilState } from 'recoil';
-import { connectUserShow, showHeaderProfile } from '../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { authData, connectUserShow, showHeaderProfile, userPicUpload } from '../data/atom';
 
 function Header() {
     const [connectMenu, setCmenu] = useRecoilState(connectUserShow);
+    const userAuthData = useRecoilValue(authData);
     const [showHeaderChild2, /*setShowHeaderChild2*/] = useRecoilState(showHeaderProfile);
     const [/*connectMenuClass*/, /*setCmenuClass*/] = useState("c_menu");
     const [ddMenu, setDDmenu] = useState(false);
     const [ddMenuClass, setDDmenuClass] = useState("dd_menu");
-
+    const userPic = useRecoilValue(userPicUpload);
     const cMenuShow = () => {
         setCmenu((obj) => ({
             ...obj,
@@ -45,10 +45,10 @@ function Header() {
                                 <>
                                     <div className='nav_Child21'>
                                         <p>Dr. Kim’s podiatric clinic</p>
-                                        <p>User name / Title</p>
+                                        <p>{userAuthData.email} / Title</p>
                                     </div>
                                     <div className='nav_Child22'>
-                                        <img src={userPic} alt="something" onClick={ddMenuShow} />
+                                        <img src={userPic.avatar} alt="something" onClick={ddMenuShow} />
                                     </div>
                                 </> : null
                             }

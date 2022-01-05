@@ -44,7 +44,7 @@ function DashboardTable() {
     })
     const [btnClr4, setBtnClr4] = useState({
         background: '#3E6578',
-            color: '#FFFFFF'
+        color: '#FFFFFF'
     })
     const [btnClr5, setBtnClr5] = useState({
         background: '#FFFFFF',
@@ -297,8 +297,8 @@ function DashboardTable() {
                                                 <img alt='' onClick={() => setModalShowAW(true)} src={user} />
                                             </div>
                                             <div className={'col-lg-7 col-sm-7 '}>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}>First Name : John</div>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}>Last Name : Doe</div>
+                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>First Name</b> : John</div>
+                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>Last Name</b> : Doe</div>
                                                 <div id={'year'} className={'col-sm-12'}>52 y.o. (02/19/1966)</div>
                                             </div>
 
@@ -375,8 +375,8 @@ function DashboardTable() {
                                                 <img alt='' onClick={() => setModalShowAW(true)} src={user} />
                                             </div>
                                             <div className={'col-lg-7 col-sm-7 '}>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}>First Name : Jessica</div>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}>Last Name : Oliver</div>
+                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>First Name</b> : Jessica</div>
+                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>Last Name</b> : Oliver</div>
                                                 <div id={'year'} className={'col-sm-12'}>35 y.o. (02/19/1980)</div>
                                             </div>
 

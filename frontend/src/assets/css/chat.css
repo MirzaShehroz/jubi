@@ -137,6 +137,7 @@
     width: 85px;
     height: 85px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .emailHead, .phoneHead {
@@ -179,7 +180,6 @@
 
 .memoHeadIcon {
     width: 200px;
-    text-align: end;
     font-family: 'Pretendard', sans-serif;
     font-size: 12px;
     font-style: normal;
@@ -188,6 +188,7 @@
     letter-spacing: 0em;
     text-align: right;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .memoMsg {

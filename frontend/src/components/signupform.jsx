@@ -23,28 +23,31 @@ function SignUp2() {
     const [passVisi, setPassVisi] = useState(false);
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
     const history = useHistory();
+
     const cancelButton = () => {
         history.push('/sign-in')
     }
+
     const submitSignForm = (e) => {
         e.preventDefault();
         setShowSign3(true);
     }
+
     const emailHandle = (e) => {
         setEmail(e.target.value);
-        if (email.includes('@') && email.includes('.co')) {
+        if (email.includes('@')) {
             setBtnClr('#3E6578');
         }
         else {
             setBtnClr('#C6C6C6');
         }
     }
+
     const sendVerificationHandle = () => {
-        if (email.includes('@') && email.includes('.co')) {
+        if (email.includes('@')) {
             setshowVer(true);
             setBtnClr('#C6C6C6');
-        }
-        else {
+        } else {
             setshowVer(false);
             setOkBtnClr('#C6C6C6')
         }
@@ -61,7 +64,7 @@ function SignUp2() {
     }
 
     const verOkHandle = () => {
-        if (verCode === '12345') {
+        if (parseInt(verCode) === 12345) {
             setInvalidVer(false);
             setEmailMsg(true);
             setShowVerEmailBtn(false);
@@ -118,7 +121,8 @@ function SignUp2() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
-                                        placeholder='First name' />
+                                        placeholder='First name'
+                                        required />
                                 </div>
                                 <div className='signin_fields'>
                                     <input
@@ -128,7 +132,8 @@ function SignUp2() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
-                                        placeholder='Last name' />
+                                        placeholder='Last name'
+                                        required />
                                 </div>
                                 <div className='signup_email'>
                                     <label className='signup_label'>Email <span>*</span></label>
@@ -137,18 +142,23 @@ function SignUp2() {
                                             type="email"
                                             value={email}
                                             placeholder='Email ID'
+                                            required
                                             onChange={(e) => emailHandle(e)} />
 
                                         {emailMsg ? <p className='verified_Email'>Verified!</p> : null}
                                     </div>
-                                    {showVerEmailBtn ? <button onClick={sendVerificationHandle}
-                                        className=' sign_btn sign_btn_email' type='button'
-                                        style={{ background: btnClr }}>Send Verification Code</button> : null}
+                                    {showVerEmailBtn ?
+                                        <button
+                                            onClick={sendVerificationHandle}
+                                            className=' sign_btn sign_btn_email'
+                                            type='button'
+                                            style={{ background: btnClr }}>Send Verification Code</button> : null}
                                     {showVerification ?
                                         <div className='signup_ver_form'>
                                             <input
                                                 className="verification_Field"
                                                 type="password"
+                                                required
                                                 placeholder='Email Verification Code'
                                                 onChange={(e) => verCodeHandle(e)} />
 

@@ -19,7 +19,10 @@ function ConnectUser({ show }) {
     const [showReCnctBtn, setShowReCnctBtn] = useState(false);
     const [showTryBtn, setShowTryBtn] = useState(false);
     const [disableText, setDisableText] = useState('100%');
-
+    const [countDown, setCountDown] = useState({
+        minutes: 0,
+        seconds: 0
+    })
 
     useEffect(() => {
         if (show) {
@@ -28,7 +31,34 @@ function ConnectUser({ show }) {
             setCSmenu(false);
             setCSmenuClass("cs_menu")
         }
-    },[show]);
+    }, [show]);
+
+    const startTimer = (duration) => {
+        let start = Date.now(),
+            diff,
+            minutes,
+            seconds;
+        
+        function timer() {
+            diff = duration - (((Date.now() - start) / 1000) | 0);
+            minutes = (diff / 60) | 0;
+            seconds = (diff % 60) | 0;
+            setCountDown({
+                minutes: minutes < 10 ? "0" + minutes : minutes,
+                seconds: seconds < 10 ? "0" + seconds : seconds
+            })
+            if (diff <= 0) {
+                start = Date.now() + 1000;
+            }
+            if (countDown.minutes === parseInt('00') && countDown.seconds === parseInt('00')) {
+                clearInterval(timer);
+                return;
+            }
+        };
+        timer();
+        setInterval(timer, 1000);
+
+    }
 
     const csMenuShow = () => {
         setCSmenu(true);
@@ -38,14 +68,17 @@ function ConnectUser({ show }) {
     const showReconnectBtn = () => {
         setShowCnctBtn(false);
         setShowReCnctBtn(true);
-        setShowTryBtn(false);
+        // setShowTryBtn(false);
+        startTimer(5);
     }
+
     const showTryAgainBtn = () => {
         setShowCnctBtn(false);
         setShowReCnctBtn(false);
         setDisableText('35%');
         setShowTryBtn(true);
     }
+
     const showCSConnectMenu = () => {
         setCSmenu(false);
         !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
@@ -55,13 +88,11 @@ function ConnectUser({ show }) {
         }))
     }
     const closeComp = () => {
-
         setCsMenuAtom((obj) => ({
             ...obj,
             connectMenu: false,
             connectClass: 'c_menu',
         }));
-
     }
 
     return (
@@ -110,7 +141,8 @@ function ConnectUser({ show }) {
                                 inputProps={{
                                     'aria-label': 'weight',
                                 }} />
-                            {showReCnctBtn ? <p className='csMenu_time'>14:32</p> : showTryBtn ? <p className='csMenu_time'>14:32</p> : null}
+                            {showReCnctBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}
+                            {showTryBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}
                             {showCnctBtn ? <p> When you select ‘ Connect’,
                                 4-digit input popup will display on the
                                 patient’s Jubi watch app.

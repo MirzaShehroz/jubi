@@ -65,7 +65,7 @@ function IndividualUserPanel() {
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae blanditiis error, incidunt nemo perferendis perspiciatis</p>
                         </div>
                         <div className={'col-lg-2 col-sm-2'}>
-                            <img src={cancelButton} alt={'cancel'} />
+                            <img src={cancelButton} alt={'cancel'} style={{cursor:'pointer'}}/>
                         </div>
                     </div>
                 </div>

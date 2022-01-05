@@ -11,21 +11,13 @@ import {authData} from '../data/atom';
 
 function SignIn() {
 
+    const history = useHistory();
     const [/*csMenuAtom*/, setCsMenuAtom] = useRecoilState(connectUserShow);
     const [/*showHeader*/, setShowHeader] = useRecoilState(showHeaderProfile);
     const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
-    const history = useHistory();
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     let [/*authData*/,setAuthData]=useRecoilState(authData);
-
-    function resetFieldsData() {
-        setUsername('');
-        setPassword('');
-    }
-
 
     const loginHandle = async (e) => {
         e.preventDefault();
@@ -50,22 +42,21 @@ function SignIn() {
             password: password
         }
 
-        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/user/login',data)
+        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/login',data)
             .then((response)=>{
                 setAuthData((obj)=>({
                     email: response.data.data.username,
                     token: response.data.data.token,
                 }))
                 sessionStorage.setItem('authData',response.data.data.username);
-                resetFieldsData();
                 Notifications('success','Login Successful')
                 history.push('/');
             })
             .catch((err)=>{
-                resetFieldsData();
                 Notifications('error','Invalid Credentials! Try Again')
             });
-    }
+            
+        }
 
     return (
         <div className="signin">
