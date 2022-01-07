@@ -1,12 +1,9 @@
 import { toast } from 'react-toastify';
 
-export const Notifications = (type,msg) =>
-{
-    switch (type)
-    {
-        case 'error':
-        {
-            toast.error(''+msg, {
+export const Notifications = (type, msg) => {
+    switch (type) {
+        case 'error': {
+            toast.error('' + msg, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -17,9 +14,8 @@ export const Notifications = (type,msg) =>
             });
             break;
         }
-        case 'success':
-        {
-            toast.success(''+msg, {
+        case 'success': {
+            toast.success('' + msg, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -30,9 +26,8 @@ export const Notifications = (type,msg) =>
             });
             break;
         }
-        case 'info':
-        {
-            toast.info(''+msg, {
+        case 'info': {
+            toast.info('' + msg, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -43,9 +38,8 @@ export const Notifications = (type,msg) =>
             });
             break;
         }
-        case 'warning':
-        {
-            toast.warning(''+msg, {
+        case 'warning': {
+            toast.warning('' + msg, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,

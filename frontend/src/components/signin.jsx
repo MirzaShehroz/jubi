@@ -6,7 +6,7 @@ import { connectUserShow, showHeaderProfile, sidePanelFunc } from '../data/atom'
 import { useRecoilState } from 'recoil';
 import axios from "axios";
 import {useState} from 'react';
-import {Notifications} from '../helpers/helpersfunctions';
+import {Notifications} from '../helpers/helpers';
 import {authData} from '../data/atom';
 
 function SignIn() {
