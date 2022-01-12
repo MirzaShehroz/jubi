@@ -59,3 +59,29 @@ export const userPassEdit = atom({
         successPass: false,
     }
 })
+
+export const docSignUpData = atom({
+    key: 'signUp data',
+    default: {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        cPassword: "",
+        hospital: "",
+        specialty: "",
+        title: "",
+        phone_number:""
+    }
+})
+
+export const signUpFormValid = atom({
+    key: 'signUp Form',
+    default: {
+        showVerEmailBtn: true,
+        showVerification:false,
+        invalidVer:false,
+        showPass:false,
+    }
+})

@@ -4,16 +4,43 @@ import addIcon from '../assets/img/addicon.png';
 import SignUp2 from './signupform';
 import picUpload from '../assets/img/pic_upload_icon.png';
 import { useRecoilState } from 'recoil';
-import { userPicUpload } from '../data/atom';
+import { docSignUpData, userPicUpload } from '../data/atom';
+import axios from 'axios';
+import { Notifications } from '../helpers/helpers';
+import { useHistory } from 'react-router-dom';
 
 function SignUpAddress() {
+    const history = useHistory();
     const [showPrevPage, setShowPrevPage] = useState(false);
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
+    const [docSignUp, setDocSignUp] = useRecoilState(docSignUpData);
 
     const submitSignAddress = (e) => {
         e.preventDefault();
+        postForm();
     }
 
+    const postForm = () => {
+        const body = {
+            first_name: docSignUp.firstName,
+            middle: docSignUp.middleName,
+            last_name: docSignUp.lastName,
+            email: docSignUp.email,
+            password: docSignUp.password,
+            phone_number: docSignUp.phone_number,
+            hospital: docSignUp.hospital,
+            speciality: docSignUp.specialty,
+            title: docSignUp.title
+        }
+        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/signup`, body)
+            .then(res => {
+                Notifications('success', res.data.data.message);
+                history.push('/');
+            })
+            .catch(err => {
+                Notifications('error', `${err.response.data.data.message}`);
+            });
+    }
     const showPrev = () => {
         setShowPrevPage(true);
     }
@@ -57,16 +84,34 @@ function SignUpAddress() {
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    required
+                                    value={docSignUp.hospital}
+                                    onChange={(e) => setDocSignUp(obj => ({
+                                        ...obj,
+                                        hospital: e.target.value
+                                    }))}
                                     placeholder='Clinic name' />
                             </div>
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    required
+                                    value={docSignUp.specialty}
+                                    onChange={(e) => setDocSignUp(obj => ({
+                                        ...obj,
+                                        specialty: e.target.value
+                                    }))}
                                     placeholder='Specialty or Department name' />
                             </div>
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    required
+                                    value={docSignUp.title}
+                                    onChange={(e) => setDocSignUp(obj => ({
+                                        ...obj,
+                                        title: e.target.value
+                                    }))}
                                     placeholder='Your title' />
                             </div>
                             <div className='signup_email'>
@@ -78,6 +123,12 @@ function SignUpAddress() {
                                     <input
                                         type="text"
                                         placeholder='Number'
+                                        required
+                                        value={docSignUp.phone_number}
+                                        onChange={(e) => setDocSignUp(obj => ({
+                                            ...obj,
+                                            phone_number: e.target.value
+                                        }))}
                                     />
                                 </div>
                                 <input

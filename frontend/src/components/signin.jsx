@@ -1,13 +1,13 @@
 import '../assets/css/signin.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../assets/img/jubiwatch_logo.png';
 import { Link, useHistory } from 'react-router-dom';
-import { connectUserShow, showHeaderProfile, sidePanelFunc } from '../data/atom';
+import { connectUserShow, docSignUpData, showHeaderProfile, sidePanelFunc, signUpFormValid } from '../data/atom';
 import { useRecoilState } from 'recoil';
 import axios from "axios";
-import {useState} from 'react';
-import {Notifications} from '../helpers/helpers';
-import {authData} from '../data/atom';
+import { useState } from 'react';
+import { Notifications } from '../helpers/helpers';
+import { authData } from '../data/atom';
 
 function SignIn() {
 
@@ -17,7 +17,30 @@ function SignIn() {
     const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    let [/*authData*/,setAuthData]=useRecoilState(authData);
+    let [/*authData*/, setAuthData] = useRecoilState(authData);
+    const [/*signUpValid*/, setSignValid] = useRecoilState(signUpFormValid);
+    const [/*docSignUp*/, setDocSignUp] = useRecoilState(docSignUpData);
+
+    useEffect(() => {
+        setSignValid(obj => ({
+            showVerEmailBtn: true,
+            showVerification: false,
+            invalidVer: false,
+            showPass: false,
+        }))
+        setDocSignUp(obj => ({
+            firstName: "",
+            middleName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            cPassword: "",
+            hospital: "",
+            specialty: "",
+            title: "",
+            phone_number: ""
+        }))
+    }, [setDocSignUp,setSignValid])
 
     const loginHandle = async (e) => {
         e.preventDefault();
@@ -37,26 +60,27 @@ function SignIn() {
             showSP: 'none',
         }));
 
-        const data={
+        const data = {
             username: username,
             password: password
         }
 
-        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/login',data)
-            .then((response)=>{
-                setAuthData((obj)=>({
+        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/login', data)
+            .then((response) => {
+                setAuthData((obj) => ({
                     email: response.data.data.username,
-                    token: response.data.data.token,
+                    token: response.data.data.token.AccessToken,
                 }))
-                sessionStorage.setItem('authData',response.data.data.username);
-                Notifications('success','Login Successful')
+
+                sessionStorage.setItem('authData', response.data.data.token.AccessToken);
+                Notifications('success', 'Login Successful')
                 history.push('/');
             })
-            .catch((err)=>{
-                Notifications('error','Invalid Credentials! Try Again')
+            .catch((err) => {
+                Notifications('error', 'Invalid Credentials! Try Again')
             });
-            
-        }
+
+    }
 
     return (
         <div className="signin">
@@ -68,14 +92,14 @@ function SignIn() {
                 <form onSubmit={loginHandle} autocomplete="on">
                     <div className='signin_fields_cont'>
                         <div className='signin_fields'>
-                            <input type="email" placeholder='Email ID' onChange={(e)=>setUsername(e.target.value)} required/>
+                            <input type="email" placeholder='Email ID' onChange={(e) => setUsername(e.target.value)} required />
                         </div>
                         <div className='signin_fields'>
-                            <input type="password" placeholder='Password' onChange={(e)=>setPassword(e.target.value)} required/>
+                            <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} required />
                         </div>
                         <div className='signin_fields_bottom'>
                             <div className='signin_checkout'>
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span>Remember me</span>
                             </div>
                             <Link to='/forget'>Forgot password?</Link>

@@ -5,23 +5,22 @@ import passIcon1 from '../assets/img/passwordicon1.png';
 import picUpload from '../assets/img/pic_upload_icon.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
 import { useRecoilState } from 'recoil';
-import { userPicUpload } from '../data/atom';
+import { docSignUpData, signUpFormValid, userPicUpload } from '../data/atom';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { Notifications } from '../helpers/helpers';
 
 function SignUp2() {
 
-    const [email, setEmail] = useState(null);
+    const [signUpValid, setSignValid] = useRecoilState(signUpFormValid);
     const [verCode, setVerCode] = useState(null);
-    const [invalidVer, setInvalidVer] = useState(false);
-    const [showPass, setShowPass] = useState(false);
     const [showSign3, setShowSign3] = useState(false);
-    const [showVerEmailBtn, setShowVerEmailBtn] = useState(true);
     const [emailMsg, setEmailMsg] = useState(false);
-    const [showVerification, setshowVer] = useState(false);
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [okBtnClr, setOkBtnClr] = useState('#C6C6C6');
     const [passVisi, setPassVisi] = useState(false);
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
+    const [docSignUp, setDocSignUp] = useRecoilState(docSignUpData);
     const history = useHistory();
 
     const cancelButton = () => {
@@ -30,12 +29,20 @@ function SignUp2() {
 
     const submitSignForm = (e) => {
         e.preventDefault();
-        setShowSign3(true);
+        if (docSignUp.password === docSignUp.cPassword) {
+            setShowSign3(true);
+        } else {
+            Notifications('error', 'Password did not match');
+        }
     }
 
     const emailHandle = (e) => {
-        setEmail(e.target.value);
-        if (email.includes('@')) {
+        setDocSignUp((obj => ({
+            ...obj,
+            email: e.target.value
+        })))
+
+        if (docSignUp.email.includes('@')) {
             setBtnClr('#3E6578');
         }
         else {
@@ -44,19 +51,34 @@ function SignUp2() {
     }
 
     const sendVerificationHandle = () => {
-        if (email.includes('@')) {
-            setshowVer(true);
+        if (docSignUp.email.includes('@')) {
+            axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${docSignUp.email}`)
+                .then(res => {
+                    Notifications('success', `${res.data.data.message}`)
+                }).catch(err => {
+                    Notifications('error', `Internal Server Error`)
+                });
+            setSignValid(obj => ({
+                ...obj,
+                showVerification: true,
+            }))
             setBtnClr('#C6C6C6');
         } else {
-            setshowVer(false);
+            setSignValid(obj => ({
+                ...obj,
+                showVerification: false,
+            }))
             setOkBtnClr('#C6C6C6')
         }
     }
 
     const verCodeHandle = (e) => {
         setVerCode(e.target.value);
-        setInvalidVer(false);
-        if (verCode.length >= 4) {
+        setSignValid(obj => ({
+            ...obj,
+            invalidVer: false,
+        }))
+        if (verCode.length >= 5) {
             setOkBtnClr('#3E6578')
         } else {
             setOkBtnClr('#C6C6C6')
@@ -64,17 +86,26 @@ function SignUp2() {
     }
 
     const verOkHandle = () => {
-        if (parseInt(verCode) === 12345) {
-            setInvalidVer(false);
+        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+            email: docSignUp.email,
+            code: verCode
+        }).then(res => {
+            Notifications('success', `${res.data.data.message}`)
+            setSignValid(obj => ({
+                invalidVer: false,
+                showVerEmailBtn: false,
+                showVerification: false,
+                showPass: true,
+            }))
             setEmailMsg(true);
-            setShowVerEmailBtn(false);
-            setshowVer(false);
-            setInvalidVer(false);
-            setShowPass(true);
-        } else {
-            setInvalidVer(true);
+        }).catch(err => {
+            Notifications('error', `${err.response.data.data.message}`)
+            setSignValid(obj => ({
+                ...obj,
+                invalidVer: true,
+            }))
             setEmailMsg(false);
-        }
+        })
     }
 
     const showPassVisibility = () => {
@@ -122,17 +153,32 @@ function SignUp2() {
                                     <input
                                         type="text"
                                         placeholder='First name'
+                                        value={docSignUp.firstName}
+                                        onChange={(e) => setDocSignUp((obj => ({
+                                            ...obj,
+                                            firstName: e.target.value
+                                        })))}
                                         required />
                                 </div>
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        value={docSignUp.middleName}
+                                        onChange={(e) => setDocSignUp((obj => ({
+                                            ...obj,
+                                            middleName: e.target.value
+                                        })))}
                                         placeholder='Middle name (can be empty)' />
                                 </div>
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
                                         placeholder='Last name'
+                                        value={docSignUp.lastName}
+                                        onChange={(e) => setDocSignUp((obj => ({
+                                            ...obj,
+                                            lastName: e.target.value
+                                        })))}
                                         required />
                                 </div>
                                 <div className='signup_email'>
@@ -140,20 +186,20 @@ function SignUp2() {
                                     <div className='signin_fields'>
                                         <input
                                             type="email"
-                                            value={email}
                                             placeholder='Email ID'
+                                            value={docSignUp.email}
                                             required
                                             onChange={(e) => emailHandle(e)} />
 
                                         {emailMsg ? <p className='verified_Email'>Verified!</p> : null}
                                     </div>
-                                    {showVerEmailBtn ?
+                                    {signUpValid.showVerEmailBtn ?
                                         <button
                                             onClick={sendVerificationHandle}
                                             className=' sign_btn sign_btn_email'
                                             type='button'
                                             style={{ background: btnClr }}>Send Verification Code</button> : null}
-                                    {showVerification ?
+                                    {signUpValid.showVerification ?
                                         <div className='signup_ver_form'>
                                             <input
                                                 className="verification_Field"
@@ -167,15 +213,22 @@ function SignUp2() {
                                                 style={{ background: okBtnClr }}
                                                 className='signup_btn signup_btn3'>OK</button>
                                         </div> : null}
-                                    {invalidVer ? <p className='invalidVer'>Invalid verification code</p> : null}
-                                    {showVerification ? <p className='verMsg'>Didn’t get the code? <button type='button' onClick={sendVerificationHandle}>Send it again</button></p> : null}
+                                    {signUpValid.invalidVer ? <p className='invalidVer'>Invalid verification code</p> : null}
+                                    {signUpValid.showVerification ? <p className='verMsg'>Didn’t get the code? <button type='button' onClick={sendVerificationHandle}>Send it again</button></p> : null}
                                 </div>
-                                {showPass ? <div className='signup_pass'>
+                                {signUpValid.showPass ? <div className='signup_pass'>
                                     <label className='signup_label'>Password <span>*</span></label>
                                     <div className='signin_fields passIconSet'>
                                         <input
                                             type={passVisi ? 'text' : 'password'}
                                             placeholder='Password'
+                                            required
+                                            minLength={8}
+                                            value={docSignUp.password}
+                                            onChange={(e) => setDocSignUp((obj => ({
+                                                ...obj,
+                                                password: e.target.value
+                                            })))}
                                         />
                                         <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
                                     </div>
@@ -183,13 +236,19 @@ function SignUp2() {
                                         <input
                                             type={passVisi ? 'text' : 'password'}
                                             placeholder='Confirm Password'
+                                            value={docSignUp.cPassword}
+                                            required
+                                            onChange={(e) => setDocSignUp((obj => ({
+                                                ...obj,
+                                                cPassword: e.target.value
+                                            })))}
                                         />
                                         <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
                                     </div>
                                 </div> : null}
                                 <div className='signup_btn_cont'>
                                     <button onClick={cancelButton} type='button' className='signup_btn signup_btn1'>Cancel</button>
-                                    <button type='submit' className='signup_btn signup_btn2'>Next</button>
+                                    <button type='submit' style={{ background: "#3E6578" }} className='signup_btn signup_btn2'>Next</button>
                                 </div>
                             </div>
                         </form>
