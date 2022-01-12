@@ -59,7 +59,7 @@
 
 .nav_child2 {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -95,7 +95,7 @@
     }
 
     .nav_child2 {
-        width: 202px;
+        width: 275px;
     }
 }
 

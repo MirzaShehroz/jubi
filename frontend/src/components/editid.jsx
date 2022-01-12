@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../assets/img/jubiwatch_logo.png';
-import { useRecoilState } from 'recoil';
-import { userIDedit } from '../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { authData, userIDedit } from '../data/atom';
 import passIcon1 from '../assets/img/passwordicon1.png';
 import passIcon2 from '../assets/img/passwordicon2.png';
 
@@ -18,6 +18,7 @@ function EditId() {
     const [/*pass*/, setPass] = useState(null);
     const [invalidVer, setInvalidVer] = useState(false);
     const [passVisi, setPassVisi] = useState(false);
+    const userAuthData = useRecoilValue(authData);
     const history = useHistory();
 
     const cancelButton = () => {
@@ -59,7 +60,6 @@ function EditId() {
             setShowVerEmailBtn(false);
             setshowVer(false);
             setInvalidVer(false);
-            // setShowPass(true);
         } else {
             setInvalidVer(true);
         }
@@ -113,11 +113,11 @@ function EditId() {
                                     <div className='signin_fields'>
                                         <input
                                             type="email"
-                                            value={'A.Brown@aahospital.com'}
+                                            value={userAuthData.email}
                                             style={{ background: '#EEEEEE' }}
                                             disabled
                                         />
-                                        
+
                                     </div>
                                 </div> : null
                             }

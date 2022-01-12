@@ -70,6 +70,7 @@ function SignIn() {
                 setAuthData((obj) => ({
                     email: response.data.data.username,
                     token: response.data.data.token.AccessToken,
+                    UUID: response.data.data.token.AccessUuid,
                 }))
 
                 sessionStorage.setItem('authData', response.data.data.token.AccessToken);
@@ -89,7 +90,7 @@ function SignIn() {
                     <img src={logo} alt="Jubiwatch_logo" />
                     <p>for Doctors</p>
                 </div>
-                <form onSubmit={loginHandle} autocomplete="on">
+                <form onSubmit={loginHandle} autoComplete="new-password">
                     <div className='signin_fields_cont'>
                         <div className='signin_fields'>
                             <input type="email" placeholder='Email ID' onChange={(e) => setUsername(e.target.value)} required />

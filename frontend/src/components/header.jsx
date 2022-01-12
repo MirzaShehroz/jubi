@@ -5,16 +5,17 @@ import logo from '../assets/img/jubiwatch_logo.png';
 import addIcon from '../assets/img/addicon2.png';
 import ConnectUser from './connectuser';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { authData, connectUserShow, showHeaderProfile, userPicUpload } from '../data/atom';
+import {  connectUserShow, docData, showHeaderProfile, userPicUpload } from '../data/atom';
 
 function Header() {
     const [connectMenu, setCmenu] = useRecoilState(connectUserShow);
-    const userAuthData = useRecoilValue(authData);
     const [showHeaderChild2, /*setShowHeaderChild2*/] = useRecoilState(showHeaderProfile);
     const [/*connectMenuClass*/, /*setCmenuClass*/] = useState("c_menu");
     const [ddMenu, setDDmenu] = useState(false);
     const [ddMenuClass, setDDmenuClass] = useState("dd_menu");
     const userPic = useRecoilValue(userPicUpload);
+    const docDataAtom = useRecoilValue(docData);
+
     const cMenuShow = () => {
         setCmenu((obj) => ({
             ...obj,
@@ -44,8 +45,8 @@ function Header() {
                             {showHeaderChild2.showHProfile ?
                                 <>
                                     <div className='nav_Child21'>
-                                        <p>Dr. Kim’s podiatric clinic</p>
-                                        <p>{userAuthData.email} / Title</p>
+                                        <p>{docDataAtom.hospital}</p>
+                                        <p>{docDataAtom.firstName} {docDataAtom.lastName} / {docDataAtom.title}</p>
                                     </div>
                                     <div className='nav_Child22'>
                                         <img src={userPic.avatar} alt="something" onClick={ddMenuShow} />

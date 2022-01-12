@@ -6,11 +6,12 @@ import signOutIcon from "../assets/img/signouticon.png";
 import helpIcon from "../assets/img/helpicon.png";
 import { useHistory, Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { authData, userPicUpload } from './../data/atom';
+import { authData, docData, userPicUpload } from './../data/atom';
 
 function UserMenu({ menu }) {
     const avatar = useRecoilValue(userPicUpload);
     const userAuthData=useRecoilValue(authData);
+    const docDataAtom = useRecoilValue(docData);
 
     const history = useHistory();
     const logoutHandle = () => {
@@ -26,9 +27,9 @@ function UserMenu({ menu }) {
                             <div>
                                 <img style={{margin:'0'}} src={avatar.avatar} alt="something3" />
                             </div>
-                            <p id='userName_P'>{userAuthData.email}</p>
-                            <p>Dr.Kim’s podiatric clinic</p>
-                            <p>Emailadress@AAclinic.com</p>
+                            <p id='userName_P'>{docDataAtom.firstName} {docDataAtom.lastName}</p>
+                            <p>{docDataAtom.hospital}</p>
+                            <p>Email: {userAuthData.email}</p>
                             <Link to='edit-profile'><button>Edit Profile</button></Link>
                         </div>
                     </li>

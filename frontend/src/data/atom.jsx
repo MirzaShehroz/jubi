@@ -31,7 +31,8 @@ export const authData = atom({
     key: "authData",
     default: {
         email: 'username',
-        token: 'token'
+        token: '',
+        UUID: ''
     }
 })
 
@@ -72,7 +73,21 @@ export const docSignUpData = atom({
         hospital: "",
         specialty: "",
         title: "",
-        phone_number:""
+        phone_number: ""
+    }
+})
+export const docData = atom({
+    key: 'Doc data',
+    default: {
+        dId: 0,
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        email: "",
+        hospital: "",
+        specialty: "",
+        title: "",
+        phone_number: ""
     }
 })
 
@@ -80,8 +95,8 @@ export const signUpFormValid = atom({
     key: 'signUp Form',
     default: {
         showVerEmailBtn: true,
-        showVerification:false,
-        invalidVer:false,
-        showPass:false,
+        showVerification: false,
+        invalidVer: false,
+        showPass: false,
     }
 })
