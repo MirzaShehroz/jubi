@@ -5,15 +5,14 @@ import Dashboard from './dashboard';
 import DashboardStrip from './dashboardstrip';
 import Sidebar from './sidebar';
 import { useEffect } from 'react';
-import { authData, docData } from "../data/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import {  docData } from "../data/atom";
+import { useRecoilState } from "recoil";
 import { useCallback } from 'react';
 import axios from 'axios';
 
 
 function DashboardPanel() {
 
-    const authUserData = useRecoilValue(authData);
     const [/*docDataAtom*/, setDocData] = useRecoilState(docData);
 
     const getData = useCallback(() => {
@@ -34,7 +33,7 @@ function DashboardPanel() {
                 phone_number: res.data.data.phone_number,
             }))
         }).catch(err => console.log(err))
-    }, [authUserData.token, setDocData])
+    }, [setDocData])
 
     useEffect(() => {
         getData();
