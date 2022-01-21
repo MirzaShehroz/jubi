@@ -116,6 +116,12 @@
     letter-spacing: 0.15000000596046448px;
     text-align: center;
     color: #F3CDD4;
+    display: flex;
+    justify-content: center;
+}
+
+.csMenu_time>div>svg {
+    opacity: 0;
 }
 
 .csMenu_Child2 {

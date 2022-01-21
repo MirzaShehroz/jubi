@@ -10,7 +10,7 @@ import cancelIcon from '../assets/img/cancelicon.png';
 import cancelIcon2 from '../assets/img/cancelicon2.png';
 import avatar from '../assets/img/avatar2.png'
 import { connectUserShow } from '../data/atom';
-import Countdown from 'react-countdown';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 const Completionist = () => <span>You are good to go!</span>;
 
@@ -71,9 +71,10 @@ function ConnectUser({ show }) {
     }
 
     const showReconnectBtn = () => {
+        setDisableText('100%')
         setShowCnctBtn(false);
         setShowReCnctBtn(true);
-        // setShowTryBtn(false);
+        setShowTryBtn(false);
         startTimer(5);
     }
 
@@ -146,12 +147,23 @@ function ConnectUser({ show }) {
                                 inputProps={{
                                     'aria-label': 'weight',
                                 }} />
-                                <br/><br/>
-                            {showReCnctBtn ? <Countdown className='csMenu_time' date={Date.now() + 10000}>
-                                <Completionist/>
-                            </Countdown>:null}
-                            {/*{showReCnctBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}*/}
-                            {/*{showTryBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}*/}
+
+                            {showReCnctBtn ? <p className='csMenu_time'><CountdownCircleTimer
+                                style={{ justifyContent: 'center', display: 'flex' }}
+                                size={15}
+                                isPlaying
+                                duration={5}
+                                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                colorsTime={[880, 675, 450, 225]}
+                                onComplete={showTryAgainBtn}
+                            >
+                                {({ remainingTime }) => {
+                                    const minutes = Math.floor(remainingTime / 60)
+                                    const seconds = remainingTime % 60
+
+                                    return `${minutes}:${seconds}`
+                                }}
+                            </CountdownCircleTimer></p> : null}
                             {showCnctBtn ? <p> When you select ‘ Connect’,
                                 4-digit input popup will display on the
                                 patient’s Jubi watch app.
@@ -165,8 +177,8 @@ function ConnectUser({ show }) {
                     <div className='csMenu_Child2'>
                         <div className='csMenu_Child21'>
                             {showCnctBtn ? <button onClick={showReconnectBtn}>Connect</button> : null}
-                            {showReCnctBtn ? <button onClick={showTryAgainBtn}>Reconnect</button> : null}
-                            {showTryBtn ? <button>Try again</button> : null}
+                            {showReCnctBtn ? <button onClick={showReconnectBtn}>Reconnect</button> : null}
+                            {showTryBtn ? <button onClick={showReconnectBtn}>Try again</button> : null}
                         </div>
                         <div className='csMenu_Child22'>
                             <button onClick={closeComp}>Cancel</button>
