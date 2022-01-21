@@ -64,16 +64,16 @@ function EditProfile() {
                             <div className='signup_avatar'>
                                 <div>
                                     <img src={avatarPreview.avatar} alt="avatar" />
-                                    <div class="custom-file">
+                                    <div className="custom-file">
                                         <div>
                                             <input
                                                 type="file"
-                                                class="custom-file-input"
+                                                className="custom-file-input"
                                                 id="images"
                                                 accept="image/*"
                                                 onChange={updateProfileDataChange}
                                             />
-                                            <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
+                                            <label htmlFor="images" className="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
                                         </div>
                                     </div>
                                 </div>

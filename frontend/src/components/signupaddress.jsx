@@ -66,16 +66,16 @@ function SignUpAddress() {
                             <div className='signup_avatar'>
                                 <div>
                                     <img src={avatarPreview.avatar} alt="avatar" />
-                                    <div class="custom-file">
+                                    <div className="custom-file">
                                         <div>
                                             <input
                                                 type="file"
-                                                class="custom-file-input"
+                                                className="custom-file-input"
                                                 id="images"
                                                 accept="image/*"
                                                 onChange={updateProfileDataChange}
                                             />
-                                            <label for="images" class="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
+                                            <label htmlFor="images" className="custom-file-label"> <img src={picUpload} alt="avatar" /></label>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@ function SignUpAddress() {
                             </div>
                             <div className='signup_btn_cont'>
                                 <button type='button' onClick={showPrev} className='signup_btn signup_btn1'>Previous</button>
-                                <button type='submit' className='signup_btn signup_btn2'>Save</button>
+                                <button type='submit' className='signup_btn signup_btn2' style={{background:'#3E6578'}}>Save</button>
                             </div>
                         </div>
                     </form>

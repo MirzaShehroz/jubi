@@ -48,30 +48,43 @@ function Chat() {
 
     const data = [
         {
+            id:1,
             username: 'User name 1'
         }, {
+            id:2,
             username: 'User name 2'
         }, {
+            id:3,
             username: 'User name 3'
         }, {
+            id:4,
             username: 'User name 4'
         }, {
+            id:5,
             username: 'User name 5'
         }, {
+            id:6,
             username: 'User name 6'
         }, {
+            id:7,
             username: 'User name 7'
         }, {
+            id:8,
             username: 'User name 8'
         }, {
+            id:9,
             username: 'User name 9'
         }, {
+            id:10,
             username: 'User name 10'
         }, {
+            id:11,
             username: 'User name 11'
         }, {
+            id:12,
             username: 'User name 12'
         }, {
+            id:13,
             username: 'User name 13'
         },
     ]
@@ -89,7 +102,7 @@ function Chat() {
                     </div>
                     <div style={child1_2} className={'child1-2'}>
                         {data.map(item => (
-                            <div className='userChatParent1'>
+                            <div key={item.id} className='userChatParent1'>
                                 <div className='userChatChild11'>
                                     <img src={chatUserPic} alt="something" />
                                 </div>
@@ -149,14 +162,14 @@ function Chat() {
                             </div>
                             <div className={'msgChild1-3'}>
                                 <div className='msgChild3-1'>
-                                    <div class="custom-file1">
+                                    <div className="custom-file1">
                                         <div>
                                             <input
                                                 type="file"
-                                                class="custom-file1-input"
+                                                className="custom-file1-input"
                                                 id="files"
                                             />
-                                            <label for="files" class="custom-file1-label"> <img src={attachPic} alt="avatar" /></label>
+                                            <label htmlFor="files" className="custom-file1-label"> <img src={attachPic} alt="avatar" /></label>
                                         </div>
                                     </div>
                                 </div>

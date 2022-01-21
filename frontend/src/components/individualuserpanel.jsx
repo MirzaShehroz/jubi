@@ -31,33 +31,39 @@ function IndividualUserPanel() {
             <p className={'text-center'} style={{ fontSize: '13px' }}>Wt: 5ft 4in / Ht: 140 lbs</p>
             <br />
             <table className="userPanel_table">
-                <tr>
-                    <td className={'emailHead'}>Email</td>
-                    <td>hitman@gmail.com</td>
-                </tr>
-                <tr>
-                    <td className={'phoneHead'}>Phone</td>
-                    <td>+9256821566</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td className={'emailHead'}>Email</td>
+                        <td>hitman@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td className={'phoneHead'}>Phone</td>
+                        <td>+9256821566</td>
+                    </tr>
+                </tbody>
             </table>
             <br />
             <p onClick={showAllergies} id={'alergies'}><u>Allergies (11) & Conditions (3)</u></p>
             <br />
             <div id={'memo'}>
                 <table>
-                    <tr>
-                        <td className={'memoHead'}>Memo</td>
-                        <td className={'memoHeadIcon'}><FontAwesomeIcon icon={faPen} /></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className={'memoHead'}>Memo</td>
+                            <td className={'memoHeadIcon'}><FontAwesomeIcon icon={faPen} /></td>
+                        </tr>
+                    </tbody>
                 </table>
                 <p className={'memoMsg'}>
                     She has heart attack family history.
                 </p>
                 <table>
-                    <tr>
-                        <td className={'memoHead'}>Watchlist Comments</td>
-                        <td className={'memoHeadIcon'} style={{ color: '#D7575F' }}>Done</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td className={'memoHead'}>Watchlist Comments</td>
+                            <td className={'memoHeadIcon'} style={{ color: '#D7575F' }}>Done</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div className={'container'}>
                     <div className={'row memoWatchlist'}>
@@ -65,7 +71,7 @@ function IndividualUserPanel() {
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae blanditiis error, incidunt nemo perferendis perspiciatis</p>
                         </div>
                         <div className={'col-lg-2 col-sm-2'}>
-                            <img src={cancelButton} alt={'cancel'} style={{cursor:'pointer'}}/>
+                            <img src={cancelButton} alt={'cancel'} style={{ cursor: 'pointer' }} />
                         </div>
                     </div>
                 </div>

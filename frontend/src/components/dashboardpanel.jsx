@@ -34,7 +34,11 @@ function DashboardPanel() {
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
             }))
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            if (err.response.data.data.code === 403) {
+                sessionStorage.clear();
+            }
+        })
     }, [setDocData])
 
     const resetEditId = useCallback(() => {

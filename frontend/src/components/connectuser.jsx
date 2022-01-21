@@ -43,7 +43,7 @@ function ConnectUser({ show }) {
             diff,
             minutes,
             seconds;
-        
+
         function timer() {
             diff = duration - (((Date.now() - start) / 1000) | 0);
             minutes = (diff / 60) | 0;
@@ -117,7 +117,7 @@ function ConnectUser({ show }) {
                             onChange={csMenuShow}
                             InputProps={{
                                 endAdornment: (
-                                    <InputAdornment>
+                                    <InputAdornment position='end'>
                                         <IconButton>
                                             <SearchIcon />
                                         </IconButton>

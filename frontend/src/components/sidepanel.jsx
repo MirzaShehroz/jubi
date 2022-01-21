@@ -11,24 +11,28 @@ function SidePanel({ display }) {
 
     const data = [
         {
+            id: 1,
             name: 'Jamie Cloud',
             time: '5:02 pm',
             message: 'Yes, please',
             image: userPic
         },
         {
+            id: 2,
             name: 'Ann Brown',
             time: '4:23 pm',
             message: 'I’m so sorry for the rescheduling',
             image: userPic
         },
         {
+            id: 3,
             name: 'Jeremy Kim',
             time: 'Aug 12',
             message: 'Could you let me know hat time is next blah blah...',
             image: userPic
         },
         {
+            id: 4,
             name: 'Chrisrina Rodriguez',
             time: 'Aug 12',
             message: 'Yes, please',
@@ -57,7 +61,7 @@ function SidePanel({ display }) {
                     </div>
                     <div className='sidePanel_child31_2'>
                         {data.map((item) => (
-                            <div className='sidePanel_child31_userChatDiv'>
+                            <div key={item.id} className='sidePanel_child31_userChatDiv'>
                                 <div className='sidePanel_child31_img'>
                                     <img src={item.image} alt="something" />
                                 </div>
@@ -72,7 +76,7 @@ function SidePanel({ display }) {
                         ))}
                     </div>
                     <div className='sidePanel_child31_3'>
-                    <Link to='/chat'>View all &nbsp; {'>'}</Link>
+                        <Link to='/chat'>View all &nbsp; {'>'}</Link>
                     </div>
                 </div>
 
@@ -82,7 +86,7 @@ function SidePanel({ display }) {
                     </div>
                     <div className='sidePanel_child31_2'>
                         {data.map((item) => (
-                            <div className='sidePanel_child31_userChatDiv'>
+                            <div key={item.id} className='sidePanel_child31_userChatDiv'>
                                 <div className='sidePanel_child31_chatDetail'>
                                     <div className='sidePanel_child31_chatDetail1'>
                                         <h5>{item.name}</h5>
@@ -104,7 +108,7 @@ function SidePanel({ display }) {
                     </div>
                     <div className='sidePanel_child31_2'>
                         {data.map((item) => (
-                            <div className='sidePanel_child31_userChatDiv'>
+                            <div key={item.id} className='sidePanel_child31_userChatDiv'>
                                 <div className='sidePanel_child31_chatDetail'>
                                     <div className='sidePanel_child31_chatDetail1'>
                                         <p>{item.message}</p>

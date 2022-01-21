@@ -7,10 +7,12 @@ function Alergies() {
             <h3 className={'alergiesHead'}>Alergies (11)</h3>
             <Table responsive>
                 <thead>
+                    <tr>
                     <th className={'alergiesTable'}>Name</th>
                     <th className={'alergiesTable'}>Severity</th>
                     <th className={'alergiesTable'}>Reactions</th>
                     <th className={'alergiesTable'}>Comments</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr>
