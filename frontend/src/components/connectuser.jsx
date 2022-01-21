@@ -12,8 +12,6 @@ import avatar from '../assets/img/avatar2.png'
 import { connectUserShow } from '../data/atom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
-const Completionist = () => <span>You are good to go!</span>;
-
 function ConnectUser({ show }) {
     const [csMenu, setCSmenu] = useState(false);
     const [csMenuAtom, setCsMenuAtom] = useRecoilState(connectUserShow);
