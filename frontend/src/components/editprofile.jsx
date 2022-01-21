@@ -2,12 +2,13 @@ import React from 'react'
 import logo from '../assets/img/jubiwatch_logo2.png';
 import addIcon from '../assets/img/addicon.png';
 import picUpload from '../assets/img/pic_upload_icon.png';
-import { userPicUpload } from '../data/atom';
-import { useRecoilState } from 'recoil';
+import { docData, userPicUpload } from '../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useHistory } from 'react-router-dom';
 
 function EditProfile() {
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
+    const docData_ = useRecoilValue(docData);
     const history = useHistory();
     const cancelButton = () => {
         history.push('/')
@@ -56,16 +57,19 @@ function EditProfile() {
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    value={docData_.firstName}
                                     placeholder='First name' />
                             </div>
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    value={docData_.middleName}
                                     placeholder='Middle name (can be empty)' />
                             </div>
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    value={docData_.lastName}
                                     placeholder='Last name' />
                             </div>
                             <div className='signup_email' id='editP_1'>
@@ -73,16 +77,19 @@ function EditProfile() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        value={docData_.hospital}
                                         placeholder='Clinic name' />
                                 </div>
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        value={docData_.specialty}
                                         placeholder='Specialty or Department name' />
                                 </div>
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        value={docData_.title}
                                         placeholder='Your title' />
                                 </div>
                             </div>
@@ -94,6 +101,7 @@ function EditProfile() {
                                     </select>
                                     <input
                                         type="text"
+                                        value={docData_.phone_number}
                                         placeholder='Number'
                                     />
                                 </div>

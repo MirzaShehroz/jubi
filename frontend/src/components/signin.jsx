@@ -79,7 +79,7 @@ function SignIn() {
                 history.push('/');
             })
             .catch((err) => {
-                Notifications('error', 'Invalid Credentials! Try Again')
+                Notifications('error', err.response.data.data.message);
             });
 
     }
