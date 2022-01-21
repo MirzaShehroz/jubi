@@ -10,6 +10,9 @@ import cancelIcon from '../assets/img/cancelicon.png';
 import cancelIcon2 from '../assets/img/cancelicon2.png';
 import avatar from '../assets/img/avatar2.png'
 import { connectUserShow } from '../data/atom';
+import Countdown from 'react-countdown';
+
+const Completionist = () => <span>You are good to go!</span>;
 
 function ConnectUser({ show }) {
     const [csMenu, setCSmenu] = useState(false);
@@ -23,6 +26,8 @@ function ConnectUser({ show }) {
         minutes: 0,
         seconds: 0
     })
+
+
 
     useEffect(() => {
         if (show) {
@@ -89,7 +94,7 @@ function ConnectUser({ show }) {
     }
     const closeComp = () => {
         setCsMenuAtom((obj) => ({
-            ...obj,
+            csMenu: false,
             connectMenu: false,
             connectClass: 'c_menu',
         }));
@@ -141,8 +146,12 @@ function ConnectUser({ show }) {
                                 inputProps={{
                                     'aria-label': 'weight',
                                 }} />
-                            {showReCnctBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}
-                            {showTryBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}
+                                <br/><br/>
+                            {showReCnctBtn ? <Countdown className='csMenu_time' date={Date.now() + 10000}>
+                                <Completionist/>
+                            </Countdown>:null}
+                            {/*{showReCnctBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}*/}
+                            {/*{showTryBtn ? <p className='csMenu_time'>{countDown.minutes}:{countDown.seconds}</p> : null}*/}
                             {showCnctBtn ? <p> When you select ‘ Connect’,
                                 4-digit input popup will display on the
                                 patient’s Jubi watch app.
@@ -160,7 +169,7 @@ function ConnectUser({ show }) {
                             {showTryBtn ? <button>Try again</button> : null}
                         </div>
                         <div className='csMenu_Child22'>
-                            <button>Cancel</button>
+                            <button onClick={closeComp}>Cancel</button>
                         </div>
                     </div>
                 </div >
