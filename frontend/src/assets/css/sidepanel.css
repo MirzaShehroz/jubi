@@ -11,6 +11,7 @@
     grid-template-areas: 'sPchild1 sPchild2 sPchild3';
     background-color: gray;
     display: none;
+    z-index: 1;
 }
 
 #sidePanel h3 {
