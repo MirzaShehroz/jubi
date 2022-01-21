@@ -74,6 +74,7 @@ function SignIn() {
                 }))
 
                 sessionStorage.setItem('authData', response.data.data.token.AccessToken);
+                sessionStorage.setItem('authEmail', response.data.data.username);
                 Notifications('success', 'Login Successful')
                 history.push('/');
             })

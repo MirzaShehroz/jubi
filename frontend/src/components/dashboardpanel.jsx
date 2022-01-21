@@ -19,7 +19,7 @@ function DashboardPanel() {
     const getData = useCallback(() => {
         axios.get('/affiliate/v1/doctor/profile', {
             headers: {
-                'Authorization': `Bearer ${authUserData.token}`
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
         }).then(res => {
             setDocData((obj) => ({
