@@ -5,7 +5,7 @@ import Dashboard from './dashboard';
 import DashboardStrip from './dashboardstrip';
 import Sidebar from './sidebar';
 import { useEffect } from 'react';
-import {  docData } from "../data/atom";
+import { docData, userIDedit, userPassEdit } from "../data/atom";
 import { useRecoilState } from "recoil";
 import { useCallback } from 'react';
 import axios from 'axios';
@@ -13,7 +13,9 @@ import axios from 'axios';
 
 function DashboardPanel() {
 
-    const [/*docDataAtom*/, setDocData] = useRecoilState(docData);
+    const [/*..*/, setDocData] = useRecoilState(docData);
+    const [/*..*/, setCmpID] = useRecoilState(userIDedit);
+    const [/*..*/, setCmpPass] = useRecoilState(userPassEdit);
 
     const getData = useCallback(() => {
         axios.get('/affiliate/v1/doctor/profile', {
@@ -35,9 +37,26 @@ function DashboardPanel() {
         }).catch(err => console.log(err))
     }, [setDocData])
 
+    const resetEditId = useCallback(() => {
+        setCmpID((obj) => ({
+            currentPass: true,
+            editEmail: false,
+            successEmail: false,
+        }))
+    }, [setCmpID])
+    const resetEditPass = useCallback(() => {
+        setCmpPass((obj) => ({
+            currentPass: true,
+            editEmail: false,
+            successEmail: false,
+        }))
+    }, [setCmpPass])
+
     useEffect(() => {
         getData();
-    }, [getData])
+        resetEditId();
+        resetEditPass();
+    }, [getData, resetEditId, resetEditPass])
 
 
     return (

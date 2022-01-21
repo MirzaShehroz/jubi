@@ -43,8 +43,9 @@ function EditPassword() {
                 editPass: false,
                 successPass: true,
             }))
+            sessionStorage.clear();
         }
-        
+
     }
 
     const showPassContent = () => {
@@ -53,7 +54,6 @@ function EditPassword() {
             editPass: true,
             successPass: false,
         }))
-        sessionStorage.clear();
     }
 
     return (

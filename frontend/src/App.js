@@ -26,8 +26,8 @@ function App() {
         <Route path='/sign-in' render={props => (<SignIn {...props} />)} />
         <Route path='/sign-up'><SignUp /></Route>
         <Route path='/forget'><Forget /></Route>
-        <Route path='/edit-password'><EditPassword /></Route>
-        <Route path='/edit-id'><EditId /></Route>
+        <Protected path='/edit-password' component={EditPassword} />
+        <Protected path='/edit-id' component={EditId} />
         <Protected path='/chat' component={Chat} />
         <Protected path='/edit-profile' component={EditProfile} />
         <Protected exact path='/individual' component={IndividualPanel} />

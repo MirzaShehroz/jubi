@@ -73,7 +73,6 @@ function EditId() {
             editEmail: true,
             successEmail: false,
         }))
-        sessionStorage.clear();
     }
 
     const pushForgetHandle = () => {
@@ -87,6 +86,7 @@ function EditId() {
             editEmail: false,
             successEmail: true,
         }))
+        sessionStorage.clear();
     }
 
     return (
