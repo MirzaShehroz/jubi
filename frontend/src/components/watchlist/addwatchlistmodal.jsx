@@ -31,7 +31,7 @@ function AddWathListModal(props)
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-12 col-sm-12'}>
-                            <textarea  className="form-control" id="modalTextarea" rows="3"></textarea>
+                            <textarea  className="form-control" placeholder="Comment" id="modalTextarea" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
