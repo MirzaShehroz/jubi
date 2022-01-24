@@ -27,11 +27,19 @@
     position: relative;
 }
 
+.forget_field_21 .valid span {
+    color: #2CA96D;
+}
+
+.forget_field_21 .invalid span {
+    color: #D02121;
+}
+
 .forget_field_2 {
     margin-top: 0;
 }
 
-.forget_field_21>span {
+.forget_field_21 span {
     font-family: 'Roboto', sans-serif;
     font-size: 13px;
     font-style: normal;
@@ -40,7 +48,15 @@
     letter-spacing: 0.25px;
     text-align: left;
     color: #767676;
-    padding-left: 5%;
+    padding-left: 2.5%;
+}
+
+.forget_field_21 .gcnBNj {
+    margin-right: 9px;
+}
+
+.forget_field_21 .lhgXDI {
+    width: 100%;
 }
 
 .forget_field_21>img {

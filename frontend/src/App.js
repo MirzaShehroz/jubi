@@ -5,15 +5,15 @@ import './App.css'
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Protected from './components/protected';
-import SignIn from './components/signin';
-import SignUp from './components/signupterms';
-import Forget from './components/forget';
-import EditProfile from './components/editprofile';
-import EditId from './components/editid';
-import EditPassword from './components/editpassword';
-import DashboardPanel from './components/dashboardpanel';
-import Chat from "./components/chat";
-import IndividualPanel from './components/individualpanel';
+import SignIn from './components/signin/signin';
+import SignUp from './components/signup/signupterms';
+import Forget from './components/forget/forget';
+import EditProfile from './components/edit_Components/editprofile';
+import EditId from './components/edit_Components/editid';
+import EditPassword from './components/edit_Components/editpassword';
+import DashboardPanel from './components/dashboard/dashboardPanel/dashboardpanel';
+import Chat from "./components/chat/chat";
+import IndividualPanel from './components/individual/individualPanel/individualComponents/individualpanel';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
