@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import axios from 'axios';
 import { userPassEdit } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import lockIcon from '../../assets/img/lockicon.png';
@@ -9,12 +10,14 @@ import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
 import PasswordValidation from '../password_Validation/passwordValidation';
 import ConfirmPasswordValid from '../password_Validation/confirmPasswordValid';
+import { Notifications } from '../../helpers/helpers';
 
 function EditPassword() {
 
     const [passAtom, setPassAtom] = useRecoilState(userPassEdit);
     const [passVisi, setPassVisi] = useState(false);
     const [passReq, setPassReq] = useState(false);
+    const [curPass, setCurPass] = useState(null);
     const [pass, setPass] = useState(null);
     const [cPass, setCPass] = useState(null);
     const [invalidVer, setInvalidVer] = useState(false);
@@ -31,29 +34,49 @@ function EditPassword() {
         setPassVisi(!passVisi);
     }
 
-    const submitSignForm = (e) => {
-        e.preventDefault();
-        if (pass !== cPass) {
-            setInvalidVer(true);
-        } else {
+    const updatePassword = () => {
+        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/password/reset`, {
+            username: sessionStorage.getItem('authEmail'),
+            password: curPass,
+            new_password: pass
+        }).then((res) => {
             setInvalidVer(false);
             setPassReq(false);
             setPassAtom((obj) => ({
                 currentPass: false,
                 editPass: false,
                 successPass: true,
-            }))
+            }));
             sessionStorage.clear();
+        }).catch(err => {
+            Notifications('error', err.response.data.data.message);
+            setPassAtom((obj) => ({
+                currentPass: true,
+                editPass: false,
+                successPass: false,
+            }));
+        })
+    }
+    const submitSignForm = (e) => {
+        e.preventDefault();
+        if (pass !== cPass) {
+            setInvalidVer(true);
+        } else {
+            updatePassword();
         }
 
     }
 
     const showPassContent = () => {
-        setPassAtom((obj) => ({
-            currentPass: false,
-            editPass: true,
-            successPass: false,
-        }))
+        if (curPass !== null) {
+            setPassAtom((obj) => ({
+                currentPass: false,
+                editPass: true,
+                successPass: false,
+            }))
+        } else {
+            Notifications('warning', 'Enter Current Password');
+        }
     }
 
     return (
@@ -79,6 +102,8 @@ function EditPassword() {
                                     <div className='signin_fields passIconSet'>
                                         <input
                                             placeholder='Current Password'
+                                            required
+                                            onChange={(e) => setCurPass(e.target.value)}
                                             type={passVisi ? 'text' : 'password'}
                                         />
                                         <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
@@ -91,6 +116,7 @@ function EditPassword() {
                                                 <input
                                                     type={passVisi ? 'text' : 'password'}
                                                     placeholder='Password'
+                                                    required
                                                     onChange={(e) => {
                                                         passHandle();
                                                         setPass(e.target.value);
@@ -109,6 +135,7 @@ function EditPassword() {
                                                 <input
                                                     type={passVisi ? 'text' : 'password'}
                                                     placeholder='Confirm Password'
+                                                    required
                                                     onChange={(e) => setCPass(e.target.value)}
                                                 />
                                                 <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />

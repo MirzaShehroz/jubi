@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Forget4 from './forget4';
 import logo from '../../assets/img/jubiwatch_logo.png';
+import { forgetPassDoc } from '../../data/atom';
+import { useRecoilValue } from 'recoil';
+import axios from 'axios';
 
 
 function Forget3() {
+    const forgetDoc = useRecoilValue(forgetPassDoc);
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [emailVer, setEmailVer] = useState(null);
     const [showF4, setF4] = useState(false);
@@ -18,21 +22,28 @@ function Forget3() {
     const emailVerHandle = (e) => {
         setEmailVer(e.target.value);
         setInvalidVer(false);
-        if (emailVer.length >= 4) {
+        if (emailVer.length >= 5) {
             setBtnClr('#3E6578')
         } else {
             setBtnClr('#C6C6C6')
         }
     }
+    const verifyForgetOTP = () => {
+        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+            email: forgetDoc.email,
+            code: emailVer
+        }).then((res) => {
+            setF4(true);
+        }).catch((err) => {
+            setInvalidVer(true);
+            setF4(false);
+        })
+    }
 
     const submitForget3Handle = (e) => {
         e.preventDefault();
         if (btnClr === "#3E6578") {
-            if (emailVer === '12345') {
-                setF4(true);
-            } else {
-                setInvalidVer(true);
-            }
+            verifyForgetOTP();
         } else {
             setF4(false);
         }
@@ -52,13 +63,14 @@ function Forget3() {
                                 <div className='signin_fields_cont'>
                                     <div className='forget_text'>
                                         <p>We sent you the code to your email
-                                            <span> abc@emailadress.com</span></p>
+                                            <span> {forgetDoc.email}</span></p>
                                     </div>
 
                                     <div className='signup_ver_form'>
                                         <input
                                             className="verification_Field forget_verification_Field"
                                             type="password"
+                                            required
                                             placeholder='Email Verification Code'
                                             onChange={(e) => emailVerHandle(e)} />
                                     </div>

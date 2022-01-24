@@ -8,8 +8,12 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import lockIcon from '../../assets/img/lockicon.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
+import axios from 'axios';
+import { forgetPassDoc } from '../../data/atom';
+import { useRecoilValue } from 'recoil';
 
 function Forget4() {
+    const forgetDoc = useRecoilValue(forgetPassDoc);
     const [pass, setPass] = useState(null);
     const [cPass, setCPass] = useState(null);
     const [showF5, setF5] = useState(false);
@@ -23,15 +27,24 @@ function Forget4() {
     const passHandle = () => {
         setPassReq(true);
     }
+    const forgetPassword = () => {
+        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/password/forget', {
+            username: forgetDoc.email,
+            password: pass
+        }).then((res) => {
+            setInvalidVer(false);
+            setPassReq(false);
+            setF5(true);
+        }).catch((err) => {
 
+        })
+    }
     const submitPassForm = (e) => {
         e.preventDefault();
         if (pass !== cPass) {
             setInvalidVer(true);
         } else {
-            setInvalidVer(false);
-            setPassReq(false);
-            setF5(true);
+            forgetPassword();
         }
     }
 
@@ -60,6 +73,7 @@ function Forget4() {
                                             <input
                                                 type={passVisi ? 'text' : 'password'}
                                                 placeholder='Password'
+                                                required
                                                 onChange={(e) => {
                                                     passHandle();
                                                     setPass(e.target.value);
@@ -78,6 +92,7 @@ function Forget4() {
                                             <input
                                                 type={passVisi ? 'text' : 'password'}
                                                 placeholder='Confirm Password'
+                                                required
                                                 onChange={(e) => {
                                                     setCPass(e.target.value);
                                                     setInvalidVer(true);
@@ -85,7 +100,7 @@ function Forget4() {
                                             />
                                             <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
                                         </div>
-                                        {invalidVer ? <div className='forget_showPassVal' style={{margin:'0'}}>
+                                        {invalidVer ? <div className='forget_showPassVal' style={{ margin: '0' }}>
                                             <ConfirmPasswordValid pass={pass} cPass={cPass} />
                                         </div> : null
                                         }

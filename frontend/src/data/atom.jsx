@@ -100,3 +100,10 @@ export const signUpFormValid = atom({
         showPass: false,
     }
 })
+
+export const forgetPassDoc = atom({
+    key:'forget Doctor Password',
+    default:{
+        email:null,
+    }
+})

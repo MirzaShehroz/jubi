@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 
 
-function Forget2() {
+function Forget2({email}) {
     const history = useHistory();
     const cancelButton = () => {
         history.push('/sign-in')
@@ -24,7 +24,7 @@ function Forget2() {
                         </div>
 
                         <div className='forget_emailShow_cont'>
-                            <p>abc@emailadress.com</p>
+                            <p>{email}</p>
                         </div>
 
                         <div className='signup_btn_cont'>
