@@ -141,7 +141,6 @@ function EditId() {
                                                 type="email"
                                                 required
                                                 placeholder='New Email ID'
-                                                // value={email}
                                                 onChange={(e) => emailHandle(e)}
                                                 />
                                         </div>
@@ -168,7 +167,7 @@ function EditId() {
                                     </div>
                                     : <>
                                         <div className='forget_emailShow_cont'>
-                                            <p>abc@emailadress.com</p>
+                                            <p>{email}</p>
                                         </div>
                                         <p id='successEmailMsg'>Email ID has been changed successfully.</p>
                                     </>
