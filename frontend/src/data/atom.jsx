@@ -16,7 +16,6 @@ export const showHeaderProfile = atom({
         showHProfile: true,
         paddingTop: "0.8%",
         showUserPanel: false,
-        iconRotate: false,
     }
 });
 
@@ -102,8 +101,18 @@ export const signUpFormValid = atom({
 })
 
 export const forgetPassDoc = atom({
-    key:'forget Doctor Password',
-    default:{
-        email:null,
+    key: 'forget Doctor Password',
+    default: {
+        email: null,
     }
+})
+
+export const usersData_ = atom({
+    key: 'User Data',
+    default: []
+})
+
+export const userDataIndividual = atom({
+    key: 'User individual Data',
+    default: []
 })

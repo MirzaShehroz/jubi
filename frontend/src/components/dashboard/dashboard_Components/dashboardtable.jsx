@@ -2,6 +2,7 @@ import '../../../assets/css/dashboarddatatables.css';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Chart } from 'react-google-charts';
+import axios from 'axios';
 import Badge from '@mui/material/Badge';
 import { FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,16 +21,31 @@ import 'jquery/dist/jquery.min.js';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from 'jquery';
+import { useCallback } from 'react';
+import { showHeaderProfile, userDataIndividual, usersData_ } from '../../../data/atom';
+import { useRecoilState } from 'recoil';
+import UserOverlay from '../../user_Components/useroverlay';
 
 
 function DashboardTable() {
 
     // #3E6578
     const history = useHistory();
-
+    let date = new Date().getFullYear();
+    const [usersData, setUsersData] = useRecoilState(usersData_);
+    const [usersDataClone, setUsersDataClone] = useState([]);
+    const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
     const [modalShowAW, setModalShowAW] = React.useState(false);
     const [modalShowRW, setModalShowRW] = React.useState(false);
+    const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
 
+    const showUPanelHandle = () => {
+        setShowHeader((obj) => ({
+            showHProfile: !showHeader.showHProfile,
+            paddingTop: showHeader.showHProfile ? "1.1%" : "0.8%",
+            showUserPanel: !showHeader.showUserPanel,
+        }))
+    }
     const [btnClr1, setBtnClr1] = useState({
         background: '#3E6578',
         color: '#FFFFFF'
@@ -72,8 +88,8 @@ function DashboardTable() {
             background: '#FFFFFF',
             color: '#3E6578'
         });
-
     }
+
     const changeBtnClr2 = () => {
         setBtnClr1({
             background: '#FFFFFF',
@@ -87,8 +103,8 @@ function DashboardTable() {
             background: '#FFFFFF',
             color: '#3E6578'
         });
-
     }
+
     const changeBtnClr3 = () => {
         setBtnClr1({
             background: '#FFFFFF',
@@ -176,16 +192,30 @@ function DashboardTable() {
         });
     }
 
+    const getUsersData = useCallback(() => {
+        axios.get('/affiliate/v1/users', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        })
+            .then(res => {
+                setUsersData(res.data.data);
+                setUsersDataClone(res.data.data);
+            })
+            .catch(error => console.log(error.message));
+
+    }, [setUsersData])
 
     useEffect(() => {
+        getUsersData();
         readyPagination();
-    }, [])
+    }, [getUsersData])
 
     const readyPagination = () => {
         $(document).ready(function () {
             setTimeout(function () {
                 $('#example').DataTable({
-                    pageLength: 5,
+                    pageLength: 10,
                     "scrollCollapse": true,
                     "bPaginate": true,
                     "bLengthChange": true,
@@ -193,13 +223,30 @@ function DashboardTable() {
                     "bInfo": false,
                     "bAutoWidth": false,
                     "searching": false,
-
                     "dom": '<"top"i>rt<"bottom"flp><"clear">',
-
                 });
             }, 1000);
         });
     }
+
+    const setUserData = (id) => {
+        let data = usersData.filter(item => {
+            return item.uid === id
+        })
+        setUserIndData(data);
+    }
+    const searchUsers = (e) => {
+        let data = [];
+        if (e.target.value === '') {
+            setUsersDataClone(usersData);
+        } else {
+            data = usersData.filter(item => {
+                return item.first_name.toLowerCase().includes(e.target.value.toLowerCase())
+            })
+            setUsersDataClone(data);
+        }
+    }
+
     return (
         <div className='dashboard_child2'>
             <div id={'container'}>
@@ -247,6 +294,7 @@ function DashboardTable() {
                                                 placeholder={'User name/ Insurance/ Medication'}
                                                 className="me-2"
                                                 aria-label="Search"
+                                                onChange={(e) => searchUsers(e)}
                                             />
                                         </div>
                                     </div>
@@ -260,7 +308,6 @@ function DashboardTable() {
                     <table id="example" className="table table-hover table-bordered" style={{ borderCollapse: 'collapse', background: '#F5F5F5' }}>
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Status</th>
                                 <th>Name</th>
                                 <th>Sex</th>
@@ -270,160 +317,101 @@ function DashboardTable() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className={'tableTD'}>
-                                <td>1</td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row verticleMiddle'}>
-                                            <div className={'col-lg-2 col-sm-12'}></div>
-                                            <div className={'col-lg-4 col-sm-12 badgeClass'}>
-                                                <Box sx={{ color: 'action.active' }}>
-                                                    <Badge color="error" variant="dot">
-                                                        <FontAwesomeIcon id={'commentBadge'} icon={faComment} />
-                                                    </Badge>
-                                                </Box>
+                            {usersDataClone.map((item) => (
+                                <tr className={'tableTD'} key={item.uid}>
+                                    <td>
+                                        <div className={'container'}>
+                                            <div className={'row verticleMiddle'}>
+                                                <div className={'col-lg-2 col-sm-12'}></div>
+                                                <div className={'col-lg-4 col-sm-12 badgeClass'}>
+                                                    <Box sx={{ color: 'action.active' }}>
+                                                        <Badge color="error" variant="dot">
+                                                            <FontAwesomeIcon id={'commentBadge'} icon={faComment} />
+                                                        </Badge>
+                                                    </Box>
+                                                </div>
+                                                <div className={'col-lg-4 col-sm-12'}>
+                                                    <FontAwesomeIcon
+                                                        onClick={() => {
+                                                            setUserData(item.uid);
+                                                            setModalShowAW(true);
+                                                        }}
+                                                        id={'starIcon'}
+                                                        icon={faStar}
+                                                        style={{ cursor: 'pointer' }}
+                                                    />
+                                                </div>
+                                                <div className={'col-lg-2 col-sm-12'}></div>
                                             </div>
-                                            <div className={'col-lg-4 col-sm-12'}>
-                                                <FontAwesomeIcon id={'starIcon'} icon={faStar} />
-                                            </div>
-                                            <div className={'col-lg-2 col-sm-12'}></div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row verticleMiddle'}>
-                                            <div className={'col-lg-5 col-sm-5 userPic'}>
-                                                <img alt='' onClick={() => setModalShowAW(true)} src={user} />
-                                            </div>
-                                            <div className={'col-lg-7 col-sm-7 '}>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>First Name</b> : John</div>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>Last Name</b> : Doe</div>
-                                                <div id={'year'} className={'col-sm-12'}>52 y.o. (02/19/1966)</div>
-                                            </div>
+                                    </td>
+                                    <td>
+                                        <div className={'container'}>
+                                            <div className={'row verticleMiddle'}>
+                                                <div className={'col-lg-5 col-sm-5 userPic'}>
+                                                    <img alt='' src={user} />
+                                                </div>
+                                                <div className={'col-lg-7 col-sm-7 '}>
+                                                    <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>First Name</b> : {item.first_name}</div>
+                                                    <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>Last Name</b> : {item.last_name}</div>
+                                                    <div id={'year'} className={'col-sm-12'}>{date - parseInt(item.date_of_birth.slice(6))} y.o. ({item.date_of_birth})</div>
+                                                </div>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td style={{ textAlign: 'center' }}>M</td>
-                                <td style={{ textAlign: 'center' }}>Oct.30.<br />2021</td>
-                                <td>Insurance Name<br />Insurance Name</td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row'}>
-                                            <div id={'percentage'} className={'col-lg-1 col-sm-1'}><p>5%</p></div>
-                                            <div id={'chart'} className={'col-lg-5 col-sm-5'}>
-                                                <Chart
+                                    </td>
+                                    <td style={{ textAlign: 'center' }}>{item.gender}</td>
+                                    <td style={{ textAlign: 'center' }}>Oct.30.<br />2021</td>
+                                    <td>Insurance Name<br />Insurance Name</td>
+                                    <td>
+                                        <div className={'container'}>
+                                            <div className={'row'}>
+                                                <div id={'percentage'} className={'col-lg-1 col-sm-1'}><p>5%</p></div>
+                                                <div id={'chart'} className={'col-lg-5 col-sm-5'}>
+                                                    <Chart
 
-                                                    chartType="AreaChart"
-                                                    loader={<div>Loading Chart</div>}
-                                                    data={[
-                                                        ['', '', ''],
-                                                        ['', 140, 300],
-                                                        ['', 110, 300],
-                                                        ['', 660, 300],
-                                                        ['', 103, 300],
-                                                    ]}
-                                                    options={{
-                                                        backgroundColor: { fill: 'transparent' },
-                                                        legend: 'none',
-                                                        hAxis: {},
-                                                        vAxis: { textPosition: 'none', },
-                                                        // For the legend to fit, we make the chart area smaller
-                                                        chartArea: { width: '100%', height: '60%' },
-                                                    }}
-                                                />
-                                            </div>
-                                            <div id={'medication'} className={'col-lg-5 col-sm-5'}>
-                                                <span>[Jubi] Medication name 1</span><br />
-                                                <span>Medication name 2</span><br />
-                                                <span>Medication name 3</span><br />
-                                                <span>Medication name 4</span><br />
-                                                <u onClick={() => history.push('/individual')} style={{ color: 'red', cursor: 'pointer' }}>+1 more</u>
-                                            </div>
-                                            <div className={'col-lg-1 col-sm-1 rowImg'}>
-                                                <img alt='' style={{ cursor: 'pointer' }} onClick={() => history.push('/individual')} id={'expandButton'} src={expandButton} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr className={'tableTD'}>
-                                <td>2</td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row verticleMiddle'}>
-                                            <div className={'col-lg-2 col-sm-12'}></div>
-                                            <div className={'col-lg-4 col-sm-12 badgeClass'}>
-                                                <Box sx={{ color: 'action.active' }}>
-                                                    <Badge color="error" variant="dot">
-                                                        <FontAwesomeIcon id={'commentBadge'} icon={faComment} />
-                                                    </Badge>
-                                                </Box>
-                                            </div>
-                                            <div className={'col-lg-4 col-sm-12'}>
-                                                <FontAwesomeIcon id={'starIcon'} icon={faStar} />
-                                            </div>
-                                            <div className={'col-lg-2 col-sm-12'}></div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row verticleMiddle'}>
-                                            <div className={'col-lg-5 col-sm-5 userPic'}>
-                                                <img alt='' onClick={() => setModalShowAW(true)} src={user} />
-                                            </div>
-                                            <div className={'col-lg-7 col-sm-7 '}>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>First Name</b> : Jessica</div>
-                                                <div className={'col-lg-12 col-sm-12 textTableStyle'}><b>Last Name</b> : Oliver</div>
-                                                <div id={'year'} className={'col-sm-12'}>35 y.o. (02/19/1980)</div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </td>
-                                <td style={{ textAlign: 'center' }}>M</td>
-                                <td style={{ textAlign: 'center' }}>Sep.11.<br />2021</td>
-                                <td>Insurance Name1<br />Insurance Name1</td>
-                                <td>
-                                    <div className={'container'}>
-                                        <div className={'row'}>
-                                            <div id={'percentage'} className={'col-lg-1 col-sm-1'}><p>90%</p></div>
-                                            <div id={'chart'} className={'col-lg-5 col-sm-5'}>
-                                                <Chart
-
-                                                    chartType="AreaChart"
-                                                    loader={<div>Loading Chart</div>}
-                                                    data={[
-                                                        ['', '', ''],
-                                                        ['', 440, 300],
-                                                        ['', 150, 300],
-                                                        ['', 300, 300],
-                                                        ['', 390, 300],
-                                                    ]}
-                                                    options={{
-                                                        backgroundColor: { fill: 'transparent' },
-                                                        legend: 'none',
-                                                        hAxis: {},
-                                                        vAxis: { textPosition: 'none', },
-                                                        chartArea: { width: '100%', height: '60%' },
-                                                    }}
-                                                />
-                                            </div>
-                                            <div id={'medication'} className={'col-lg-5 col-sm-5'}>
-                                                <span>[Jubi] Medication name 1</span><br />
-                                                <span>Medication name 2</span><br />
-                                                <span>Medication name 3</span><br />
-                                                <u onClick={() => history.push('/individual')} style={{ color: 'red', cursor: 'pointer' }}>+1 more</u>
-                                            </div>
-                                            <div className={'col-lg-1 col-sm-1 rowImg'}>
-                                                <img alt='' style={{ cursor: 'pointer' }} onClick={() => history.push('/individual')} id={'expandButton'} src={expandButton} />
+                                                        chartType="AreaChart"
+                                                        loader={<div>Loading Chart</div>}
+                                                        data={[
+                                                            ['', '', ''],
+                                                            ['', 140, 300],
+                                                            ['', 110, 300],
+                                                            ['', 660, 300],
+                                                            ['', 103, 300],
+                                                        ]}
+                                                        options={{
+                                                            backgroundColor: { fill: 'transparent' },
+                                                            legend: 'none',
+                                                            hAxis: {},
+                                                            vAxis: { textPosition: 'none', },
+                                                            // For the legend to fit, we make the chart area smaller
+                                                            chartArea: { width: '100%', height: '60%' },
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div id={'medication'} className={'col-lg-5 col-sm-5'}>
+                                                    <span>[Jubi] Medication name 1</span><br />
+                                                    <span>Medication name 2</span><br />
+                                                    <span>Medication name 3</span><br />
+                                                    <span>Medication name 4</span><br />
+                                                    <u onClick={() => history.push('/individual')} style={{ color: 'red', cursor: 'pointer' }}>+1 more</u>
+                                                </div>
+                                                <div className={'col-lg-1 col-sm-1 rowImg'}>
+                                                    <img
+                                                        onClick={() => {
+                                                            setUserData(item.uid);
+                                                            showUPanelHandle();
+                                                        }}
+                                                        alt=''
+                                                        style={{ cursor: 'pointer' }}
+                                                        id={'expandButton'}
+                                                        src={expandButton} />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
@@ -439,7 +427,10 @@ function DashboardTable() {
                     onHide={() => setModalShowRW(false)}
                 />
                 {/**/}
-
+                {/* USER_OVERLAY */}
+                {showHeader.showUserPanel ?
+                    <UserOverlay display='block' animate="animate__animated animate__fadeIn" /> : null
+                }
 
             </div>
         </div>

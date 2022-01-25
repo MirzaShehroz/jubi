@@ -4,11 +4,12 @@ import userPic from "../../assets/img/user_pic.png";
 import cancelIcon from "../../assets/img/cancelicon.png";
 import activeIcon1 from "../../assets/img/activeicon1.png";
 import activeIcon2 from "../../assets/img/activeicon2.png";
-import { showHeaderProfile } from '../../data/atom';
-import { useRecoilState } from 'recoil';
+import { showHeaderProfile, userDataIndividual } from '../../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 function UserOverlay({ display, animate }) {
-
+    let date = new Date().getFullYear();
+    const userIndData = useRecoilValue(userDataIndividual);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
     const showUPanelHandle = () => {
         setShowHeader((obj) => ({
@@ -20,18 +21,22 @@ function UserOverlay({ display, animate }) {
     return (
         <div id='overlay_user' className={animate} style={{ display: display }} >
             <div id='overlay_user_child'>
-                <div className='overlay_child1'>
-                    <div className='overlay_child11'>
-                        <div className='overlay_child11_1'>
-                            <img src={userPic} alt="something18" />
+                {
+                    userIndData.map(item => (
+                        <div className='overlay_child1' key={item.uid}>
+                            <div className='overlay_child11'>
+                                <div className='overlay_child11_1'>
+                                    <img src={userPic} alt="something18" />
+                                </div>
+                                <div className='overlay_child11_2'>
+                                    <p>{item.first_name} {item.last_name}</p>
+                                    <p>{date - parseInt(item.date_of_birth.slice(6))} y.o. ({item.date_of_birth})</p>
+                                </div>
+                            </div>
+                            <img src={cancelIcon} alt="something19" onClick={showUPanelHandle} />
                         </div>
-                        <div className='overlay_child11_2'>
-                            <p>Jamie Oliver</p>
-                            <p>31 y.o. (05/17/1990)</p>
-                        </div>
-                    </div>
-                    <img src={cancelIcon} alt="something19" onClick={showUPanelHandle} />
-                </div>
+                    ))
+                }
                 <div className='overlay_child2'>
                     <div className='overlay_child21' >
                         <img src={activeIcon1} alt="something" />

@@ -1,29 +1,26 @@
 import '../../../assets/css/dashboardstrip.css';
 import React from 'react';
 import { useRecoilState } from 'recoil';
-import icon from '../../../assets/img/stripicon.png'
-import UserOverlay from '../../user_Components/useroverlay';
-import { showHeaderProfile } from '../../../data/atom';
+import icon from '../../../assets/img/stripicon.png';
+import { sidePanelFunc } from '../../../data/atom';
+import SidePanel from '../../sidebar_Components/sidepanel';
 
 function DashboardStrip() {
-    const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
-    const showUPanelHandle = () => {
-        setShowHeader((obj) => ({
-            showHProfile: !showHeader.showHProfile,
-            paddingTop: showHeader.showHProfile ? "1.1%" : "0.8%",
-            showUserPanel: !showHeader.showUserPanel,
-            iconRotate:!showHeader.iconRotate,
+    const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
+
+    const showSidePanelHandle = () => {
+        setSP((obj) => ({
+            ...obj,
+            showSP: 'grid',
         }))
     }
     return (
-        <div className='dashboard_strip'>
-
-            {!showHeader.iconRotate ? <img style={{ transform: "rotate(0deg)" }} src={icon} alt="something8" onClick={showUPanelHandle} /> : <img style={{ transform: "rotate(180deg)" }} src={icon} alt="something9" onClick={showUPanelHandle} />}
-
-            {showHeader.showUserPanel ?
-                <UserOverlay display='block' animate="animate__animated animate__fadeIn" /> : null
-            }
-        </div>
+        <>
+            <div className='dashboard_strip'>
+                <img style={{ transform: "rotate(0deg)" }} onClick={showSidePanelHandle} src={icon} alt="something8" />
+            </div>
+            <SidePanel display={showSidePanel.showSP} />
+        </>
     )
 }
 

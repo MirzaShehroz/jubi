@@ -8,7 +8,7 @@ import Header from '../../header/header';
 import Dashboard from '../dashboard_Components/dashboard';
 import DashboardStrip from '../dashboard_Components/dashboardstrip';
 import Sidebar from '../../sidebar_Components/sidebar';
-import { docData, userIDedit, userPassEdit } from "../../../data/atom";
+import { connectUserShow, docData, showHeaderProfile, userIDedit, userPassEdit } from "../../../data/atom";
 
 
 function DashboardPanel() {
@@ -16,6 +16,8 @@ function DashboardPanel() {
     const [/*..*/, setDocData] = useRecoilState(docData);
     const [/*..*/, setCmpID] = useRecoilState(userIDedit);
     const [/*..*/, setCmpPass] = useRecoilState(userPassEdit);
+    const [/*..*/, setUserOverlay] = useRecoilState(showHeaderProfile);
+    const [/*..*/, setCnctUser] = useRecoilState(connectUserShow);
 
     const getData = useCallback(() => {
         axios.get('/affiliate/v1/doctor/profile', {
@@ -41,6 +43,13 @@ function DashboardPanel() {
         })
     }, [setDocData])
 
+    const resetUseroverlay = useCallback(() => {
+        setUserOverlay((obj) => ({
+            showHProfile: true,
+            paddingTop: "0.8%",
+            showUserPanel: false,
+        }))
+    }, [setUserOverlay])
     const resetEditId = useCallback(() => {
         setCmpID((obj) => ({
             currentPass: true,
@@ -55,12 +64,21 @@ function DashboardPanel() {
             successEmail: false,
         }))
     }, [setCmpPass])
+    const resetCnctUser = useCallback(() => {
+        setCnctUser((obj) => ({
+            connectMenu: false,
+            csMenu: false,
+            connectClass: 'c_menu'
+        }))
+    }, [setCnctUser])
 
     useEffect(() => {
         getData();
+        resetCnctUser();
         resetEditId();
         resetEditPass();
-    }, [getData, resetEditId, resetEditPass])
+        resetUseroverlay();
+    }, [getData, resetEditId, resetEditPass, resetCnctUser, resetUseroverlay])
 
 
     return (
