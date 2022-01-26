@@ -360,7 +360,7 @@ function DashboardTable() {
                                             </div>
                                         </div>
                                     </td>
-                                    <td style={{ textAlign: 'center' }}>{item.gender}</td>
+                                    <td style={{ textAlign: 'center' }}>{item.gender.slice(0, 1).toUpperCase() === 'M' ? 'M' : 'F'}</td>
                                     <td style={{ textAlign: 'center' }}>Oct.30.<br />2021</td>
                                     <td>Insurance Name<br />Insurance Name</td>
                                     <td>
