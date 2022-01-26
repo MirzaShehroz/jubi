@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userIDedit} from '../../data/atom';
+import { userIDedit } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
+import axios from 'axios';
+import { Notifications } from '../../helpers/helpers';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 function EditId() {
 
+    const [timerShow, setTimerShow] = useState(false);
     const [idAtom, setIDAtom] = useRecoilState(userIDedit);
-    const [email, setEmail] = useState(null);
+    const [email, setEmail] = useState('');
     const [verCode, setVerCode] = useState(null);
     const [showVerEmailBtn, setShowVerEmailBtn] = useState(true);
     const [showVerification, setshowVer] = useState(false);
@@ -18,6 +22,7 @@ function EditId() {
     const [/*pass*/, setPass] = useState(null);
     const [invalidVer, setInvalidVer] = useState(false);
     const [passVisi, setPassVisi] = useState(false);
+
     const history = useHistory();
 
     const cancelButton = () => {
@@ -35,6 +40,16 @@ function EditId() {
 
     const sendVerificationHandle = () => {
         if (email.includes('@')) {
+            axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${email}`)
+                .then(res => {
+                    Notifications('success', `${res.data.data.message}`);
+                    setTimerShow(false);
+                    setTimeout(() => {
+                        setTimerShow(true)
+                    }, 200);
+                }).catch(err => {
+                    Notifications('error', `Internal Server Error`)
+                });
             setshowVer(true);
             setBtnClr('#C6C6C6');
         } else {
@@ -46,7 +61,7 @@ function EditId() {
     const verCodeHandle = (e) => {
         setVerCode(e.target.value);
         setInvalidVer(false);
-        if (verCode.length >= 4) {
+        if (verCode.length >= 5) {
             setOkBtnClr('#3E6578')
         } else {
             setOkBtnClr('#C6C6C6')
@@ -54,14 +69,19 @@ function EditId() {
     }
 
     const verOkHandle = () => {
-        if (parseInt(verCode) === 12345) {
+        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+            email: email,
+            code: verCode
+        }).then(res => {
+            Notifications('success', `${res.data.data.message}`)
             setInvalidVer(false);
             setShowVerEmailBtn(false);
             setshowVer(false);
-            setInvalidVer(false);
-        } else {
+
+        }).catch(err => {
+            Notifications('error', `${err.response.data.data.message}`)
             setInvalidVer(true);
-        }
+        })
     }
 
     const showPassVisibility = () => {
@@ -140,9 +160,10 @@ function EditId() {
                                             <input
                                                 type="email"
                                                 required
+                                                value={email}
                                                 placeholder='New Email ID'
                                                 onChange={(e) => emailHandle(e)}
-                                                />
+                                            />
                                         </div>
                                         {showVerEmailBtn ? <button onClick={sendVerificationHandle}
                                             className=' sign_btn sign_btn_email' type='button'
@@ -153,7 +174,26 @@ function EditId() {
                                                     className="verification_Field"
                                                     type="password"
                                                     placeholder='Email Verification Code'
-                                                    onChange={(e) => verCodeHandle(e)} />
+                                                    onChange={(e) => verCodeHandle(e)}
+                                                />
+                                                {timerShow ? <p className='verification_time'>
+                                                    <CountdownCircleTimer
+                                                        style={{ justifyContent: 'center', display: 'flex' }}
+                                                        size={15}
+                                                        isPlaying
+                                                        duration={900}
+                                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                                        colorsTime={[880, 675, 450, 225]}
+                                                    >
+                                                        {({ remainingTime }) => {
+                                                            const minutes = Math.floor(remainingTime / 60)
+                                                            const seconds = remainingTime % 60
+
+                                                            return `${minutes}:${seconds}`
+                                                        }}
+                                                    </CountdownCircleTimer>
+                                                </p> : null
+                                                }
 
                                                 <button onClick={verOkHandle}
                                                     type='button'

@@ -17,16 +17,13 @@ function ConnectUser({ show }) {
     const usersData = useRecoilValue(usersData_);
     const [searchUser, setSearchUser] = useState([]);
     const [csMenu, setCSmenu] = useState(false);
+    const [patientCode, setCode] = useState(null);
     const [csMenuAtom, setCsMenuAtom] = useRecoilState(connectUserShow);
     const [csMenuClass, setCSmenuClass] = useState("cs_menu");
     const [showCnctBtn, setShowCnctBtn] = useState(true);
     const [showReCnctBtn, setShowReCnctBtn] = useState(false);
     const [showTryBtn, setShowTryBtn] = useState(false);
     const [disableText, setDisableText] = useState('100%');
-    const [countDown, setCountDown] = useState({
-        minutes: 0,
-        seconds: 0
-    })
 
     useEffect(() => {
         if (show) {
@@ -37,33 +34,6 @@ function ConnectUser({ show }) {
         }
     }, [show]);
 
-    const startTimer = (duration) => {
-        let start = Date.now(),
-            diff,
-            minutes,
-            seconds;
-
-        function timer() {
-            diff = duration - (((Date.now() - start) / 1000) | 0);
-            minutes = (diff / 60) | 0;
-            seconds = (diff % 60) | 0;
-            setCountDown({
-                minutes: minutes < 10 ? "0" + minutes : minutes,
-                seconds: seconds < 10 ? "0" + seconds : seconds
-            })
-            if (diff <= 0) {
-                start = Date.now() + 1000;
-            }
-            if (countDown.minutes === parseInt('00') && countDown.seconds === parseInt('00')) {
-                clearInterval(timer);
-                return;
-            }
-        };
-        timer();
-        setInterval(timer, 1000);
-
-    }
-
     const csMenuShow = (e) => {
 
         let data = usersData.filter(item => {
@@ -71,17 +41,18 @@ function ConnectUser({ show }) {
                 setCSmenu(true);
                 csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
                 return item.first_name;
-            } 
+            }
         })
         setSearchUser(data);
     }
 
     const showReconnectBtn = () => {
-        setDisableText('100%')
-        setShowCnctBtn(false);
-        setShowReCnctBtn(true);
-        setShowTryBtn(false);
-        startTimer(5);
+        if (patientCode.length === 4) {
+            setDisableText('100%')
+            setShowCnctBtn(false);
+            setShowReCnctBtn(true);
+            setShowTryBtn(false);
+        }
     }
 
     const showTryAgainBtn = () => {
@@ -92,10 +63,9 @@ function ConnectUser({ show }) {
     }
 
     const showCSConnectMenu = (id) => {
-
         const data = usersData.filter(item => {
             return item.uid === id
-        })
+        });
         setSearchUser(data);
         setCSmenu(false);
         !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
@@ -110,6 +80,10 @@ function ConnectUser({ show }) {
             connectMenu: false,
             connectClass: 'c_menu',
         }));
+        setShowCnctBtn(true);
+        setShowReCnctBtn(false);
+        setDisableText('100%');
+        setShowTryBtn(false);
     }
 
     return (
@@ -156,18 +130,24 @@ function ConnectUser({ show }) {
                                 <p style={{ opacity: disableText }}>Wt:{item.weight}   Ht:{item.height}</p>
                             </div>
                             <div className='csMenu_Child12'>
-                                <Input id="standard-adornment-weight"
+                                <Input
+                                    id="standard-number"
                                     placeholder='Code'
-                                    aria-describedby="standard-weight-helper-text"
+                                    onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
                                     inputProps={{
-                                        'aria-label': 'weight',
-                                    }} />
-
-                                {showReCnctBtn ? <p className='csMenu_time'><CountdownCircleTimer
+                                        inputmode: 'numeric',
+                                        pattern: '[0-9]*',
+                                        maxLength: 4
+                                    }}
+                                    onChange={(e) => setCode(e.target.value)}
+                                    variant="standard"
+                                />
+                                {showReCnctBtn ? <p className='csMenu_time'>
+                                    <CountdownCircleTimer
                                     style={{ justifyContent: 'center', display: 'flex' }}
                                     size={15}
                                     isPlaying
-                                    duration={5}
+                                    duration={900}
                                     colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                                     colorsTime={[880, 675, 450, 225]}
                                     onComplete={showTryAgainBtn}

@@ -8,6 +8,7 @@ import lockIcon from '../../assets/img/lockicon.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
+import bcrypt from 'bcryptjs';
 import PasswordValidation from '../password_Validation/passwordValidation';
 import ConfirmPasswordValid from '../password_Validation/confirmPasswordValid';
 import { Notifications } from '../../helpers/helpers';
@@ -17,9 +18,9 @@ function EditPassword() {
     const [passAtom, setPassAtom] = useRecoilState(userPassEdit);
     const [passVisi, setPassVisi] = useState(false);
     const [passReq, setPassReq] = useState(false);
-    const [curPass, setCurPass] = useState(null);
-    const [pass, setPass] = useState(null);
-    const [cPass, setCPass] = useState(null);
+    const [curPass, setCurPass] = useState('');
+    const [pass, setPass] = useState('');
+    const [cPass, setCPass] = useState('');
     const [invalidVer, setInvalidVer] = useState(false);
     const history = useHistory();
 
@@ -64,16 +65,22 @@ function EditPassword() {
         } else {
             updatePassword();
         }
-
     }
 
-    const showPassContent = () => {
-        if (curPass !== null) {
-            setPassAtom((obj) => ({
-                currentPass: false,
-                editPass: true,
-                successPass: false,
-            }))
+    const showPassContent = async () => {
+        if (curPass !== '') {
+            console.log(sessionStorage.getItem('unKnown'));
+            let isPass = await bcrypt.compare(curPass, sessionStorage.getItem('unKnown'));
+            if (!isPass) {
+                return Notifications('error', 'Incorrect Current Password');
+            }
+            if (isPass) {
+                setPassAtom((obj) => ({
+                    currentPass: false,
+                    editPass: true,
+                    successPass: false,
+                }))
+            }
         } else {
             Notifications('warning', 'Enter Current Password');
         }
@@ -117,6 +124,7 @@ function EditPassword() {
                                                     type={passVisi ? 'text' : 'password'}
                                                     placeholder='Password'
                                                     required
+                                                    value={pass}
                                                     onChange={(e) => {
                                                         passHandle();
                                                         setPass(e.target.value);
@@ -136,7 +144,10 @@ function EditPassword() {
                                                     type={passVisi ? 'text' : 'password'}
                                                     placeholder='Confirm Password'
                                                     required
-                                                    onChange={(e) => setCPass(e.target.value)}
+                                                    onChange={(e) => {
+                                                        setCPass(e.target.value)
+                                                        setInvalidVer(true)
+                                                    }}
                                                 />
                                                 <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
                                             </div>

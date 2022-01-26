@@ -224,6 +224,23 @@
 
 }
 
+.verification_time {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0.15000000596046448px;
+    text-align: center;
+    color: #D02121;
+    position: relative;
+    transform: translate(-40px, 1px);
+}
+
+.verification_time>div>svg {
+    opacity: 0;
+}
+
 .verMsg>button {
     color: #767676;
     background: transparent;

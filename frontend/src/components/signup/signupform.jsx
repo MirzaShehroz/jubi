@@ -9,10 +9,12 @@ import { docSignUpData, signUpFormValid, userPicUpload } from '../../data/atom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Notifications } from '../../helpers/helpers';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 function SignUp2() {
 
     const [signUpValid, setSignValid] = useRecoilState(signUpFormValid);
+    const [timerShow, setTimerShow] = useState(false);
     const [verCode, setVerCode] = useState(null);
     const [showSign3, setShowSign3] = useState(false);
     const [emailMsg, setEmailMsg] = useState(false);
@@ -58,6 +60,10 @@ function SignUp2() {
                 }).catch(err => {
                     Notifications('error', `Internal Server Error`)
                 });
+            setTimerShow(false);
+            setTimeout(() => {
+                setTimerShow(true);
+            }, 200);
             setSignValid(obj => ({
                 ...obj,
                 showVerification: true,
@@ -198,7 +204,8 @@ function SignUp2() {
                                             onClick={sendVerificationHandle}
                                             className=' sign_btn sign_btn_email'
                                             type='button'
-                                            style={{ background: btnClr }}>Send Verification Code</button> : null}
+                                            style={{ background: btnClr }}>Send Verification Code</button> : null
+                                    }
                                     {signUpValid.showVerification ?
                                         <div className='signup_ver_form'>
                                             <input
@@ -206,8 +213,26 @@ function SignUp2() {
                                                 type="password"
                                                 required
                                                 placeholder='Email Verification Code'
-                                                onChange={(e) => verCodeHandle(e)} />
+                                                onChange={(e) => verCodeHandle(e)}
+                                            />
+                                            {timerShow ? <p className='verification_time'>
+                                                <CountdownCircleTimer
+                                                    style={{ justifyContent: 'center', display: 'flex' }}
+                                                    size={15}
+                                                    isPlaying
+                                                    duration={900}
+                                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                                    colorsTime={[880, 675, 450, 225]}
+                                                >
+                                                    {({ remainingTime }) => {
+                                                        const minutes = Math.floor(remainingTime / 60)
+                                                        const seconds = remainingTime % 60
 
+                                                        return `${minutes}:${seconds}`
+                                                    }}
+                                                </CountdownCircleTimer>
+                                            </p> : null
+                                            }
                                             <button onClick={verOkHandle}
                                                 type='button'
                                                 style={{ background: okBtnClr }}
