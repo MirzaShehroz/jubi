@@ -37,11 +37,6 @@
     letter-spacing: 0.5px;
 }
 
-.signup_checkout>input:checked::before {
-    left: 3px;
-    top: -1px
-}
-
 .signup_terms_child {
     margin: 7% 0;
 }

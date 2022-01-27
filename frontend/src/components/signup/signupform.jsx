@@ -54,7 +54,7 @@ function SignUp2() {
 
     const sendVerificationHandle = () => {
         if (docSignUp.email.includes('@')) {
-            axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${docSignUp.email}`)
+            axios.post(`/affiliate/v1/otp?email=${docSignUp.email}`)
                 .then(res => {
                     Notifications('success', `${res.data.data.message}`)
                 }).catch(err => {
@@ -92,7 +92,7 @@ function SignUp2() {
     }
 
     const verOkHandle = () => {
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+        axios.post(`/affiliate/v1/verify`, {
             email: docSignUp.email,
             code: verCode
         }).then(res => {

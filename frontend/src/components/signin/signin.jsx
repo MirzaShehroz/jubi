@@ -70,7 +70,7 @@ function SignIn() {
             password: password
         }
 
-        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/login', data)
+        axios.post('/affiliate/v1/doctor/login', data)
             .then((response) => {
                 setAuthData((obj) => ({
                     email: response.data.data.username,

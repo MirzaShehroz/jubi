@@ -140,3 +140,32 @@
         right: 5%;
     }
 }
+
+@media screen and (min-width:2560px) {
+    .menu_div {
+        padding-top: 16px;
+        width: 375px;
+    }
+
+    .menu_List li {
+        font-size: 22px;
+        line-height: 35px;
+    }
+
+    #userName_P {
+        font-size: 28px;
+        line-height: 51px;
+    }
+
+    .menu_div p:not(:first-child) {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .menu_div button {
+        font-size: 20px;
+        line-height: 22px;
+        padding: 7px 27px;
+        border-radius: 6px;
+    }
+}

@@ -40,7 +40,7 @@ function EditId() {
 
     const sendVerificationHandle = () => {
         if (email.includes('@')) {
-            axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${email}`)
+            axios.post(`/affiliate/v1/otp?email=${email}`)
                 .then(res => {
                     Notifications('success', `${res.data.data.message}`);
                     setTimerShow(false);
@@ -69,7 +69,7 @@ function EditId() {
     }
 
     const verOkHandle = () => {
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+        axios.post(`/affiliate/v1/verify`, {
             email: email,
             code: verCode
         }).then(res => {

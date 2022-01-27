@@ -32,7 +32,7 @@ function Forget3() {
         }
     }
     const sendForgetOTP = () => {
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${forgetDoc.email}`)
+        axios.post(`/affiliate/v1/otp?email=${forgetDoc.email}`)
             .then((res) => {
                 Notifications('success', `${res.data.data.message}`);
                 setTimerShow(false);
@@ -42,7 +42,7 @@ function Forget3() {
             }).catch((err) => { Notifications('error', `Internal Server Error`) })
     }
     const verifyForgetOTP = () => {
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, {
+        axios.post(`/affiliate/v1/verify`, {
             email: forgetDoc.email,
             code: emailVer
         }).then((res) => {

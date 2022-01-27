@@ -164,3 +164,39 @@ div.dataTables_wrapper div.dataTables_paginate {
     letter-spacing: 0.25px;
     text-align: left;
 }
+
+
+@media screen and (min-width:2560px) {
+    #datatable th {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .row .userPic img {
+        width: 60px;
+        height: 60px;
+    }
+
+    #commentBadge, #starIcon {
+        font-size: 32px;
+    }
+
+    .rowImg img {
+        height: 35px;
+        width: 35px;
+    }
+
+    #datatable td {
+        font-size: 19px;
+        line-height: 30px;
+    }
+
+    #year {
+        font-size: 19px;
+        line-height: 27px;
+    }
+
+    #percentage {
+        font-size: 26px;
+    }
+}

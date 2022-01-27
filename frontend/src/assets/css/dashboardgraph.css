@@ -296,3 +296,86 @@
         width: 20%;
     }
 }
+
+
+@media screen and (min-width:2560px) {
+    .dashboard_child11_1 {
+        margin-right: 7%;
+    }
+
+
+    .dashboard_child11 p {
+        font-size: 24px;
+        line-height: 40px;
+        margin-bottom: 6px;
+    }
+
+    .dashboard_child11_1_btn button, .filterButtons {
+        font-size: 22px;
+        padding: 12.5px 15px;
+        border-radius: 4px;
+        margin-right: 12px;
+    }
+
+    .dashboard_child11_2_1 select, .dashboard_child11_2_1 button {
+        border-radius: 4px;
+        padding: 6px 10px;
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    #filters h5 {
+        font-size: 24px;
+        line-height: 40px;
+    }
+
+    .me-2 {
+        padding: 10.5px 20px;
+        font-size: 22px;
+    }
+
+    .dashboard_child12 h4 {
+        font-size: 30px;
+    }
+
+    .dashboard_child12_p {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    .dashboard_child12>div {
+        height: 240px;
+        min-height: 240px;
+        max-height: 240px;
+    }
+
+    .dashboard_child12_graphNum>div>p {
+        font-size: 34px;
+    }
+
+    .dashboard_child12_graphNum>div:first-child>p:first-child,
+    .dashboard_child12_graphNum>div:nth-child(2)>p:first-child,
+    .dashboard_child12_graphNum>div:last-child>p:first-child {
+        height: 45px;
+        width: 45px;
+    }
+
+    .dashboard_child12_31 p {
+        height: 28px;
+        width: 28px;
+        margin-right: 6%;
+    }
+
+    .dashboard_child12_31 {
+        font-size: 24px;
+    }
+
+    .recharts-wrapper {
+        transform: translate(25px, 36px);
+    }
+
+    #datatable th {
+        font-size: 20px;
+        line-height: 30px;
+    }
+}

@@ -40,3 +40,17 @@ table.dataTable.no-footer {
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
   padding: 3px;
 }
+
+@media screen and (min-width:2560px) {
+  #example_previous, #example_next {
+    padding: 8px;
+  }
+
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    margin-left: 10px;
+  }
+
+  .bottom {
+    font-size: 18px;
+  }
+}

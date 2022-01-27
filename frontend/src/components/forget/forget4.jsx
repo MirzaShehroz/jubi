@@ -1,8 +1,8 @@
 import '../../assets/css/forget.css';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import PasswordValidation from '../password_Validation/passwordValidation';
-import ConfirmPasswordValid from '../password_Validation/confirmPasswordValid';
+import PasswordValidation from '../password_Validation/password_validation';
+import ConfirmPasswordValid from '../password_Validation/confirm_password_valid';
 import Forget5 from './forget5';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import lockIcon from '../../assets/img/lockicon.png';
@@ -28,7 +28,7 @@ function Forget4() {
         setPassReq(true);
     }
     const forgetPassword = () => {
-        axios.post('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/password/forget', {
+        axios.post('/affiliate/v1/doctor/password/forget', {
             username: forgetDoc.email,
             password: pass
         }).then((res) => {

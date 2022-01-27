@@ -20,14 +20,22 @@ function DashboardPanel() {
     const [/*..*/, setCnctUser] = useRecoilState(connectUserShow);
 
     const getData = useCallback(() => {
-        axios.get('/affiliate/v1/doctor/profile', {
+        axios.options('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/preflight')
+            .then(res => { })
+            .catch(err => { });
+
+            axios.options('/preflight')
+            .then(res => { })
+            .catch(err => { });
+
+            axios.get('/affiliate/v1/doctor/profile', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
         }).then(res => {
             setDocData((obj) => ({
                 dId: res.data.data.did,
-                firstName: res.data.data.first_nmae,
+                firstName: res.data.data.first_name,
                 middleName: res.data.data.middle_name,
                 lastName: res.data.data.last_name,
                 email: res.data.data.email,

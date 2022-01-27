@@ -64,8 +64,8 @@
 }
 
 .nav_Child21 p {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 600;
     line-height: 20px;
     letter-spacing: 0.25px;
     text-align: right;
@@ -109,6 +109,48 @@
     }
 
     .nav_child2 {
-        width: 207px;
+        width: 250px;
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    .nav_child2 {
+        width: 385px;
+    }
+
+    .nav_child1 {
+        width: 560px;
+    }
+
+    .nav_connect_btn {
+        padding: 2.3% 3%;
+        width: 230px;
+    }
+
+    .nav_connect_btn>button {
+        font-size: 24.3px;
+    }
+
+    .nav_Child21 p:last-child {
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 33px;
+        letter-spacing: 0.3px;
+    }
+
+    .nav_Child21 p {
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 28px;
+        letter-spacing: 0.75px;
+        text-align: right;
+        color: #3E6578;
+        margin-bottom: 4px;
+    }
+
+    .nav_Child22>img {
+        width: 55px;
+        height: 55px;
+        margin-left: 19px;
     }
 }

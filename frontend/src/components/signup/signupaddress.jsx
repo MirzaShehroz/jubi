@@ -32,7 +32,7 @@ function SignUpAddress() {
             speciality: docSignUp.specialty,
             title: docSignUp.title
         }
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/signup`, body)
+        axios.post(`/affiliate/v1/doctor/signup`, body)
             .then(res => {
                 Notifications('success', res.data.data.message);
                 history.push('/');

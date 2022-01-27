@@ -9,8 +9,8 @@ import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
 import bcrypt from 'bcryptjs';
-import PasswordValidation from '../password_Validation/passwordValidation';
-import ConfirmPasswordValid from '../password_Validation/confirmPasswordValid';
+import PasswordValidation from '../password_Validation/password_validation';
+import ConfirmPasswordValid from '../password_Validation/confirm_password_valid';
 import { Notifications } from '../../helpers/helpers';
 
 function EditPassword() {
@@ -36,7 +36,7 @@ function EditPassword() {
     }
 
     const updatePassword = () => {
-        axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/password/reset`, {
+        axios.post(`/affiliate/v1/doctor/password/reset`, {
             username: sessionStorage.getItem('authEmail'),
             password: curPass,
             new_password: pass
@@ -69,7 +69,6 @@ function EditPassword() {
 
     const showPassContent = async () => {
         if (curPass !== '') {
-            console.log(sessionStorage.getItem('unKnown'));
             let isPass = await bcrypt.compare(curPass, sessionStorage.getItem('unKnown'));
             if (!isPass) {
                 return Notifications('error', 'Incorrect Current Password');

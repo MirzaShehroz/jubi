@@ -47,7 +47,7 @@ function ConnectUser({ show }) {
     }
 
     const showReconnectBtn = () => {
-        if (patientCode.length === 4) {
+        if (patientCode.length === 6) {
             setDisableText('100%')
             setShowCnctBtn(false);
             setShowReCnctBtn(true);
@@ -123,9 +123,8 @@ function ConnectUser({ show }) {
                             <div className='csMenu_Child11' >
                                 <img src={avatar} alt="something21" style={{ opacity: disableText }} />
                                 <p style={{ opacity: disableText }}>{item.first_name} {item.last_name}</p>
-                                <p style={{
-                                    opacity: disableText, fontSize: '14px', fontWeight: 'lighter',
-                                    lineHeight: '20px', letterSpacing: '0.5px'
+                                <p id='csPstyle' style={{
+                                    opacity: disableText
                                 }}>{item.gender} / {date - parseInt(item.date_of_birth.slice(6))} y.o. ({item.date_of_birth})</p>
                                 <p style={{ opacity: disableText }}>Wt:{item.weight}   Ht:{item.height}</p>
                             </div>
@@ -137,33 +136,33 @@ function ConnectUser({ show }) {
                                     inputProps={{
                                         inputmode: 'numeric',
                                         pattern: '[0-9]*',
-                                        maxLength: 4
+                                        maxLength: 6
                                     }}
                                     onChange={(e) => setCode(e.target.value)}
                                     variant="standard"
                                 />
                                 {showReCnctBtn ? <p className='csMenu_time'>
                                     <CountdownCircleTimer
-                                    style={{ justifyContent: 'center', display: 'flex' }}
-                                    size={15}
-                                    isPlaying
-                                    duration={900}
-                                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                                    colorsTime={[880, 675, 450, 225]}
-                                    onComplete={showTryAgainBtn}
-                                >
-                                    {({ remainingTime }) => {
-                                        const minutes = Math.floor(remainingTime / 60)
-                                        const seconds = remainingTime % 60
+                                        style={{ justifyContent: 'center', display: 'flex' }}
+                                        size={15}
+                                        isPlaying
+                                        duration={900}
+                                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                        colorsTime={[880, 675, 450, 225]}
+                                        onComplete={showTryAgainBtn}
+                                    >
+                                        {({ remainingTime }) => {
+                                            const minutes = Math.floor(remainingTime / 60)
+                                            const seconds = remainingTime % 60
 
-                                        return `${minutes}:${seconds}`
-                                    }}
-                                </CountdownCircleTimer></p> : null}
+                                            return `${minutes}:${seconds}`
+                                        }}
+                                    </CountdownCircleTimer></p> : null}
                                 {showCnctBtn ? <p> When you select ‘ Connect’,
-                                    4-digit input popup will display on the
+                                    6-digit input popup will display on the
                                     patient’s Jubi watch app.
                                 </p> : showReCnctBtn ? <p> To complete connection with the patient,
-                                    let the patient open Jubi watch app on their device and input these 4 digit code.</p> : showTryBtn ? <p>This code in not valid anymore.
+                                    let the patient open Jubi watch app on their device and input these 6 digit code.</p> : showTryBtn ? <p>This code in not valid anymore.
                                         Click ‘Try again’ and get the new code
                                         to connect to the person above.</p> : null
                                 }
@@ -183,7 +182,7 @@ function ConnectUser({ show }) {
                 </div >
             }
 
-            <div style={{ height: '65%' }} className={csMenuClass}>
+            <div id={'openCSmenu'} className={csMenuClass}>
                 <div style={{ overflowY: 'auto', height: '100%' }}>
                     {
                         searchUser.map(item => (

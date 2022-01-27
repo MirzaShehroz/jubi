@@ -170,19 +170,9 @@
     color: #3E6578;
 }
 
-.individual2_input>input:checked::before {
-    left: 20px;
-    top: 11px;
-}
-
 .individual2_input2 {
     width: 7%;
     padding-left: 0;
-}
-
-.individual2_input2>input:checked::before {
-    left: 3px;
-    top: -2px;
 }
 
 @media screen and (max-width:1024px) {
@@ -208,11 +198,6 @@
         width: 75%;
     }
 
-    .individual2_input>input:checked::before {
-        left: 18px;
-        top: 10px;
-    }
-
     .individualPanel_child21 {
         height: 10%;
     }
@@ -230,15 +215,6 @@
 
     .individualPanel_child22 {
         height: 90%;
-    }
-
-    .individual2_input>input:checked::before {
-        left: 26px;
-        top: 16px;
-    }
-
-    .individual2_input2>input:checked::before {
-        top: -3px;
     }
 
     #memo {

@@ -6,6 +6,7 @@ import { docData, userPicUpload } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo2.png';
 import addIcon from '../../assets/img/addicon.png';
 import picUpload from '../../assets/img/pic_upload_icon.png';
+import { Notifications } from '../../helpers/helpers';
 
 function EditProfile() {
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
@@ -23,7 +24,7 @@ function EditProfile() {
         }).then(res => {
             setDocData((obj) => ({
                 dId: res.data.data.did,
-                firstName: res.data.data.first_nmae,
+                firstName: res.data.data.first_name,
                 middleName: res.data.data.middle_name,
                 lastName: res.data.data.last_name,
                 email: res.data.data.email,
@@ -32,15 +33,40 @@ function EditProfile() {
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
             }))
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            if (err.response.data.data.code === 403) {
+                sessionStorage.clear();
+            }
+        })
     }, [setDocData])
 
     useEffect(() => {
         getData();
     }, [getData])
 
+    const updateProfileHandle = () => {
+        axios.patch('/affiliate/v1/doctor/profile', {
+            "first_name": docData_.firstName,
+            "middle_name": docData_.middleName,
+            "last_name": docData_.lastName,
+            "phone_number": docData_.phone_number,
+            "hospital": docData_.hospital,
+            "speciality": docData_.specialty,
+            "title": docData_.title
+        }, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        }).then(res => {
+            Notifications('success', res.data.message);
+            history.push('/');
+        }).catch(err => {
+            Notifications('error', err.response.data.data.message);
+        })
+    }
     const submitSignForm = (e) => {
         e.preventDefault();
+        updateProfileHandle();
     }
 
     const updateProfileDataChange = (e) => {
@@ -82,6 +108,7 @@ function EditProfile() {
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    required
                                     value={docData_.firstName}
                                     onChange={(e) => setDocData((obj) => ({
                                         ...obj,
@@ -102,6 +129,7 @@ function EditProfile() {
                             <div className='signin_fields'>
                                 <input
                                     type="text"
+                                    required
                                     value={docData_.lastName}
                                     onChange={(e) => setDocData((obj) => ({
                                         ...obj,
@@ -114,6 +142,7 @@ function EditProfile() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        required
                                         value={docData_.hospital}
                                         onChange={(e) => setDocData((obj) => ({
                                             ...obj,
@@ -124,6 +153,7 @@ function EditProfile() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        required
                                         value={docData_.specialty}
                                         onChange={(e) => setDocData((obj) => ({
                                             ...obj,
@@ -134,6 +164,7 @@ function EditProfile() {
                                 <div className='signin_fields'>
                                     <input
                                         type="text"
+                                        required
                                         value={docData_.title}
                                         onChange={(e) => setDocData((obj) => ({
                                             ...obj,
@@ -150,6 +181,7 @@ function EditProfile() {
                                     </select>
                                     <input
                                         type="text"
+                                        required
                                         value={docData_.phone_number}
                                         onChange={(e) => setDocData((obj) => ({
                                             ...obj,

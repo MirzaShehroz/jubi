@@ -10,7 +10,7 @@ import { authData, docData, userPicUpload } from './../../data/atom';
 
 function UserMenu({ menu }) {
     const avatar = useRecoilValue(userPicUpload);
-    const userAuthData=useRecoilValue(authData);
+    const userAuthData = useRecoilValue(authData);
     const docDataAtom = useRecoilValue(docData);
 
     const history = useHistory();
@@ -25,11 +25,11 @@ function UserMenu({ menu }) {
                     <li>
                         <div className='menu_div'>
                             <div>
-                                <img style={{margin:'0'}} src={avatar.avatar} alt="something3" />
+                                <img style={{ margin: '0' }} src={avatar.avatar} alt="something3" />
                             </div>
                             <p id='userName_P'>{docDataAtom.firstName} {docDataAtom.lastName}</p>
                             <p>{docDataAtom.hospital}</p>
-                            <p>Email: {userAuthData.email}</p>
+                            <p>Email: {docDataAtom.email}</p>
                             <Link to='edit-profile'><button>Edit Profile</button></Link>
                         </div>
                     </li>
