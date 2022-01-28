@@ -6,11 +6,11 @@ import signOutIcon from "../../assets/img/signouticon.png";
 import helpIcon from "../../assets/img/helpicon.png";
 import { useHistory, Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { authData, docData, userPicUpload } from './../../data/atom';
+import {  docData, userPicUpload } from './../../data/atom';
 
 function UserMenu({ menu }) {
     const avatar = useRecoilValue(userPicUpload);
-    const userAuthData = useRecoilValue(authData);
+    // const userAuthData = useRecoilValue(authData);
     const docDataAtom = useRecoilValue(docData);
 
     const history = useHistory();

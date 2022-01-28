@@ -34,9 +34,10 @@ function DashboardTable() {
     let date = new Date().getFullYear();
     const [usersData, setUsersData] = useRecoilState(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
+    const [userWatchList, setUserWatchList] = useState([]);
     const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
-    const [modalShowAW, setModalShowAW] = React.useState(false);
-    const [modalShowRW, setModalShowRW] = React.useState(false);
+    const [modalShowAW, setModalShowAW] = useState(false);
+    const [modalShowRW, setModalShowRW] = useState(false);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
 
     const showUPanelHandle = () => {
@@ -206,16 +207,31 @@ function DashboardTable() {
 
     }, [setUsersData])
 
+    const getUserWatchList = useCallback(() => {
+
+        axios.get('/affiliate/v1/doctor/watchlist', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        })
+            .then(res => {
+                setUserWatchList(res.data.data);
+            })
+            .catch(error => console.log(error.message));
+
+    }, [setUserWatchList])
+
     useEffect(() => {
         getUsersData();
         readyPagination();
-    }, [getUsersData])
+        getUserWatchList();
+    }, [getUsersData, getUserWatchList])
 
     const readyPagination = () => {
         $(document).ready(function () {
             setTimeout(function () {
                 $('#example').DataTable({
-                    pageLength: 10,
+                    pageLength: 200,
                     "scrollCollapse": true,
                     "bPaginate": true,
                     "bLengthChange": true,
@@ -234,7 +250,19 @@ function DashboardTable() {
             return item.uid === id
         })
         setUserIndData(data);
+
+        data = userWatchList.filter(item => parseInt(item.user_id) === id)
+        if (data.length === 1) {
+            setModalShowAW(false);
+            setModalShowRW(true)
+            return;
+        } else {
+            setModalShowAW(true)
+            setModalShowRW(false)
+            return;
+        }
     }
+
     const searchUsers = (e) => {
         let data = [];
         if (e.target.value === '') {
@@ -288,7 +316,7 @@ function DashboardTable() {
                                         <div className={'col-sm-12'}>
                                             <h5 style={{ color: "#3E6578" }}>Search</h5>
                                         </div>
-                                        <div className={'col-sm-12 d-flex'}>
+                                        <div className={'col-sm-12 d-flex dataTables_filter'} id="example_filter" >
                                             <FormControl
                                                 type="search"
                                                 placeholder={'User name/ Insurance/ Medication'}

@@ -1,11 +1,33 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
+import { Notifications } from '../../helpers/helpers';
 import { userDataIndividual } from "../../data/atom";
 
 function AddWathListModal(props) {
     let date = new Date().getFullYear();
+    const [userId, setUserId] = useState(null);
     const addUser = useRecoilValue(userDataIndividual);
+
+    useEffect(() => {
+        addUser.map(item => setUserId(item.uid))
+    }, [addUser])
+
+    const addUserToList = (id) => {
+        axios.post(`/affiliate/v1/doctor/watchlist?uid=${id}`,{}, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        }).then(res => {
+            Notifications('success', res.data.message);
+            // props.onHide();
+        }).catch(err => {
+            Notifications('error', "Interval Server Error!")
+        })
+    }
+
     return (
         <Modal
             {...props}
@@ -45,7 +67,8 @@ function AddWathListModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <button className="pop_btn" onClick={props.onHide}>Cancel</button>
-                <button className="pop_btn pop_btn1">Add</button>
+                <button className="pop_btn pop_btn1" >Add</button>
+                {/* onClick={() => addUserToList(userId)} */}
             </Modal.Footer>
         </Modal>
     )

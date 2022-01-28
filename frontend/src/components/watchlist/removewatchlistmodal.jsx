@@ -1,9 +1,35 @@
-import {Modal,Button} from "react-bootstrap";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import { useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
+import { userDataIndividual } from "../../data/atom";
+import { Notifications } from '../../helpers/helpers';
 
-function RemoveWatchModal(props)
-{
-    return(
+function RemoveWatchModal(props) {
+
+    let date = new Date().getFullYear();
+    const [userId, setUserId] = useState(null);
+    const addUser = useRecoilValue(userDataIndividual);
+
+    useEffect(() => {
+        addUser.map(item => setUserId(item.uid))
+    }, [addUser])
+
+    const removeUserToList = (id) => {
+        axios.delete(`/affiliate/v1/doctor/watchlist?uid=${id}`, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        }).then(res => {
+            Notifications('success', res.data.message);
+            props.onHide();
+        }).catch(err => {
+            Notifications('error', "Interval Server Error!")
+        })
+    }
+
+    return (
         <Modal
             {...props}
             size="lg"
@@ -11,34 +37,38 @@ function RemoveWatchModal(props)
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter" style={{color: '#3E6578'}}>
+                <Modal.Title id="contained-modal-title-vcenter" style={{ color: '#3E6578' }}>
                     Remove this person to watchlist?
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className={'container-fluid'}>
-                    <div className={'row'}>
-                        <div className={'col-lg-4 col-sm-4'}>
-                            <img id={'modalImage'} alt="something1" src={user1} />
+                {
+                    addUser.map(item => (
+                        <div className={'container-fluid'} key={item.uid}>
+                            <div className={'row'}>
+                                <div className={'col-lg-4 col-sm-4'}>
+                                    <img id={'modalImage'} alt='user1' src={user1} />
+                                </div>
+                                <div className={'col-lg-8 col-sm-8 pop_username'}>
+                                    <span >{item.first_name} {item.last_name}</span><br />
+                                    <span style={{ color: '#767676' }}>{date - parseInt(item.date_of_birth.slice(6))} y.o.  ({item.date_of_birth})</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className={'col-lg-8 col-sm-8 pop_username'}>
-                            <span>John Doe</span><br/>
-                            <span style={{color: '#767676'}}>52 y.o. (02/19/1966)</span>
-                        </div>
-                    </div>
-                </div>
-                <br/>
+                    ))
+                }
+                <br />
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-12 col-sm-12'}>
-                            <textarea  className="form-control" id="modalTextarea" rows="3"></textarea>
+                            <textarea className="form-control" id="modalTextarea" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button className="pop_btn" onClick={props.onHide}>Cancel</Button>
-                <Button  className='pop_btn pop_btn1'>Remove</Button>
+                <Button className='pop_btn pop_btn1' onClick={() => removeUserToList(userId)}>Remove</Button>
             </Modal.Footer>
         </Modal>
     )
