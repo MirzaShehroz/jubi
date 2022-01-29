@@ -5,7 +5,7 @@ import { connectUserShow, docSignUpData, showHeaderProfile, sidePanelFunc, signU
 import { useRecoilState } from 'recoil';
 import axios from "axios";
 import { useState } from 'react';
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import { Notifications } from '../../helpers/helpers';
 import { authData } from '../../data/atom';
@@ -43,10 +43,10 @@ function SignIn() {
         }))
     }, [setDocSignUp, setSignValid])
 
-    const hashPassword = async () => {
-        const hash = await bcrypt.hash(password, 10);
-        sessionStorage.setItem('unKnown', hash);
-    }
+    // const hashPassword = async () => {
+    //     const hash = await bcrypt.hash(password, 10);
+    //     sessionStorage.setItem('unKnown', hash);
+    // }
 
     const loginHandle = async (e) => {
         e.preventDefault();
@@ -77,8 +77,9 @@ function SignIn() {
                     token: response.data.data.token.AccessToken,
                     UUID: response.data.data.token.AccessUuid,
                 }))
-                hashPassword();
+                // hashPassword();
                 sessionStorage.setItem('authData', response.data.data.token.AccessToken);
+                sessionStorage.setItem('unKnown', '$2a$10$J6' + password);
                 sessionStorage.setItem('authEmail', response.data.data.username);
                 Notifications('success', 'Login Successful')
                 history.push('/');

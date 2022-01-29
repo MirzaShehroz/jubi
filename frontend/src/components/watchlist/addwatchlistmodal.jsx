@@ -1,28 +1,45 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
 import { Notifications } from '../../helpers/helpers';
-import { userDataIndividual } from "../../data/atom";
+import { userDataIndividual, watchList } from "../../data/atom";
 
 function AddWathListModal(props) {
     let date = new Date().getFullYear();
     const [userId, setUserId] = useState(null);
     const addUser = useRecoilValue(userDataIndividual);
+    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
 
     useEffect(() => {
         addUser.map(item => setUserId(item.uid))
     }, [addUser])
 
+    const getUserWatchList = () => {
+        axios.get('/affiliate/v1/doctor/watchlist', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        })
+            .then(res => {
+                setUserWatchList(res.data.data);
+            })
+            .catch(error => {
+                if (error.response.data.data.code === 403) {
+                    sessionStorage.clear();
+                }
+            });
+    }
+
     const addUserToList = (id) => {
-        axios.post(`/affiliate/v1/doctor/watchlist?uid=${id}`,{}, {
+        axios.post(`/affiliate/v1/doctor/watchlist?uid=${id}`, {}, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
         }).then(res => {
-            Notifications('success', res.data.message);
-            // props.onHide();
+            getUserWatchList();
+            props.onHide();
         }).catch(err => {
             Notifications('error', "Interval Server Error!")
         })
@@ -67,8 +84,7 @@ function AddWathListModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <button className="pop_btn" onClick={props.onHide}>Cancel</button>
-                <button className="pop_btn pop_btn1" >Add</button>
-                {/* onClick={() => addUserToList(userId)} */}
+                <button className="pop_btn pop_btn1" onClick={() => addUserToList(userId)} >Add</button>
             </Modal.Footer>
         </Modal>
     )

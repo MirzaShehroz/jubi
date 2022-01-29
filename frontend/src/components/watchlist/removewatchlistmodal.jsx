@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
-import { userDataIndividual } from "../../data/atom";
+import { userDataIndividual, watchList } from "../../data/atom";
 import { Notifications } from '../../helpers/helpers';
 
 function RemoveWatchModal(props) {
@@ -11,10 +11,27 @@ function RemoveWatchModal(props) {
     let date = new Date().getFullYear();
     const [userId, setUserId] = useState(null);
     const addUser = useRecoilValue(userDataIndividual);
+    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
 
     useEffect(() => {
         addUser.map(item => setUserId(item.uid))
     }, [addUser])
+
+    const getUserWatchList = () => {
+        axios.get('/affiliate/v1/doctor/watchlist', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        })
+            .then(res => {
+                setUserWatchList(res.data.data);
+            })
+            .catch(error => {
+                if (error.response.data.data.code === 403) {
+                    sessionStorage.clear();
+                }
+            });
+    }
 
     const removeUserToList = (id) => {
         axios.delete(`/affiliate/v1/doctor/watchlist?uid=${id}`, {
@@ -22,7 +39,7 @@ function RemoveWatchModal(props) {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
         }).then(res => {
-            Notifications('success', res.data.message);
+            getUserWatchList();
             props.onHide();
         }).catch(err => {
             Notifications('error', "Interval Server Error!")

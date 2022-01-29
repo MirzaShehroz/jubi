@@ -8,7 +8,7 @@ import lockIcon from '../../assets/img/lockicon.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 import PasswordValidation from '../password_Validation/password_validation';
 import ConfirmPasswordValid from '../password_Validation/confirm_password_valid';
 import { Notifications } from '../../helpers/helpers';
@@ -36,10 +36,15 @@ function EditPassword() {
     }
 
     const updatePassword = () => {
-        axios.post(`/affiliate/v1/doctor/password/reset`, {
-            username: sessionStorage.getItem('authEmail'),
-            password: curPass,
-            new_password: pass
+        axios.patch(`/affiliate/v1/doctor/profile`, {
+            password: {
+                current_password: curPass,
+                new_password: pass
+            }
+        }, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
         }).then((res) => {
             setInvalidVer(false);
             setPassReq(false);
@@ -69,11 +74,12 @@ function EditPassword() {
 
     const showPassContent = async () => {
         if (curPass !== '') {
-            let isPass = await bcrypt.compare(curPass, sessionStorage.getItem('unKnown'));
-            if (!isPass) {
-                return Notifications('error', 'Incorrect Current Password');
+            let isPass = sessionStorage.getItem('unKnown').slice(9);
+            // let isPass = await bcrypt.compare(curPass, sessionStorage.getItem('unKnown'));
+            if (isPass !== curPass) {
+                return Notifications('warning', 'Incorrect Current Password');
             }
-            if (isPass) {
+            if (isPass === curPass) {
                 setPassAtom((obj) => ({
                     currentPass: false,
                     editPass: true,

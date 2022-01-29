@@ -80,7 +80,7 @@ export const docData = atom({
     default: {
         dId: 0,
         firstName: "",
-        middleName: "",
+        middleName: " ",
         lastName: "",
         email: "",
         hospital: "",
@@ -114,5 +114,10 @@ export const usersData_ = atom({
 
 export const userDataIndividual = atom({
     key: 'User individual Data',
+    default: []
+})
+
+export const watchList = atom({
+    key: 'User watchlist',
     default: []
 })

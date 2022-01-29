@@ -6,6 +6,7 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import axios from 'axios';
+// import bcrypt from 'bcryptjs';
 import { Notifications } from '../../helpers/helpers';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
@@ -19,9 +20,10 @@ function EditId() {
     const [showVerification, setshowVer] = useState(false);
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [okBtnClr, setOkBtnClr] = useState('#C6C6C6');
-    const [/*pass*/, setPass] = useState(null);
+    const [pass, setPass] = useState(null);
     const [invalidVer, setInvalidVer] = useState(false);
     const [passVisi, setPassVisi] = useState(false);
+    const [isVerified, setVerified] = useState(false);
 
     const history = useHistory();
 
@@ -73,26 +75,39 @@ function EditId() {
             email: email,
             code: verCode
         }).then(res => {
-            Notifications('success', `${res.data.data.message}`)
             setInvalidVer(false);
             setShowVerEmailBtn(false);
             setshowVer(false);
+            setVerified(true);
 
         }).catch(err => {
             Notifications('error', `${err.response.data.data.message}`)
             setInvalidVer(true);
+            setVerified(false);
         })
     }
 
     const showPassVisibility = () => {
         setPassVisi(!passVisi);
     }
-    const showEmailContent = () => {
-        setIDAtom((obj) => ({
-            currentPass: false,
-            editEmail: true,
-            successEmail: false,
-        }))
+
+    const showEmailContent = async () => {
+        if (pass !== '') {
+            let isPass = sessionStorage.getItem('unKnown').slice(9);
+            // let isPass = await bcrypt.compare(pass, sessionStorage.getItem('unKnown'));
+            if (isPass!==pass) {
+                return Notifications('warning', 'Incorrect Current Password');
+            }
+            if (isPass===pass) {
+                setIDAtom((obj) => ({
+                    currentPass: false,
+                    editEmail: true,
+                    successEmail: false,
+                }))
+            }
+        } else {
+            Notifications('warning', 'Enter Current Password');
+        }
     }
 
     const pushForgetHandle = () => {
@@ -101,12 +116,26 @@ function EditId() {
 
     const submitSignForm = (e) => {
         e.preventDefault();
-        setIDAtom((obj) => ({
-            currentPass: false,
-            editEmail: false,
-            successEmail: true,
-        }))
-        sessionStorage.clear();
+        if (isVerified) {
+            axios.patch(`/affiliate/v1/doctor/profile`, {
+                email: email
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+                }
+            }).then(res => {
+                setIDAtom((obj) => ({
+                    currentPass: false,
+                    editEmail: false,
+                    successEmail: true,
+                }))
+                sessionStorage.clear();
+            }).catch(err => {
+                Notifications('error', err.response.data.data.message);
+            })
+        } else {
+            Notifications('warning', "Please verify your New-Email")
+        }
     }
 
     return (
@@ -147,6 +176,7 @@ function EditId() {
                                     <input
                                         type={passVisi ? 'text' : 'password'}
                                         placeholder='Current Password'
+                                        required
                                         onChange={(e) => setPass(e.target.value)}
                                     />
                                     <img src={passVisi ? passIcon2 : passIcon1} alt='' onClick={showPassVisibility} />
@@ -173,6 +203,7 @@ function EditId() {
                                                 <input
                                                     className="verification_Field"
                                                     type="password"
+                                                    required
                                                     placeholder='Email Verification Code'
                                                     onChange={(e) => verCodeHandle(e)}
                                                 />

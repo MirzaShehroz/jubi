@@ -6,12 +6,18 @@ import axios from 'axios';
 import Badge from '@mui/material/Badge';
 import { FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
 import Box from '@mui/material/Box';
 import expandButton from '../../../assets/img/expandButton.png';
 import user from '../../../assets/img/avatar2.png'
+import faStar1 from '../../../assets/img/watchList_icon1.png'
+import faStar2 from '../../../assets/img/watchList_icon2.png'
 import AddWathListModal from "../../watchlist/addwatchlistmodal";
 import RemoveWatchModal from "../../watchlist/removewatchlistmodal";
+import { useCallback } from 'react';
+import { showHeaderProfile, userDataIndividual, usersData_, watchList } from '../../../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import UserOverlay from '../../user_Components/useroverlay';
 
 //jQuery libraries
 
@@ -21,10 +27,6 @@ import 'jquery/dist/jquery.min.js';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from 'jquery';
-import { useCallback } from 'react';
-import { showHeaderProfile, userDataIndividual, usersData_ } from '../../../data/atom';
-import { useRecoilState } from 'recoil';
-import UserOverlay from '../../user_Components/useroverlay';
 
 
 function DashboardTable() {
@@ -34,10 +36,8 @@ function DashboardTable() {
     let date = new Date().getFullYear();
     const [usersData, setUsersData] = useRecoilState(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
-    const [userWatchList, setUserWatchList] = useState([]);
+    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
     const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
-    const [modalShowAW, setModalShowAW] = useState(false);
-    const [modalShowRW, setModalShowRW] = useState(false);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
 
     const showUPanelHandle = () => {
@@ -203,7 +203,12 @@ function DashboardTable() {
                 setUsersData(res.data.data);
                 setUsersDataClone(res.data.data);
             })
-            .catch(error => console.log(error.message));
+            .catch(error => {
+                if (error.response.data.data.code === 403) {
+                    sessionStorage.clear();
+                }
+            }
+            );
 
     }, [setUsersData])
 
@@ -213,11 +218,15 @@ function DashboardTable() {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
+        }).then(res => {
+            setUserWatchList(res.data.data);
+
         })
-            .then(res => {
-                setUserWatchList(res.data.data);
-            })
-            .catch(error => console.log(error.message));
+            .catch(error => {
+                if (error.response.data.data.code === 403) {
+                    sessionStorage.clear();
+                }
+            });
 
     }, [setUserWatchList])
 
@@ -250,17 +259,6 @@ function DashboardTable() {
             return item.uid === id
         })
         setUserIndData(data);
-
-        data = userWatchList.filter(item => parseInt(item.user_id) === id)
-        if (data.length === 1) {
-            setModalShowAW(false);
-            setModalShowRW(true)
-            return;
-        } else {
-            setModalShowAW(true)
-            setModalShowRW(false)
-            return;
-        }
     }
 
     const searchUsers = (e) => {
@@ -359,15 +357,7 @@ function DashboardTable() {
                                                     </Box>
                                                 </div>
                                                 <div className={'col-lg-4 col-sm-12'}>
-                                                    <FontAwesomeIcon
-                                                        onClick={() => {
-                                                            setUserData(item.uid);
-                                                            setModalShowAW(true);
-                                                        }}
-                                                        id={'starIcon'}
-                                                        icon={faStar}
-                                                        style={{ cursor: 'pointer' }}
-                                                    />
+                                                    <FaUserStar id={item.uid} />
                                                 </div>
                                                 <div className={'col-lg-2 col-sm-12'}></div>
                                             </div>
@@ -443,18 +433,7 @@ function DashboardTable() {
                         </tbody>
                     </table>
                 </div>
-                {/* WatchList AddModal*/}
-                <AddWathListModal
-                    show={modalShowAW}
-                    onHide={() => setModalShowAW(false)}
-                />
-                {/**/}
-                {/* WatchList AddModal*/}
-                <RemoveWatchModal
-                    show={modalShowRW}
-                    onHide={() => setModalShowRW(false)}
-                />
-                {/**/}
+
                 {/* USER_OVERLAY */}
                 {showHeader.showUserPanel ?
                     <UserOverlay display='block' animate="animate__animated animate__fadeIn" /> : null
@@ -462,6 +441,81 @@ function DashboardTable() {
 
             </div>
         </div>
+    )
+}
+
+const FaUserStar = ({ id }) => {
+    const [modalShowAW, setModalShowAW] = useState(false);
+    const [modalShowRW, setModalShowRW] = useState(false);
+    const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
+    const usersData = useRecoilValue(usersData_);
+    const userWatchList = useRecoilValue(watchList);
+    const [isFound, setFound] = useState(false);
+
+    const filterUserStar = useCallback(() => {
+        let data = usersData.filter(item => {
+            return item.uid === id
+        })
+        data = userWatchList.filter(item => parseInt(item.user_id) === id)
+
+        if (data.length === 1) {
+            setFound(true);
+            return;
+        } else {
+            setFound(false);
+            return;
+        }
+    }, [id, userWatchList, usersData]);
+
+    useEffect(() => {
+        if (userWatchList) {
+            filterUserStar();
+        } else {
+            setFound(false);
+        }
+    }, [filterUserStar, userWatchList])
+
+    const setUserData = () => {
+        let data = usersData.filter(item => {
+            return item.uid === id
+        })
+        setUserIndData(data);
+        if (userWatchList) {
+            data = userWatchList.filter(item => parseInt(item.user_id) === id)
+        } else {
+            data = []
+        }
+
+        if (data.length === 1) {
+            setModalShowAW(false);
+            setModalShowRW(true)
+            return;
+        } else {
+            setModalShowAW(true)
+            setModalShowRW(false)
+            return;
+        }
+    }
+    return (
+        <>
+            <img src={isFound ? faStar2 : faStar1}
+                alt=""
+                style={{ cursor: 'pointer' }}
+                onClick={setUserData}
+            />
+
+            {/* WatchList AddModal*/}
+            <AddWathListModal
+                show={modalShowAW}
+                onHide={() => setModalShowAW(false)}
+            />
+            {/**/}
+            {/* WatchList AddModal*/}
+            <RemoveWatchModal
+                show={modalShowRW}
+                onHide={() => setModalShowRW(false)}
+            />
+        </>
     )
 }
 
