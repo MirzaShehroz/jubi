@@ -56,19 +56,20 @@ function SignUp2() {
         if (docSignUp.email.includes('@')) {
             axios.post(`/affiliate/v1/otp?email=${docSignUp.email}`)
                 .then(res => {
+                    setTimerShow(false);
+                    setTimeout(() => {
+                        setTimerShow(true);
+                    }, 200);
+                    setSignValid(obj => ({
+                        ...obj,
+                        showVerification: true,
+                    }))
+                    setBtnClr('#C6C6C6');
                     Notifications('success', `${res.data.data.message}`)
                 }).catch(err => {
                     Notifications('error', `Internal Server Error`)
                 });
-            setTimerShow(false);
-            setTimeout(() => {
-                setTimerShow(true);
-            }, 200);
-            setSignValid(obj => ({
-                ...obj,
-                showVerification: true,
-            }))
-            setBtnClr('#C6C6C6');
+
         } else {
             setSignValid(obj => ({
                 ...obj,
