@@ -31,7 +31,6 @@ import $ from 'jquery';
 
 function DashboardTable() {
 
-    // #3E6578
     const history = useHistory();
     let date = new Date().getFullYear();
     const [usersData, setUsersData] = useRecoilState(usersData_);
@@ -240,7 +239,7 @@ function DashboardTable() {
         $(document).ready(function () {
             setTimeout(function () {
                 $('#example').DataTable({
-                    pageLength: 200,
+                    pageLength: 500,
                     "scrollCollapse": true,
                     "bPaginate": true,
                     "bLengthChange": true,
