@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import Badge from '@mui/material/Badge';
-import { FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import Box from '@mui/material/Box';
@@ -208,7 +207,6 @@ function DashboardTable() {
                 }
             }
             );
-
     }, [setUsersData])
 
     const getUserWatchList = useCallback(() => {
@@ -219,14 +217,12 @@ function DashboardTable() {
             }
         }).then(res => {
             setUserWatchList(res.data.data);
-
         })
             .catch(error => {
                 if (error.response.data.data.code === 403) {
                     sessionStorage.clear();
                 }
             });
-
     }, [setUserWatchList])
 
     useEffect(() => {
@@ -239,37 +235,38 @@ function DashboardTable() {
         $(document).ready(function () {
             setTimeout(function () {
                 $('#example').DataTable({
-                    pageLength: 500,
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "User name/ Insurance/ Medication"
+                    },
+                    "columns": [
+                        { "searchable": false },
+                        null,
+                        { "searchable": false },
+                        { "searchable": false },
+                        null,
+                        null
+                    ],
+                    pageLength: 10,
                     "scrollCollapse": true,
                     "bPaginate": true,
                     "bLengthChange": true,
                     "bFilter": true,
                     "bInfo": false,
                     "bAutoWidth": false,
-                    "searching": false,
-                    "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                    "searching": true,
+                    "dom": '<"top"fi>rt<"bottom"lp><"clear">',
                 });
             }, 1000);
         });
     }
 
     const setUserData = (id) => {
+        sessionStorage.setItem('uid', id);
         let data = usersData.filter(item => {
             return item.uid === id
         })
         setUserIndData(data);
-    }
-
-    const searchUsers = (e) => {
-        let data = [];
-        if (e.target.value === '') {
-            setUsersDataClone(usersData);
-        } else {
-            data = usersData.filter(item => {
-                return item.first_name.toLowerCase().includes(e.target.value.toLowerCase())
-            })
-            setUsersDataClone(data);
-        }
     }
 
     return (
@@ -312,15 +309,6 @@ function DashboardTable() {
                                     <div className={'row'}>
                                         <div className={'col-sm-12'}>
                                             <h5 style={{ color: "#3E6578" }}>Search</h5>
-                                        </div>
-                                        <div className={'col-sm-12 d-flex dataTables_filter'} id="example_filter" >
-                                            <FormControl
-                                                type="search"
-                                                placeholder={'User name/ Insurance/ Medication'}
-                                                className="me-2"
-                                                aria-label="Search"
-                                                onChange={(e) => searchUsers(e)}
-                                            />
                                         </div>
                                     </div>
                                 </div>

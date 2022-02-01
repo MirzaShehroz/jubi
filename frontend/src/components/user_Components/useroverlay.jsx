@@ -6,6 +6,7 @@ import activeIcon1 from "../../assets/img/activeicon1.png";
 import activeIcon2 from "../../assets/img/activeicon2.png";
 import { showHeaderProfile, userDataIndividual } from '../../data/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 
 function UserOverlay({ display, animate }) {
     let date = new Date().getFullYear();
@@ -117,7 +118,7 @@ function UserOverlay({ display, animate }) {
                 </div>
                 <div className='overlay_child3'>
                     <div className='overlay_child31'>
-                        <button>View detailed page</button>
+                        <Link to='/individual'>View detailed page</Link>
                     </div>
                 </div>
             </div>

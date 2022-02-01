@@ -277,6 +277,10 @@
 }
 
 @media screen and (min-width:1920px) {
+    .dataTables_filter {
+        transform: translate(-180px, -87px);
+    }
+
     .dashboard_child12_graphNum {
         justify-content: space-evenly;
     }

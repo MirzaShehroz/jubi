@@ -130,23 +130,24 @@
     text-align: center;
 }
 
-.overlay_child31 button {
+.overlay_child31 a {
     width: 70%;
     font-family: 'Pretendard', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
     letter-spacing: 0.5px;
     text-align: center;
     border-radius: 5px;
-    padding: 3% 0%;
+    padding: 3.5% 14%;
     color: white;
     border: 0;
     background: #3E6578;
+    text-decoration: none;
 }
 
-.overlay_child3 button:hover {
+.overlay_child3 a:hover {
     background-color: #3e6578e6;
 }
 
