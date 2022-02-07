@@ -13,7 +13,7 @@ export const connectUserShow = atom({
 export const showHeaderProfile = atom({
     key: "showHeaderIcon",
     default: {
-        showHProfile: true,
+        // showHProfile: true,
         paddingTop: "0.8%",
         showUserPanel: false,
     }
@@ -120,4 +120,9 @@ export const userDataIndividual = atom({
 export const watchList = atom({
     key: 'User watchlist',
     default: []
+})
+
+export const watchListComment = atom({
+    key: 'User watchlist comment',
+    default: ''
 })

@@ -9,6 +9,7 @@ import { userDataIndividual, watchList } from "../../data/atom";
 function AddWathListModal(props) {
     let date = new Date().getFullYear();
     const [userId, setUserId] = useState(null);
+    const [comment, setComment] = useState('');
     const addUser = useRecoilValue(userDataIndividual);
     const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
 
@@ -33,7 +34,10 @@ function AddWathListModal(props) {
     }
 
     const addUserToList = (id) => {
-        axios.post(`/affiliate/v1/doctor/watchlist?uid=${id}`, {}, {
+        axios.post(`/affiliate/v1/doctor/watchlist`, {
+            uid: id,
+            comment: comment
+        }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -77,7 +81,7 @@ function AddWathListModal(props) {
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-12 col-sm-12'}>
-                            <textarea className="form-control" placeholder="Comment" id="modalTextarea" rows="3"></textarea>
+                            <textarea onChange={(e)=>setComment(e.target.value)} className="form-control" placeholder="Comment" id="modalTextarea" rows="3"></textarea>
                         </div>
                     </div>
                 </div>

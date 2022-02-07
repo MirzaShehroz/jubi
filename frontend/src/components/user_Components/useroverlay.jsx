@@ -14,8 +14,6 @@ function UserOverlay({ display, animate }) {
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
     const showUPanelHandle = () => {
         setShowHeader((obj) => ({
-            showHProfile: !showHeader.showHProfile,
-            paddingTop: showHeader.showHProfile ? "1.1%" : "0.8%",
             showUserPanel: !showHeader.showUserPanel,
         }))
     }

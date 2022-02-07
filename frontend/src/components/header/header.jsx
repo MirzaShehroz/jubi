@@ -5,12 +5,10 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import addIcon from '../../assets/img/addicon2.png';
 import ConnectUser from '../user_Components/connectuser';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {  connectUserShow, docData, showHeaderProfile, userPicUpload } from '../../data/atom';
+import {  connectUserShow, docData, userPicUpload } from '../../data/atom';
 
 function Header() {
     const [connectMenu, setCmenu] = useRecoilState(connectUserShow);
-    const [showHeaderChild2, /*setShowHeaderChild2*/] = useRecoilState(showHeaderProfile);
-    const [/*connectMenuClass*/, /*setCmenuClass*/] = useState("c_menu");
     const [ddMenu, setDDmenu] = useState(false);
     const [ddMenuClass, setDDmenuClass] = useState("dd_menu");
     const userPic = useRecoilValue(userPicUpload);
@@ -29,7 +27,7 @@ function Header() {
     }
     return (
         <header className="header">
-            <div className=" containerNav" style={{ paddingTop: showHeaderChild2.paddingTop }}>
+            <div className=" containerNav" style={{ paddingTop: '0.8%' }}>
                 <nav>
                     <div className='nav_parent1'>
                         <div className='nav_child1'>
@@ -42,8 +40,6 @@ function Header() {
                             </div>
                         </div>
                         <div className='nav_child2'>
-                            {showHeaderChild2.showHProfile ?
-                                <>
                                     <div className='nav_Child21'>
                                         <p>{docDataAtom.hospital}</p>
                                         <p>{docDataAtom.firstName} {docDataAtom.lastName} / {docDataAtom.title}</p>
@@ -51,8 +47,6 @@ function Header() {
                                     <div className='nav_Child22'>
                                         <img src={userPic.avatar} alt="something" onClick={ddMenuShow} />
                                     </div>
-                                </> : null
-                            }
                         </div>
                     </div>
                     <ConnectUser show={connectMenu.connectMenu} />

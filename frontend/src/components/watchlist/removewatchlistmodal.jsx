@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
-import { userDataIndividual, watchList } from "../../data/atom";
+import { userDataIndividual, watchList, watchListComment } from "../../data/atom";
 import { Notifications } from '../../helpers/helpers';
 
 function RemoveWatchModal(props) {
@@ -12,6 +12,7 @@ function RemoveWatchModal(props) {
     const [userId, setUserId] = useState(null);
     const addUser = useRecoilValue(userDataIndividual);
     const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
+    const comment = useRecoilValue(watchListComment);
 
     useEffect(() => {
         addUser.map(item => setUserId(item.uid))
@@ -78,7 +79,7 @@ function RemoveWatchModal(props) {
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-12 col-sm-12'}>
-                            <textarea className="form-control" id="modalTextarea" rows="3"></textarea>
+                            <textarea value={comment} readOnly className="form-control" id="modalTextarea" rows="3"></textarea>
                         </div>
                     </div>
                 </div>

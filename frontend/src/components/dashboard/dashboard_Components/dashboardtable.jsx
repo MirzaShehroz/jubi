@@ -14,7 +14,7 @@ import faStar2 from '../../../assets/img/watchList_icon2.png'
 import AddWathListModal from "../../watchlist/addwatchlistmodal";
 import RemoveWatchModal from "../../watchlist/removewatchlistmodal";
 import { useCallback } from 'react';
-import { showHeaderProfile, userDataIndividual, usersData_, watchList } from '../../../data/atom';
+import { showHeaderProfile, userDataIndividual, usersData_, watchList, watchListComment } from '../../../data/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import UserOverlay from '../../user_Components/useroverlay';
 
@@ -40,8 +40,6 @@ function DashboardTable() {
 
     const showUPanelHandle = () => {
         setShowHeader((obj) => ({
-            showHProfile: !showHeader.showHProfile,
-            paddingTop: showHeader.showHProfile ? "1.1%" : "0.8%",
             showUserPanel: !showHeader.showUserPanel,
         }))
     }
@@ -437,14 +435,14 @@ const FaUserStar = ({ id }) => {
     const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
     const usersData = useRecoilValue(usersData_);
     const userWatchList = useRecoilValue(watchList);
+    const [/*comment*/, setComment] = useRecoilState(watchListComment);
     const [isFound, setFound] = useState(false);
 
     const filterUserStar = useCallback(() => {
         let data = usersData.filter(item => {
             return item.uid === id
         })
-        data = userWatchList.filter(item => parseInt(item.user_id) === id)
-
+        data = userWatchList.filter(item => parseInt(item.User.uid) === id);
         if (data.length === 1) {
             setFound(true);
             return;
@@ -468,7 +466,9 @@ const FaUserStar = ({ id }) => {
         })
         setUserIndData(data);
         if (userWatchList) {
-            data = userWatchList.filter(item => parseInt(item.user_id) === id)
+            data = userWatchList.filter(item => parseInt(item.User.uid) === id);
+            let com = data.map(item => item.comment);
+            setComment(com);
         } else {
             data = []
         }
@@ -488,7 +488,10 @@ const FaUserStar = ({ id }) => {
             <img src={isFound ? faStar2 : faStar1}
                 alt=""
                 style={{ cursor: 'pointer' }}
-                onClick={setUserData}
+                onClick={() => {
+                    setUserData();
+                    sessionStorage.setItem('uid', id);
+                }}
             />
 
             {/* WatchList AddModal*/}

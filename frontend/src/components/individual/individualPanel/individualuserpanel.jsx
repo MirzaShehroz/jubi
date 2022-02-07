@@ -128,7 +128,7 @@ const ButtonW = ({ id }) => {
         let data = usersData.filter(item => {
             return item.uid === id
         })
-        data = userWatchList.filter(item => parseInt(item.user_id) === id)
+        data = userWatchList.filter(item => parseInt(item.User.uid) === id)
         if (data.length === 1) {
             setFound(true);
             return;
@@ -168,14 +168,17 @@ const ButtonW = ({ id }) => {
         })
         setUserIndData(data);
         if (userWatchList) {
-            data = userWatchList.filter(item => parseInt(item.user_id) === id)
+            data = userWatchList.filter(item => parseInt(item.User.uid) === id)
         } else {
             data = []
         }
     }
 
     const addUserToList = () => {
-        axios.post(`/affiliate/v1/doctor/watchlist?uid=${id}`, {}, {
+        axios.post(`/affiliate/v1/doctor/watchlist`, {
+            uid: id,
+            comment: ''
+        }, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
