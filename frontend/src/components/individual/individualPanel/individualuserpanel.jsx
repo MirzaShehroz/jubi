@@ -7,7 +7,7 @@ import cancelButton from "../../../assets/img/closeButton.png";
 import chatIcon from "../../../assets/img/chaticon.png";
 import watchListIcon from "../../../assets/img/bookmark.png";
 import exportIcon from "../../../assets/img/export.png";
-import { usersData_, watchList, userDataIndividual } from '../../../data/atom';
+import { usersData_, watchList, userDataIndividual, watchListComment } from '../../../data/atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import axios from "axios";
 import { Notifications } from "../../../helpers/helpers";
@@ -16,6 +16,8 @@ function IndividualUserPanel() {
     const history = useHistory();
     const usersData = useRecoilValue(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
+    const [comment, setComment] = useRecoilState(watchListComment);
+    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
     let date = new Date().getFullYear();
 
     const showChat = () => {
@@ -28,10 +30,29 @@ function IndividualUserPanel() {
         history.push('/allergies-condition')
     }
 
+    const getUserWatchList = useCallback(() => {
+        axios.get('/affiliate/v1/doctor/watchlist', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        }).then(res => {
+            setUserWatchList(res.data.data);
+            let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
+            setComment(data.map(item => item.comment));
+        })
+            .catch(error => {
+                if (error.response.data.data.code === 403) {
+                    sessionStorage.clear();
+                }
+            });
+    }, [setComment,setUserWatchList])
+
+
     useEffect(() => {
         let data = usersData.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
         setUsersDataClone(data);
-    }, [usersData])
+        getUserWatchList();
+    }, [usersData, getUserWatchList])
 
     return (
         <>
@@ -53,13 +74,13 @@ function IndividualUserPanel() {
             <table className="userPanel_table">
                 <tbody>
                     {
-                        usersDataClone.map(item => (
+                        usersDataClone.map((item, i) => (
                             <>
-                                <tr>
+                                <tr key={i}>
                                     <td className={'emailHead'}>Email</td>
                                     <td>{item.email}</td>
                                 </tr>
-                                <tr>
+                                <tr key={i + 1}>
                                     <td className={'phoneHead'}>Phone</td>
                                     <td>+9256821566</td>
                                 </tr>
@@ -94,7 +115,7 @@ function IndividualUserPanel() {
                 <div className={'container'}>
                     <div className={'row memoWatchlist'}>
                         <div className={'col-lg-10 col-sm-10'}>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae blanditiis error, incidunt nemo perferendis perspiciatis</p>
+                            <p>{comment}</p>
                         </div>
                         <div className={'col-lg-2 col-sm-2'}>
                             <img src={cancelButton} alt={'cancel'} style={{ cursor: 'pointer' }} />
@@ -123,6 +144,7 @@ const ButtonW = ({ id }) => {
     const usersData = useRecoilValue(usersData_);
     const [userWatchList, setUserWatchList] = useRecoilState(watchList);
     const [isFound, setFound] = useState(false);
+    const [/*comment*/, setComment] = useRecoilState(watchListComment);
 
     const filterUser = useCallback(() => {
         let data = usersData.filter(item => {
@@ -146,6 +168,8 @@ const ButtonW = ({ id }) => {
         })
             .then(res => {
                 setUserWatchList(res.data.data);
+                let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
+                setComment(data.map(item => item.comment));
             })
             .catch(error => {
                 if (error.response.data.data.code === 403) {

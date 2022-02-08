@@ -6,18 +6,19 @@ import closeIcon from '../../../../assets/img/cancelicon2.png'
 import IndividualPanel2 from "./individualpanel2";
 import IndividualUserPanel from "../individualuserpanel";
 import { useRecoilState } from 'recoil';
-import { usersData_, watchList } from '../../../../data/atom';
+import { userDataIndividual, usersData_, watchList } from '../../../../data/atom';
 import axios from 'axios';
 
 function IndividualPanel() {
     const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
     const [/*usersData*/, setUsersData] = useRecoilState(usersData_);
+    const [/*userData*/, setUserData] = useRecoilState(userDataIndividual);
     const history = useHistory();
     const closeHandle = () => {
         history.push('/');
     }
-    const getUserWatchList = useCallback(() => {
 
+    const getUserWatchList = useCallback(() => {
         axios.get('/affiliate/v1/doctor/watchlist', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
@@ -40,6 +41,8 @@ function IndividualPanel() {
         })
             .then(res => {
                 setUsersData(res.data.data);
+                let data = res.data.data.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
+                setUserData(data);
             })
             .catch(error => {
                 if (error.response.data.data.code === 403) {
@@ -47,7 +50,7 @@ function IndividualPanel() {
                 }
             }
             );
-    }, [setUsersData])
+    }, [setUsersData, setUserData])
 
     useEffect(() => {
         getUsersData();

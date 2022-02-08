@@ -1,6 +1,5 @@
 import '../../../assets/css/dashboarddatatables.css';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
 import Badge from '@mui/material/Badge';
@@ -30,7 +29,6 @@ import $ from 'jquery';
 
 function DashboardTable() {
 
-    const history = useHistory();
     let date = new Date().getFullYear();
     const [usersData, setUsersData] = useRecoilState(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
@@ -397,7 +395,12 @@ function DashboardTable() {
                                                     <span>Medication name 2</span><br />
                                                     <span>Medication name 3</span><br />
                                                     <span>Medication name 4</span><br />
-                                                    <u onClick={() => history.push('/individual')} style={{ color: 'red', cursor: 'pointer' }}>+1 more</u>
+                                                    <u
+                                                        onClick={() => {
+                                                            setUserData(item.uid);
+                                                            showUPanelHandle();
+                                                        }}
+                                                        style={{ color: 'red', cursor: 'pointer' }}>+1 more</u>
                                                 </div>
                                                 <div className={'col-lg-1 col-sm-1 rowImg'}>
                                                     <img

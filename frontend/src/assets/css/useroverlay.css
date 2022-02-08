@@ -9,6 +9,7 @@
     background-color: #EEEEEE;
     display: none;
     overflow-y: auto;
+    box-shadow: -2px 0 13px #888888
 }
 
 #overlay_user_child {
