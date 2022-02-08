@@ -85,13 +85,9 @@ function ConnectUser({ show }) {
                 }))
             })
             .catch(err => {
-                // if (err.response.data.data.code === 403) {
-                //     sessionStorage.clear();
-                // }
-                if(err.response.data.data.code===409){
-                    Notifications('error','User already connected')
+                if (err.response.data.data.code === 409) {
+                    Notifications('error', 'User already connected')
                 }
-
             });
     }
 
