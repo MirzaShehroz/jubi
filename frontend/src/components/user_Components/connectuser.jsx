@@ -1,6 +1,9 @@
 import '../../assets/css/connectuser.css'
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { connectUserShow, usersData_ } from '../../data/atom';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
 import InputAdornment from '@mui/material/InputAdornment';
@@ -9,8 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import cancelIcon from '../../assets/img/cancelicon.png';
 import cancelIcon2 from '../../assets/img/cancelicon2.png';
 import avatar from '../../assets/img/avatar2.png'
-import { connectUserShow, usersData_ } from '../../data/atom';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { Notifications } from '../../helpers/helpers';
 
 function ConnectUser({ show }) {
     let date = new Date().getFullYear();
@@ -34,8 +36,9 @@ function ConnectUser({ show }) {
         }
     }, [show]);
 
-    const csMenuShow = (e) => {
 
+
+    const csMenuShow = (e) => {
         let data = usersData.filter(item => {
             if ((item.first_name.toLowerCase().includes(e.target.value.toLowerCase()) || item.email.toLowerCase().includes(e.target.value.toLowerCase())) && (e.target.value !== '')) {
                 setCSmenu(true);
@@ -48,10 +51,13 @@ function ConnectUser({ show }) {
 
     const showReconnectBtn = () => {
         if (patientCode.length === 6) {
-            setDisableText('100%')
-            setShowCnctBtn(false);
-            setShowReCnctBtn(true);
-            setShowTryBtn(false);
+            setShowReCnctBtn(false);
+            setTimeout(() => {
+                setDisableText('100%')
+                setShowCnctBtn(false);
+                setShowReCnctBtn(true);
+                setShowTryBtn(false);
+            }, [1])
         }
     }
 
@@ -62,18 +68,40 @@ function ConnectUser({ show }) {
         setShowTryBtn(true);
     }
 
+    const connectUserApi = (id, data) => {
+        axios.post(`/affiliate/v1/chat/room?uid=${id}`, {}, {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        })
+            .then(res => {
+                console.log(res.data.data);
+                setSearchUser(data);
+                setCSmenu(false);
+                !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
+                setCsMenuAtom((obj) => ({
+                    ...obj,
+                    csMenu: true
+                }))
+            })
+            .catch(err => {
+                // if (err.response.data.data.code === 403) {
+                //     sessionStorage.clear();
+                // }
+                if(err.response.data.data.code===409){
+                    Notifications('error','User already connected')
+                }
+
+            });
+    }
+
     const showCSConnectMenu = (id) => {
         const data = usersData.filter(item => {
             return item.uid === id
         });
-        setSearchUser(data);
-        setCSmenu(false);
-        !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
-        setCsMenuAtom((obj) => ({
-            ...obj,
-            csMenu: true
-        }))
+        connectUserApi(id, data);
     }
+
     const closeComp = () => {
         setCsMenuAtom((obj) => ({
             csMenu: false,
@@ -140,6 +168,7 @@ function ConnectUser({ show }) {
                                     }}
                                     onChange={(e) => setCode(e.target.value)}
                                     variant="standard"
+                                    required
                                 />
                                 {showReCnctBtn ? <p className='csMenu_time'>
                                     <CountdownCircleTimer
@@ -186,7 +215,10 @@ function ConnectUser({ show }) {
                 <div style={{ overflowY: 'auto', height: '100%' }}>
                     {
                         searchUser.map(item => (
-                            <div className='csMenuDiv' onClick={() => showCSConnectMenu(item.uid)} key={item.uid}>
+                            <div className='csMenuDiv' onClick={() => {
+                                showCSConnectMenu(item.uid);
+                                sessionStorage.setItem('uid', item.uid);
+                            }} key={item.uid}>
                                 <div className='csMenuDiv1'>
                                     <img src={avatar} alt="something" />
                                 </div>
