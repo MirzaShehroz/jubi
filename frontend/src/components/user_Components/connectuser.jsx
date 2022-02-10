@@ -36,8 +36,6 @@ function ConnectUser({ show }) {
         }
     }, [show]);
 
-
-
     const csMenuShow = (e) => {
         let data = usersData.filter(item => {
             if ((item.first_name.toLowerCase().includes(e.target.value.toLowerCase()) || item.email.toLowerCase().includes(e.target.value.toLowerCase())) && (e.target.value !== '')) {
@@ -86,7 +84,7 @@ function ConnectUser({ show }) {
             })
             .catch(err => {
                 if (err.response.data.data.code === 409) {
-                    Notifications('error', 'User already connected')
+                    Notifications('warning', 'User already connected')
                 }
             });
     }

@@ -221,12 +221,6 @@ function DashboardTable() {
             });
     }, [setUserWatchList])
 
-    useEffect(() => {
-        getUsersData();
-        readyPagination();
-        getUserWatchList();
-    }, [getUsersData, getUserWatchList])
-
     const readyPagination = () => {
         $(document).ready(function () {
             setTimeout(function () {
@@ -264,6 +258,16 @@ function DashboardTable() {
         })
         setUserIndData(data);
     }
+
+    useEffect(() => {
+        getUsersData();
+        getUserWatchList();
+    }, [getUsersData, getUserWatchList])
+
+
+    useEffect(() => {
+        readyPagination();
+    }, [])
 
     return (
         <div className='dashboard_child2'>

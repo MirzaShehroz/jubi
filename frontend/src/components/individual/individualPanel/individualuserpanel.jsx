@@ -45,7 +45,7 @@ function IndividualUserPanel() {
                     sessionStorage.clear();
                 }
             });
-    }, [setComment,setUserWatchList])
+    }, [setComment, setUserWatchList])
 
 
     useEffect(() => {

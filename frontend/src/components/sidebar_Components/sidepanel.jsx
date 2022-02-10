@@ -1,13 +1,40 @@
 import '../../assets/css/sidepanel.css'
-import React from 'react'
-import { useRecoilState } from 'recoil';
+import React, { useCallback, useEffect } from 'react'
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { sidePanelFunc } from '../../data/atom';
+import { sidePanelFunc, userChatRooms } from '../../data/atom';
 import icon from '../../assets/img/stripicon.png'
-import userPic from '../../assets/img/user.jpg'
+import userPic from '../../assets/img/user_pic.jpg'
 
 function SidePanel({ display }) {
+
+    const usersRoom = useRecoilValue(userChatRooms);
+
+    // const getRoom = useCallback(() => {
+    //     if (usersRoom.length > 0) {
+    //         usersRoom.filter(item => {
+    //             return usersData.filter(item1 => {
+    //                 if (item === item1.uid) {
+    //                     unChatsData.push(item1);
+    //                 }
+    //                 return item1;
+    //             })
+    //         })
+    //     }
+    //     console.log(unChatsData);
+    // }, [usersRoom, usersData, unChatsData])
+
+    const getRoomMessage = useCallback(() => {
+        let data = usersRoom.map(item => {
+            return item.ChatMessages.map((item, i) => item)
+        })
+        // console.log(data.map(item=>item));
+    }, [usersRoom])
+
+    useEffect(() => {
+        getRoomMessage();
+    }, [getRoomMessage])
 
     const data = [
         {
@@ -60,20 +87,20 @@ function SidePanel({ display }) {
                         <h3>Messages</h3>
                     </div>
                     <div className='sidePanel_child31_2'>
-                        {data.map((item) => (
-                            <div key={item.id} className='sidePanel_child31_userChatDiv'>
+                        {usersRoom.map((item) => (
+                            <div key={item.Uid} className='sidePanel_child31_userChatDiv'>
                                 <div className='sidePanel_child31_img'>
-                                    <img src={item.image} alt="something" />
+                                    <img src={userPic} alt="something" />
                                 </div>
                                 <div className='sidePanel_child31_chatDetail'>
                                     <div className='sidePanel_child31_chatDetail1'>
-                                        <h5>{item.name} <Badge bg="danger">N</Badge></h5>
-                                        <p style={{ color: '#999999' }}>{item.time}</p>
+                                        <h5>{item.FistName} {item.LastName} {item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">N</Badge> : '')}</h5>
+                                        <p style={{ color: '#999999' }}>{item.ChatMessages.slice(-1).map(i => i.created_at.slice(0, 10))}</p>
                                     </div>
-                                    <p>{item.message}</p>
+                                    <p>{item.ChatMessages.slice(-1).map(i => i.message)}</p>
                                 </div>
                             </div>
-                        ))}
+                        )).slice(0, 4)}
                     </div>
                     <div className='sidePanel_child31_3'>
                         <Link to='/chat'>View all &nbsp; {'>'}</Link>

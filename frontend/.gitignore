@@ -23,3 +23,11 @@ frontend/.idea
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/build
+build/
+build
+
+/.env
+.env/
+.env

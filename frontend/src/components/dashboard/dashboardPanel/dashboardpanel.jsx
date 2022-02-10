@@ -8,8 +8,8 @@ import Header from '../../header/header';
 import Dashboard from '../dashboard_Components/dashboard';
 import DashboardStrip from '../dashboard_Components/dashboardstrip';
 import Sidebar from '../../sidebar_Components/sidebar';
-import { connectUserShow, docData, showHeaderProfile, userIDedit, userPassEdit } from "../../../data/atom";
-
+import { connectUserShow, docData, showHeaderProfile, userChatRooms, userIDedit, userPassEdit } from "../../../data/atom";
+import _ from 'underscore';
 
 function DashboardPanel() {
 
@@ -18,17 +18,18 @@ function DashboardPanel() {
     const [/*..*/, setCmpPass] = useRecoilState(userPassEdit);
     const [/*..*/, setUserOverlay] = useRecoilState(showHeaderProfile);
     const [/*..*/, setCnctUser] = useRecoilState(connectUserShow);
+    const [/*usersRoom*/, setUserRooms] = useRecoilState(userChatRooms);
 
     const getData = useCallback(() => {
         axios.options('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/preflight')
             .then(res => { })
             .catch(err => { });
 
-            axios.options('/preflight')
+        axios.options('/preflight')
             .then(res => { })
             .catch(err => { });
 
-            axios.get('/affiliate/v1/doctor/profile', {
+        axios.get('/affiliate/v1/doctor/profile', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -49,7 +50,18 @@ function DashboardPanel() {
                 sessionStorage.clear();
             }
         })
-    }, [setDocData])
+        // let roomUsers = [];
+        axios.get('/affiliate/v1/chat/doctor', {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            }
+        }).then((res) => {
+            if (res.data.data) {
+                setUserRooms(_.sortBy(res.data.data, 'Rid'));
+            }}).catch(err => {
+                console.log(err);
+            })
+    }, [setDocData, setUserRooms])
 
     const resetUseroverlay = useCallback(() => {
         setUserOverlay((obj) => ({

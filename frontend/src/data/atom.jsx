@@ -126,3 +126,9 @@ export const watchListComment = atom({
     key: 'User watchlist comment',
     default: ''
 })
+
+export const userChatRooms = atom({
+    key: 'User chat rooms',
+    default: []
+})
+
