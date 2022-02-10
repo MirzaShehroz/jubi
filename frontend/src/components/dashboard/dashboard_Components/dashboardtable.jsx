@@ -14,6 +14,7 @@ import AddWathListModal from "../../watchlist/addwatchlistmodal";
 import RemoveWatchModal from "../../watchlist/removewatchlistmodal";
 import { useCallback } from 'react';
 import { showHeaderProfile, userDataIndividual, usersData_, watchList, watchListComment } from '../../../data/atom';
+import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import UserOverlay from '../../user_Components/useroverlay';
 
@@ -35,6 +36,7 @@ function DashboardTable() {
     const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
     const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
+    const history = useHistory();
 
     const showUPanelHandle = () => {
         setShowHeader((obj) => ({
@@ -339,7 +341,7 @@ function DashboardTable() {
                                                 <div className={'col-lg-4 col-sm-12 badgeClass'}>
                                                     <Box sx={{ color: 'action.active' }}>
                                                         <Badge color="error" variant="dot">
-                                                            <FontAwesomeIcon id={'commentBadge'} icon={faComment} />
+                                                            <FontAwesomeIcon onClick={()=>history.push('/chat')} id={'commentBadge'} icon={faComment} />
                                                         </Badge>
                                                     </Box>
                                                 </div>
