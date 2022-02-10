@@ -11,25 +11,10 @@ function SidePanel({ display }) {
 
     const usersRoom = useRecoilValue(userChatRooms);
 
-    // const getRoom = useCallback(() => {
-    //     if (usersRoom.length > 0) {
-    //         usersRoom.filter(item => {
-    //             return usersData.filter(item1 => {
-    //                 if (item === item1.uid) {
-    //                     unChatsData.push(item1);
-    //                 }
-    //                 return item1;
-    //             })
-    //         })
-    //     }
-    //     console.log(unChatsData);
-    // }, [usersRoom, usersData, unChatsData])
-
     const getRoomMessage = useCallback(() => {
         let data = usersRoom.map(item => {
             return item.ChatMessages.map((item, i) => item)
         })
-        // console.log(data.map(item=>item));
     }, [usersRoom])
 
     useEffect(() => {

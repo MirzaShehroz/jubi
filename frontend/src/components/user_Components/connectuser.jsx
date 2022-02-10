@@ -67,7 +67,7 @@ function ConnectUser({ show }) {
     }
 
     const connectUserApi = (id, data) => {
-        axios.post(`/affiliate/v1/chat/room?uid=${id}`, {}, {
+        axios.post(`${process.env.REACT_APP_API_URL}/affiliate/v1/chat/room?uid=${id}`, {}, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

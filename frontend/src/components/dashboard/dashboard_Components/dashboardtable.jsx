@@ -190,7 +190,7 @@ function DashboardTable() {
     }
 
     const getUsersData = useCallback(() => {
-        axios.get('/affiliate/v1/users', {
+        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/users', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -209,7 +209,7 @@ function DashboardTable() {
 
     const getUserWatchList = useCallback(() => {
 
-        axios.get('/affiliate/v1/doctor/watchlist', {
+        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/doctor/watchlist', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
