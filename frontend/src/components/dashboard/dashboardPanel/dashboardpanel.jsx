@@ -29,7 +29,7 @@ function DashboardPanel() {
             .then(res => { })
             .catch(err => { });
 
-        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/doctor/profile', {
+        axios.get('/affiliate/v1/doctor/profile', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -51,7 +51,7 @@ function DashboardPanel() {
             }
         })
         // let roomUsers = [];
-        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/chat/doctor', {
+        axios.get('/affiliate/v1/chat/doctor', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

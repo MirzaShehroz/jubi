@@ -40,7 +40,7 @@ function Chat() {
     });
 
     const getChatRooms = useCallback(() => {
-        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/chat/doctor', {
+        axios.get('/affiliate/v1/chat/doctor', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -54,7 +54,7 @@ function Chat() {
     }, [setUserRooms])
 
     const docProfile = useCallback(() => {
-        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/doctor/profile', {
+        axios.get('/affiliate/v1/doctor/profile', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -78,7 +78,7 @@ function Chat() {
     }, [setDocData]);
 
     const getUserChat = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/affiliate/v1/chat/room/message?rid=${parseInt(sessionStorage.getItem('%83r%5i$#d%'))}`, {
+        axios.get(`/affiliate/v1/chat/room/message?rid=${parseInt(sessionStorage.getItem('%83r%5i$#d%'))}`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -96,7 +96,7 @@ function Chat() {
         let rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'));
         let uid = parseInt(sessionStorage.getItem('uid'));
         if (message.length > 0) {
-            axios.post(`${process.env.REACT_APP_API_URL}/affiliate/v1/chat/room/message`, {
+            axios.post(`/affiliate/v1/chat/room/message`, {
                 rid: rid,
                 from: doctor.dId,
                 to: uid,

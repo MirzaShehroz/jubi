@@ -31,7 +31,7 @@ function IndividualUserPanel() {
     }
 
     const getUserWatchList = useCallback(() => {
-        axios.get(process.env.REACT_APP_API_URL+'/affiliate/v1/doctor/watchlist', {
+        axios.get('/affiliate/v1/doctor/watchlist', {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
