@@ -22,15 +22,15 @@ ChartJS.register(
     Tooltip
 );
 
-const labels = ['W1', 'W2', 'W3', 'W4','W5','W1', 'W2', 'W3', 'W4','W5','W1', 'W2', 'W3', 'W4','W5'];
-const options= {
+const labels = ['W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5'];
+const options = {
     plugins: {
         legend: {
             display: false,
 
         }
     },
-   maintainAspectRatio: false
+    maintainAspectRatio: false
 }
 const data = {
     labels,
@@ -45,7 +45,7 @@ const data = {
             data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
         },
         {
-            type: 'bar' ,
+            type: 'bar',
             label: '',
             backgroundColor: '#7D9DAE',
             data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
@@ -59,15 +59,15 @@ const data = {
 };
 
 function LBChart() {
-    return(
-       <div className={'chartBox'}>
-           <Chart
-               type='bar'
-               data={data}
-               options={options}
+    return (
+        <div className={'chartBox'}>
+            <Chart
+                type='bar'
+                data={data}
+                options={options}
 
-           />
-       </div>
+            />
+        </div>
 
     )
 

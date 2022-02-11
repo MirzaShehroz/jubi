@@ -1,4 +1,4 @@
-import '../../assets/css/forget.css';
+import './forget.css';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/img/jubiwatch_logo.png';

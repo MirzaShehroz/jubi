@@ -1,4 +1,4 @@
-import '../../../assets/css/dashboarddatatables.css';
+import './dashboarddatatables.css';
 import React, { useEffect, useState } from 'react';
 import { Chart } from 'react-google-charts';
 import axios from 'axios';
@@ -16,10 +16,9 @@ import { useCallback } from 'react';
 import { showHeaderProfile, userDataIndividual, usersData_, watchList, watchListComment } from '../../../data/atom';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import UserOverlay from '../../user_Components/useroverlay';
+import UserOverlay from '../../user_components/useroverlay/useroverlay';
 
 //jQuery libraries
-
 import 'jquery/dist/jquery.min.js';
 
 //Datatable Modules
@@ -190,7 +189,7 @@ function DashboardTable() {
     }
 
     const getUsersData = useCallback(() => {
-        axios.get('/affiliate/v1/users', {
+        axios.get(`/affiliate/v1/users`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -209,7 +208,7 @@ function DashboardTable() {
 
     const getUserWatchList = useCallback(() => {
 
-        axios.get('/affiliate/v1/doctor/watchlist', {
+        axios.get(`/affiliate/v1/doctor/watchlist`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

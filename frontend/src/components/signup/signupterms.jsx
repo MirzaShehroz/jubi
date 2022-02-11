@@ -1,4 +1,4 @@
-import '../../assets/css/signup.css';
+import './signup.css';
 import React, { useState } from 'react';
 import SignUp2 from './signupform';
 import logo from '../../assets/img/jubiwatch_logo.png';

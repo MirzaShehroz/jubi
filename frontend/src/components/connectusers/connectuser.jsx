@@ -1,4 +1,4 @@
-import '../../assets/css/connectuser.css'
+import './connectuser.css'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';

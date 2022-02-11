@@ -1,12 +1,12 @@
-import '../../../../assets/css/individualpanel.css';
+import '../../individualuserpanel.css';
 import React, { useCallback, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
-import Alergies from "../../../alergies/alergies";
-import closeIcon from '../../../../assets/img/cancelicon2.png'
-import IndividualPanel2 from "./individualpanel2";
-import IndividualUserPanel from "../individualuserpanel";
+import Alergies from "../../../../alergies/alergies";
+import closeIcon from '../../../../../assets/img/cancelicon2.png'
+import IndividualPanel2 from "../individual_panel2/individualpanel2";
+import IndividualUserPanel from "../../individualuserpanel";
 import { useRecoilState } from 'recoil';
-import { userDataIndividual, usersData_, watchList } from '../../../../data/atom';
+import { userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
 import axios from 'axios';
 
 function IndividualPanel() {
@@ -19,7 +19,7 @@ function IndividualPanel() {
     }
 
     const getUserWatchList = useCallback(() => {
-        axios.get('/affiliate/v1/doctor/watchlist', {
+        axios.get(`/affiliate/v1/doctor/watchlist`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -34,7 +34,7 @@ function IndividualPanel() {
     }, [setUserWatchList])
 
     const getUsersData = useCallback(() => {
-        axios.get('/affiliate/v1/users', {
+        axios.get(`/affiliate/v1/users`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

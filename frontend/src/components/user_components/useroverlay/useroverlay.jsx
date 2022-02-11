@@ -1,10 +1,10 @@
-import '../../assets/css/useroverlay.css'
+import './useroverlay.css'
 import React from 'react';
-import userPic from "../../assets/img/user_pic.png";
-import cancelIcon from "../../assets/img/cancelicon.png";
-import activeIcon1 from "../../assets/img/activeicon1.png";
-import activeIcon2 from "../../assets/img/activeicon2.png";
-import { showHeaderProfile, userDataIndividual } from '../../data/atom';
+import userPic from "../../../assets/img/user_pic.png";
+import cancelIcon from "../../../assets/img/cancelicon.png";
+import activeIcon1 from "../../../assets/img/activeicon1.png";
+import activeIcon2 from "../../../assets/img/activeicon2.png";
+import { showHeaderProfile, userDataIndividual } from '../../../data/atom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 

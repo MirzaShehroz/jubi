@@ -1,4 +1,4 @@
-import '../../assets/css/chat.css';
+import './chat.css';
 import React, { useCallback, useEffect, useState } from 'react'
 import { Badge } from "react-bootstrap";
 import chatUserPic from '../../assets/img/user_pic.jpg'
@@ -6,7 +6,7 @@ import attachPic from '../../assets/img/attach.png'
 import sendPic from '../../assets/img/send.png'
 import { useHistory } from 'react-router-dom'
 import closeIcon from '../../assets/img/cancelicon2.png'
-import IndividualUserPanel from '../individual/individualPanel/individualuserpanel';
+import IndividualUserPanel from '../individual/individual_panel/individualuserpanel';
 import { docData, userChatRooms } from '../../data/atom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
@@ -40,7 +40,7 @@ function Chat() {
     });
 
     const getChatRooms = useCallback(() => {
-        axios.get('/affiliate/v1/chat/doctor', {
+        axios.get(`/affiliate/v1/chat/doctor`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -54,7 +54,7 @@ function Chat() {
     }, [setUserRooms])
 
     const docProfile = useCallback(() => {
-        axios.get('/affiliate/v1/doctor/profile', {
+        axios.get(`/affiliate/v1/doctor/profile`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

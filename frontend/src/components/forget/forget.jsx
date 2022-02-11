@@ -1,4 +1,4 @@
-import '../../assets/css/forget.css';
+import './forget.css';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -8,7 +8,6 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import iIcon from '../../assets/img/coolicon.png';
 import { useRecoilState } from 'recoil';
 import { forgetPassDoc } from '../../data/atom';
-
 
 function Forget() {
     const [forgetDoc, setForgetDoc] = useRecoilState(forgetPassDoc);
@@ -40,7 +39,7 @@ function Forget() {
     }
 
     const verifyEmail = () => {
-        axios.post('/affiliate/v1/doctor/password/forget', {
+        axios.post(`/affiliate/v1/doctor/password/forget`, {
             username: forgetDoc.email,
             password: 'A*n#.$&^8b.$c86A%.~66%A/A'
         }).then((res) => {

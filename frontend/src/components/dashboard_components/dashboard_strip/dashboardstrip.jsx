@@ -1,9 +1,9 @@
-import '../../../assets/css/dashboardstrip.css';
+import './dashboardstrip.css';
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import icon from '../../../assets/img/stripicon.png';
 import { sidePanelFunc } from '../../../data/atom';
-import SidePanel from '../../sidebar_Components/sidepanel';
+import SidePanel from '../../sidebar_components/sidepanel/sidepanel';
 
 function DashboardStrip() {
     const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);

@@ -1,6 +1,6 @@
 import React from 'react'
-import DashboardTable from './dashboardtable';
-import DashboardGraph from './dashboardgraph';
+import DashboardTable from '../dashboard_table/dashboardtable';
+import DashboardGraph from '../dashboard_graph/dashboardgraph';
 
 function Dashboard() {
     const auth = true;

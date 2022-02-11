@@ -6,7 +6,6 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import axios from 'axios';
-// import bcrypt from 'bcryptjs';
 import { Notifications } from '../../helpers/helpers';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
@@ -94,7 +93,6 @@ function EditId() {
     const showEmailContent = async () => {
         if (pass !== '') {
             let isPass = sessionStorage.getItem('unKnown').slice(9);
-            // let isPass = await bcrypt.compare(pass, sessionStorage.getItem('unKnown'));
             if (isPass!==pass) {
                 return Notifications('warning', 'Incorrect Current Password');
             }

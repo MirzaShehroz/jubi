@@ -8,12 +8,12 @@ import Protected from './components/protected';
 import SignIn from './components/signin/signin';
 import SignUp from './components/signup/signupterms';
 import Forget from './components/forget/forget';
-import EditProfile from './components/edit_Components/editprofile';
-import EditId from './components/edit_Components/editid';
-import EditPassword from './components/edit_Components/editpassword';
-import DashboardPanel from './components/dashboard/dashboardPanel/dashboardpanel';
+import EditProfile from './components/edit_components/editprofile';
+import EditId from './components/edit_components/editid';
+import EditPassword from './components/edit_components/editpassword';
+import DashboardPanel from './components/dashboard_components/dashboard_panel/dashboardpanel';
 import Chat from "./components/chat/chat";
-import IndividualPanel from './components/individual/individualPanel/individualComponents/individualpanel';
+import IndividualPanel from './components/individual/individual_panel/individual_components/individual_panel1/individualpanel1';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

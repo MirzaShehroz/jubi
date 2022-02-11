@@ -1,9 +1,9 @@
-import '../../assets/css/header.css'
+import './header.css'
 import React, { useState } from 'react'
-import UserMenu from '../user_Components/usermenu';
+import UserMenu from '../user_components/usermenu/usermenu';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import addIcon from '../../assets/img/addicon2.png';
-import ConnectUser from '../user_Components/connectuser';
+import ConnectUser from '../connectusers/connectuser';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {  connectUserShow, docData, userPicUpload } from '../../data/atom';
 

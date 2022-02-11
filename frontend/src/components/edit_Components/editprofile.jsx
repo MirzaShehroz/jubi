@@ -17,7 +17,7 @@ function EditProfile() {
     }
 
     const getData = useCallback(() => {
-        axios.get('/affiliate/v1/doctor/profile', {
+        axios.get(`/affiliate/v1/doctor/profile`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -45,7 +45,7 @@ function EditProfile() {
     }, [getData])
 
     const updateProfileHandle = () => {
-        axios.patch('/affiliate/v1/doctor/profile', {
+        axios.patch(`/affiliate/v1/doctor/profile`, {
             "first_name": docData_.firstName,
             "middle_name": docData_.middleName,
             "last_name": docData_.lastName,

@@ -1,10 +1,10 @@
-import '../../../../assets/css/individualpanel2.css';
+import './individualpanel2.css';
 import React, { useState } from 'react'
-import medicAdd from '../../../../assets/img/medicadd.png';
-import medicDel from '../../../../assets/img/medicdel.png';
-import frwdBtn from '../../../../assets/img/forward_arrow.png';
-import prevBtn from '../../../../assets/img/previous_arrow.png';
-import LBChart from '../individualComponents/linebarchart';
+import medicAdd from '../../../../../assets/img/medicadd.png';
+import medicDel from '../../../../../assets/img/medicdel.png';
+import frwdBtn from '../../../../../assets/img/forward_arrow.png';
+import prevBtn from '../../../../../assets/img/previous_arrow.png';
+import LBChart from '../linebar_chart/linebarchart';
 
 import { PieChart, Pie, Sector ,Cell} from "recharts";
 

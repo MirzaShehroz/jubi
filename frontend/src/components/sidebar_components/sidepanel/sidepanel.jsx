@@ -1,11 +1,11 @@
-import '../../assets/css/sidepanel.css'
+import './sidepanel.css'
 import React, { useCallback, useEffect } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { sidePanelFunc, userChatRooms } from '../../data/atom';
-import icon from '../../assets/img/stripicon.png'
-import userPic from '../../assets/img/user_pic.jpg'
+import { sidePanelFunc, userChatRooms } from '../../../data/atom';
+import icon from '../../../assets/img/stripicon.png'
+import userPic from '../../../assets/img/user_pic.jpg'
 
 function SidePanel({ display }) {
 

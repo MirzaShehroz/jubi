@@ -1,4 +1,3 @@
-import '../../assets/css/forget.css';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Forget4 from './forget4';
@@ -8,7 +7,6 @@ import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import { Notifications } from '../../helpers/helpers';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-
 
 function Forget3() {
     const forgetDoc = useRecoilValue(forgetPassDoc);

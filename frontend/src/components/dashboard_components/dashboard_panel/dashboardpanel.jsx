@@ -1,13 +1,13 @@
-import '../../../assets/css/dashboard.css';
+import '../dashboard/dashboard.css';
 import React from 'react';
 import { useEffect } from 'react';
 import { useRecoilState } from "recoil";
 import { useCallback } from 'react';
 import axios from 'axios';
 import Header from '../../header/header';
-import Dashboard from '../dashboard_Components/dashboard';
-import DashboardStrip from '../dashboard_Components/dashboardstrip';
-import Sidebar from '../../sidebar_Components/sidebar';
+import Dashboard from '../dashboard/dashboard';
+import DashboardStrip from '../dashboard_strip/dashboardstrip';
+import Sidebar from '../../sidebar_components/sidebar/sidebar';
 import { connectUserShow, docData, showHeaderProfile, userChatRooms, userIDedit, userPassEdit } from "../../../data/atom";
 import _ from 'underscore';
 
@@ -21,15 +21,12 @@ function DashboardPanel() {
     const [/*usersRoom*/, setUserRooms] = useRecoilState(userChatRooms);
 
     const getData = useCallback(() => {
-        axios.options('http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/preflight')
+
+        axios.options(`/preflight`)
             .then(res => { })
             .catch(err => { });
 
-        axios.options('/preflight')
-            .then(res => { })
-            .catch(err => { });
-
-        axios.get('/affiliate/v1/doctor/profile', {
+        axios.get(`/affiliate/v1/doctor/profile`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
@@ -50,8 +47,7 @@ function DashboardPanel() {
                 sessionStorage.clear();
             }
         })
-        // let roomUsers = [];
-        axios.get('/affiliate/v1/chat/doctor', {
+        axios.get(`/affiliate/v1/chat/doctor`, {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }

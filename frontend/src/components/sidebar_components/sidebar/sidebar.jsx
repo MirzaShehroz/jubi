@@ -1,14 +1,14 @@
-import '../../assets/css/sidebar.css'
+import './sidebar.css'
 import React from 'react'
 import { useRecoilState } from 'recoil'
 import { useHistory } from 'react-router-dom';
-import SidePanel from './sidepanel'
-import chatIcon from '../../assets/img/chaticon.png'
-import notiIcon from '../../assets/img/notiicon.png'
-import hamburgerIcon from '../../assets/img/hamburgericon.png'
-import settingIcon from '../../assets/img/settingicon.png'
-import signOutIcon from '../../assets/img/signouticon.png'
-import { sidePanelFunc } from '../../data/atom'
+import SidePanel from '../sidepanel/sidepanel'
+import chatIcon from '../../../assets/img/chaticon.png'
+import notiIcon from '../../../assets/img/notiicon.png'
+import hamburgerIcon from '../../../assets/img/hamburgericon.png'
+import settingIcon from '../../../assets/img/settingicon.png'
+import signOutIcon from '../../../assets/img/signouticon.png'
+import { sidePanelFunc } from '../../../data/atom'
 
 function Sidebar() {
 

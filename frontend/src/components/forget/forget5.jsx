@@ -1,9 +1,7 @@
-import '../../assets/css/signin.css';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
-
 
 function Forget5() {
     return (

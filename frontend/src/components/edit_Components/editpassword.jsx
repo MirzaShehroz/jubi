@@ -8,9 +8,8 @@ import lockIcon from '../../assets/img/lockicon.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
-// import bcrypt from 'bcryptjs';
-import PasswordValidation from '../password_Validation/password_validation';
-import ConfirmPasswordValid from '../password_Validation/confirm_password_valid';
+import PasswordValidation from '../password_validation/password_validation';
+import ConfirmPasswordValid from '../password_validation/confirm_password_valid';
 import { Notifications } from '../../helpers/helpers';
 
 function EditPassword() {
@@ -75,7 +74,6 @@ function EditPassword() {
     const showPassContent = async () => {
         if (curPass !== '') {
             let isPass = sessionStorage.getItem('unKnown').slice(9);
-            // let isPass = await bcrypt.compare(curPass, sessionStorage.getItem('unKnown'));
             if (isPass !== curPass) {
                 return Notifications('warning', 'Incorrect Current Password');
             }

@@ -1,4 +1,4 @@
-import '../../../assets/css/dashboardgraph.css'
+import './dashboardgraph.css'
 import React, { useState } from 'react'
 import { PieChart, Pie, Cell } from "recharts";
 
