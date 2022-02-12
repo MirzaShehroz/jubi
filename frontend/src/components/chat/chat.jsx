@@ -9,10 +9,10 @@ import closeIcon from '../../assets/img/cancelicon2.png'
 import IndividualUserPanel from '../individual/individual_panel/individualuserpanel';
 import { docData, userChatRooms } from '../../data/atom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
-import { Notifications } from '../../helpers/helpers';
 import _ from 'underscore';
-
+import ApiServices from '../../services/apiservices';
+import { dateTimeSlice1, dateTimeSlice2 } from '../../helpers/datetimeslice';
+import { sliceMessage } from '../../helpers/slicemessage';
 
 function Chat() {
     const [usersRoom, setUserRooms] = useRecoilState(userChatRooms);
@@ -23,42 +23,30 @@ function Chat() {
     const [chatMessages, setChatMessages] = useState([]);
     const history = useHistory();
 
-    const chatCrossHandle = () => {
-        history.push('/');
+    const chatCrossHandle = () => history.push('/')
+    let [child1_1, setChild1_1] = useState({ width: '24%', display: 'none', });
+    let [child1_2, setChild1_2] = useState({ width: '28%' });
+    let [child1_3, setChild1_3] = useState({ width: '68%' });
+
+    const getChatRooms = useCallback(async () => {
+        const res = await ApiServices.getDoctorChatRooms();
+        if (res.status === 200) {
+            if (res.data.data) return setUserRooms(_.sortBy(res.data.data, 'Rid'))
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUserRooms, history])
+    const getUserChat = async () => {
+        const res = await ApiServices.getSingleUserChat();
+        if (res.status === 200) {
+            setChatMessages(res.data.data);
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
-
-    let [child1_1, setChild1_1] = useState({
-        width: '24%',
-        display: 'none',
-    });
-    let [child1_2, setChild1_2] = useState(
-        {
-            width: '28%',
-        });
-    let [child1_3, setChild1_3] = useState({
-        width: '68%'
-    });
-
-    const getChatRooms = useCallback(() => {
-        axios.get(`/affiliate/v1/chat/doctor`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then((res) => {
-            if (res.data.data) {
-                setUserRooms(_.sortBy(res.data.data, 'Rid'));
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }, [setUserRooms])
-
-    const docProfile = useCallback(() => {
-        axios.get(`/affiliate/v1/doctor/profile`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const docProfile = useCallback(async () => {
+        const res = await ApiServices.getDocProfile();
+        if (res.status === 200) {
             setDocData((obj) => ({
                 dId: res.data.data.did,
                 firstName: res.data.data.first_name,
@@ -69,69 +57,45 @@ function Chat() {
                 specialty: res.data.data.speciality,
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
-            }))
-        }).catch(err => {
-            if (err.response.data.data.code === 403) {
-                sessionStorage.clear();
+            }));
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setDocData, history]);
+    const sendMessage = async () => {
+        let uid = parseInt(sessionStorage.getItem('uid'));
+        let rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'));
+        if (message.length > 0) {
+            const data = {
+                rid: rid, from: doctor.dId, to: uid, message: message.trim()
             }
-        })
-    }, [setDocData]);
-
-    const getUserChat = () => {
-        axios.get(`/affiliate/v1/chat/room/message?rid=${parseInt(sessionStorage.getItem('%83r%5i$#d%'))}`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
+            const res = await ApiServices.postUserMessages(data);
+            if (res.status === 200) {
+                getUserChat();
+                setMessage('');
+                getChatRooms();
+                filterChatRoom();
+            } else if (res.data.code === 403) {
+                history.push('/sign-in');
+                setMessage('');
             }
-        }).then((res) => {
-            setChatMessages(res.data.data)
-        })
+        }
     }
 
     const filterChatRoom = () => {
         let data = usersRoom.filter(item => item.Uid === parseInt(sessionStorage.getItem('uid')))
         setUserChat(data);
     }
-
-    const sendMessage = () => {
-        let rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'));
-        let uid = parseInt(sessionStorage.getItem('uid'));
-        if (message.length > 0) {
-            axios.post(`/affiliate/v1/chat/room/message`, {
-                rid: rid,
-                from: doctor.dId,
-                to: uid,
-                message: message.trim()
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-                }
-            })
-                .then(res => {
-                    getUserChat();
-                    setMessage('');
-                })
-                .catch(err => Notifications('error', 'Internal Server Error'))
-        }
-        getChatRooms();
-        filterChatRoom();
-    }
-
     useEffect(() => {
         getChatRooms();
-
     }, [getChatRooms])
-
     useEffect(() => {
         docProfile();
     }, [docProfile])
 
     function toogleViewProfile() {
         if (child1_1.display === 'none' && !isShow) {
-            setChild1_1({
-                width: '20%',
-                display: 'block',
-
-            });
+            setChild1_1({ width: '20%', display: 'block', });
             setShow(true);
             setChild1_2({ width: '24%', });
             setChild1_3({ width: '53%' });
@@ -149,6 +113,18 @@ function Chat() {
         setChild1_2({ width: '28%', });
         setChild1_3({ width: '68%' });
     }
+    const chatHandle = (item) => {
+        setChatMessages([]);
+        sessionStorage.setItem('uid', item.Uid)
+        showPanel();
+        sessionStorage.setItem('%83r%5i$#d%', item.Rid)
+        filterChatRoom();
+        getUserChat();
+    }
+    const showBadge = (item) => {
+        const badge = item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">1</Badge> : '');
+        return badge;
+    }
 
     return (
         <div style={{ height: '100vh', background: 'gray' }}>
@@ -164,14 +140,7 @@ function Chat() {
                     <div style={child1_2} className={'child1-2'}>
                         {usersRoom.map(item => (
                             <div key={item.Uid}
-                                onClick={() => {
-                                    setChatMessages([]);
-                                    sessionStorage.setItem('uid', item.Uid)
-                                    showPanel();
-                                    sessionStorage.setItem('%83r%5i$#d%', item.Rid)
-                                    filterChatRoom();
-                                    getUserChat();
-                                }}
+                                onClick={() => chatHandle(item)}
                                 className='userChatParent1'>
                                 <div className='userChatChild11'>
                                     <img src={chatUserPic} alt="something" />
@@ -179,11 +148,11 @@ function Chat() {
                                 <div className='userChatChild12'>
                                     <div className='userChatChild12-1'>
                                         <h5>{item.FistName} {item.LastName}</h5>
-                                        <p style={{ fontSize: '10.5px' }}>{item.ChatMessages.slice(-1).map(i => i.created_at.slice(0, 10))}</p>
+                                        <p style={{ fontSize: '10.5px' }}>{dateTimeSlice1(item)}</p>
                                     </div>
                                     <div className='userChatChild12-2'>
-                                        <p>{item.ChatMessages.slice(-1).map(i => i.message)}</p>
-                                        {item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">1</Badge> : '')}
+                                        <p>{item.ChatMessages.slice(-1).map(i => sliceMessage(i.message))}</p>
+                                        {showBadge(item)}
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +176,7 @@ function Chat() {
                                             <div key={item.mid}
                                                 className={item1.to === parseInt(sessionStorage.getItem('uid')) ? 'send' : item1.from === parseInt(sessionStorage.getItem('uid')) ? 'recieve' : ''}>
                                                 <p className={item1.to === parseInt(sessionStorage.getItem('uid')) ? 'sendTime' : item1.from === parseInt(sessionStorage.getItem('uid')) ? 'recieveTime' : ''}>
-                                                    {item1.created_at.slice(0, 16).replace('T', ' ')}
+                                                    {dateTimeSlice2(item1.created_at)}
                                                 </p>
                                                 <p className={
                                                     item1.to === parseInt(sessionStorage.getItem('uid')) ? 'sendMsg' :

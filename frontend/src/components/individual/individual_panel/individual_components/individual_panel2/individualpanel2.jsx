@@ -5,13 +5,11 @@ import medicDel from '../../../../../assets/img/medicdel.png';
 import frwdBtn from '../../../../../assets/img/forward_arrow.png';
 import prevBtn from '../../../../../assets/img/previous_arrow.png';
 import LBChart from '../linebar_chart/linebarchart';
+import { PieChart, Pie, Sector, Cell } from "recharts";
 
-import { PieChart, Pie, Sector ,Cell} from "recharts";
-
-const gdata = [{ name: "Jul 2021", value: 400 },{ name: "Jul 2021", value: 100 }];
+const gdata = [{ name: "Jul 2021", value: 400 }, { name: "Jul 2021", value: 100 }];
 const COLORS = ["#7D9DAE", "#EEEEEE"];
 const renderActiveShape = (props) => {
-
     const {
         cx,
         cy,
@@ -22,8 +20,6 @@ const renderActiveShape = (props) => {
         fill,
         payload
     } = props;
-
-
 
     return (
         <g>
@@ -44,9 +40,7 @@ const renderActiveShape = (props) => {
 };
 
 function IndividualPanel2() {
-
     const [activeIndex] = useState(0);
-
     const data = [
         {
             date: '2021.07.31',
@@ -161,60 +155,23 @@ function IndividualPanel2() {
             ]
         }
     ]
-
-    const [btnClr1, setBtnClr1] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
-    const [btnClr2, setBtnClr2] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
-    const [btnClr3, setBtnClr3] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
+    const [btnClr1, setBtnClr1] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr2, setBtnClr2] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr3, setBtnClr3] = useState({ background: '#4A7389', color: '#C1D6E1' })
     const changeBtnClr1 = () => {
-        setBtnClr1({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr2({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr3({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
+        setBtnClr1({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
     }
     const changeBtnClr2 = () => {
-        setBtnClr1({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr2({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr3({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
+        setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr2({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
     }
     const changeBtnClr3 = () => {
-        setBtnClr1({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr2({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr3({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr3({ background: '#FFFFFF', color: '#3E6578' });
     }
     return (
         <>
@@ -287,7 +244,7 @@ function IndividualPanel2() {
                                 </PieChart>
                             </div>
                             <div className='individualPanel_graph2'>
-                                <LBChart/>
+                                <LBChart />
                             </div>
                         </div>
                     </div>

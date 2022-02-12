@@ -1,6 +1,5 @@
 import './connectuser.css'
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { connectUserShow, usersData_ } from '../../data/atom';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
@@ -12,7 +11,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import cancelIcon from '../../assets/img/cancelicon.png';
 import cancelIcon2 from '../../assets/img/cancelicon2.png';
 import avatar from '../../assets/img/avatar2.png'
-import { Notifications } from '../../helpers/helpers';
+import ApiServices from '../../services/apiservices';
+import { useHistory } from 'react-router-dom';
 
 function ConnectUser({ show }) {
     let date = new Date().getFullYear();
@@ -26,6 +26,7 @@ function ConnectUser({ show }) {
     const [showReCnctBtn, setShowReCnctBtn] = useState(false);
     const [showTryBtn, setShowTryBtn] = useState(false);
     const [disableText, setDisableText] = useState('100%');
+    const history = useHistory();
 
     useEffect(() => {
         if (show) {
@@ -35,6 +36,21 @@ function ConnectUser({ show }) {
             setCSmenuClass("cs_menu")
         }
     }, [show]);
+
+    const connectUserApi = async (id, data) => {
+        const res = await ApiServices.postConnectUser(id);
+        if (res.data.success === true) {
+            console.log(res.data.data);
+            setSearchUser(data);
+            setCSmenu(false);
+            !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
+            setCsMenuAtom((obj) => ({
+                ...obj, csMenu: true
+            }))
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }
 
     const csMenuShow = (e) => {
         let data = usersData.filter(item => {
@@ -46,7 +62,6 @@ function ConnectUser({ show }) {
         })
         setSearchUser(data);
     }
-
     const showReconnectBtn = () => {
         if (patientCode.length === 6) {
             setShowReCnctBtn(false);
@@ -58,50 +73,20 @@ function ConnectUser({ show }) {
             }, [1])
         }
     }
-
     const showTryAgainBtn = () => {
         setShowCnctBtn(false);
         setShowReCnctBtn(false);
         setDisableText('35%');
         setShowTryBtn(true);
     }
-
-    const connectUserApi = (id, data) => {
-        axios.post(`/affiliate/v1/chat/room?uid=${id}`, {}, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                console.log(res.data.data);
-                setSearchUser(data);
-                setCSmenu(false);
-                !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");
-                setCsMenuAtom((obj) => ({
-                    ...obj,
-                    csMenu: true
-                }))
-            })
-            .catch(err => {
-                if (err.response.data.data.code === 409) {
-                    Notifications('warning', 'User already connected')
-                }
-            });
-    }
-
     const showCSConnectMenu = (id) => {
         const data = usersData.filter(item => {
             return item.uid === id
         });
         connectUserApi(id, data);
     }
-
     const closeComp = () => {
-        setCsMenuAtom((obj) => ({
-            csMenu: false,
-            connectMenu: false,
-            connectClass: 'c_menu',
-        }));
+        setCsMenuAtom((obj) => ({ csMenu: false, connectMenu: false, connectClass: 'c_menu', }));
         setShowCnctBtn(true);
         setShowReCnctBtn(false);
         setDisableText('100%');

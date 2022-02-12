@@ -3,7 +3,6 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 
-
 function Forget2({email}) {
     const history = useHistory();
     const cancelButton = () => {

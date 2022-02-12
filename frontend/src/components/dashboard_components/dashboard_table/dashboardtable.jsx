@@ -1,7 +1,6 @@
 import './dashboarddatatables.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Chart } from 'react-google-charts';
-import axios from 'axios';
 import Badge from '@mui/material/Badge';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
@@ -12,7 +11,6 @@ import faStar1 from '../../../assets/img/watchList_icon1.png'
 import faStar2 from '../../../assets/img/watchList_icon2.png'
 import AddWathListModal from "../../watchlist/addwatchlistmodal";
 import RemoveWatchModal from "../../watchlist/removewatchlistmodal";
-import { useCallback } from 'react';
 import { showHeaderProfile, userDataIndividual, usersData_, watchList, watchListComment } from '../../../data/atom';
 import { useHistory } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -20,207 +18,87 @@ import UserOverlay from '../../user_components/useroverlay/useroverlay';
 
 //jQuery libraries
 import 'jquery/dist/jquery.min.js';
-
 //Datatable Modules
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from 'jquery';
-
+import ApiServices from '../../../services/apiservices';
 
 function DashboardTable() {
-
     let date = new Date().getFullYear();
     const [usersData, setUsersData] = useRecoilState(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
-    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
-    const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
+    const [/*..*/, setUserWatchList] = useRecoilState(watchList);
+    const [/*..*/, setUserIndData] = useRecoilState(userDataIndividual);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
+    const [btnClr1, setBtnClr1] = useState({ background: '#3E6578', color: '#FFFFFF' })
+    const [btnClr2, setBtnClr2] = useState({ background: '#FFFFFF', color: '#3E6578' })
+    const [btnClr3, setBtnClr3] = useState({ background: '#FFFFFF', color: '#3E6578' })
+    const [btnClr4, setBtnClr4] = useState({ background: '#3E6578', color: '#FFFFFF' })
+    const [btnClr5, setBtnClr5] = useState({ background: '#FFFFFF', color: '#3E6578' })
+    const [btnClr6, setBtnClr6] = useState({ background: '#FFFFFF', color: '#3E6578' })
+    const [btnClr7, setBtnClr7] = useState({ background: '#FFFFFF', color: '#3E6578' })
     const history = useHistory();
-
     const showUPanelHandle = () => {
-        setShowHeader((obj) => ({
-            showUserPanel: !showHeader.showUserPanel,
-        }))
+        setShowHeader((obj) => ({ showUserPanel: !showHeader.showUserPanel, }))
     }
-    const [btnClr1, setBtnClr1] = useState({
-        background: '#3E6578',
-        color: '#FFFFFF'
-    })
-    const [btnClr2, setBtnClr2] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
-    const [btnClr3, setBtnClr3] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
-    const [btnClr4, setBtnClr4] = useState({
-        background: '#3E6578',
-        color: '#FFFFFF'
-    })
-    const [btnClr5, setBtnClr5] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
-    const [btnClr6, setBtnClr6] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
-    const [btnClr7, setBtnClr7] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
-
     const changeBtnClr1 = () => {
-        setBtnClr1({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
-        setBtnClr2({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr3({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr1({ background: '#3E6578', color: '#FFFFFF' });
+        setBtnClr2({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr3({ background: '#FFFFFF', color: '#3E6578' });
     }
-
     const changeBtnClr2 = () => {
-        setBtnClr1({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr2({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
-        setBtnClr3({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr1({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr2({ background: '#3E6578', color: '#FFFFFF' });
+        setBtnClr3({ background: '#FFFFFF', color: '#3E6578' });
     }
-
     const changeBtnClr3 = () => {
-        setBtnClr1({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr2({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr3({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
+        setBtnClr1({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr2({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr3({ background: '#3E6578', color: '#FFFFFF' });
     }
     const changeBtnClr4 = () => {
-        setBtnClr4({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
-        setBtnClr5({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr6({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr7({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr4({ background: '#3E6578', color: '#FFFFFF' });
+        setBtnClr5({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr6({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr7({ background: '#FFFFFF', color: '#3E6578' });
     }
     const changeBtnClr5 = () => {
-        setBtnClr4({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr5({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
-        setBtnClr6({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr7({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr4({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr5({ background: '#3E6578', color: '#FFFFFF' });
+        setBtnClr6({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr7({ background: '#FFFFFF', color: '#3E6578' });
     }
     const changeBtnClr6 = () => {
-        setBtnClr4({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr5({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr6({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
-        setBtnClr7({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr4({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr5({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr6({ background: '#3E6578', color: '#FFFFFF' });
+        setBtnClr7({ background: '#FFFFFF', color: '#3E6578' });
     }
     const changeBtnClr7 = () => {
-        setBtnClr4({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr5({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr6({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr7({
-            background: '#3E6578',
-            color: '#FFFFFF'
-        });
+        setBtnClr4({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr5({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr6({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr7({ background: '#3E6578', color: '#FFFFFF' });
     }
-
-    const getUsersData = useCallback(() => {
-        axios.get(`/affiliate/v1/users`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                setUsersData(res.data.data);
-                setUsersDataClone(res.data.data);
-            })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            }
-            );
-    }, [setUsersData])
-
-    const getUserWatchList = useCallback(() => {
-
-        axios.get(`/affiliate/v1/doctor/watchlist`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const getUsersData = useCallback(async () => {
+        const res = await ApiServices.getUsersList();
+        if (res.status === 200) {
+            setUsersData(res.data.data);
+            setUsersDataClone(res.data.data);
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUsersData, history])
+    const getUserWatchList = useCallback(async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
             setUserWatchList(res.data.data);
-        })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
-    }, [setUserWatchList])
+            console.log();
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUserWatchList, history])
 
     const readyPagination = () => {
         $(document).ready(function () {
@@ -251,7 +129,6 @@ function DashboardTable() {
             }, 1000);
         });
     }
-
     const setUserData = (id) => {
         sessionStorage.setItem('uid', id);
         let data = usersData.filter(item => {
@@ -259,13 +136,10 @@ function DashboardTable() {
         })
         setUserIndData(data);
     }
-
     useEffect(() => {
         getUsersData();
         getUserWatchList();
     }, [getUsersData, getUserWatchList])
-
-
     useEffect(() => {
         readyPagination();
     }, [])
@@ -340,7 +214,7 @@ function DashboardTable() {
                                                 <div className={'col-lg-4 col-sm-12 badgeClass'}>
                                                     <Box sx={{ color: 'action.active' }}>
                                                         <Badge color="error" variant="dot">
-                                                            <FontAwesomeIcon onClick={()=>history.push('/chat')} id={'commentBadge'} icon={faComment} />
+                                                            <FontAwesomeIcon onClick={() => history.push('/chat')} id={'commentBadge'} icon={faComment} />
                                                         </Badge>
                                                     </Box>
                                                 </div>

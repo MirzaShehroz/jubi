@@ -7,9 +7,9 @@ import logo from '../../assets/img/jubiwatch_logo.png';
 import lockIcon from '../../assets/img/lockicon.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
-import axios from 'axios';
 import { forgetPassDoc } from '../../data/atom';
 import { useRecoilValue } from 'recoil';
+import ApiServices from '../../services/apiservices';
 
 function Forget4() {
     const forgetDoc = useRecoilValue(forgetPassDoc);
@@ -26,17 +26,13 @@ function Forget4() {
     const passHandle = () => {
         setPassReq(true);
     }
-    const forgetPassword = () => {
-        axios.post(`/affiliate/v1/doctor/password/forget`, {
-            username: forgetDoc.email,
-            password: pass
-        }).then((res) => {
+    const forgetPassword = async () => {
+        const res = await ApiServices.postForgetPassword({ username: forgetDoc.email, password: pass });
+        if (res.status === 200) {
             setInvalidVer(false);
             setPassReq(false);
             setF5(true);
-        }).catch((err) => {
-
-        })
+        }
     }
     const submitPassForm = (e) => {
         e.preventDefault();
@@ -46,7 +42,6 @@ function Forget4() {
             forgetPassword();
         }
     }
-
     const showPassVisibility = () => {
         setPassVisi(!passVisi);
     }

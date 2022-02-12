@@ -7,12 +7,8 @@ import SidePanel from '../../sidebar_components/sidepanel/sidepanel';
 
 function DashboardStrip() {
     const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
-
     const showSidePanelHandle = () => {
-        setSP((obj) => ({
-            ...obj,
-            showSP: 'grid',
-        }))
+        setSP((obj) => ({ ...obj, showSP: 'grid', }))
     }
     return (
         <>

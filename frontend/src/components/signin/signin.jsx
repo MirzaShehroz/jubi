@@ -6,7 +6,7 @@ import { useRecoilState } from 'recoil';
 import axios from "axios";
 import { useState } from 'react';
 import logo from '../../assets/img/jubiwatch_logo.png';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 import { authData } from '../../data/atom';
 
 function SignIn() {

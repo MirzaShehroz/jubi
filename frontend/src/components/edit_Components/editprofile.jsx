@@ -6,7 +6,8 @@ import { docData, userPicUpload } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo2.png';
 import addIcon from '../../assets/img/addicon.png';
 import picUpload from '../../assets/img/pic_upload_icon.png';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
+import ApiServices from '../../services/apiservices';
 
 function EditProfile() {
     const [avatarPreview, setAvatarPreview] = useRecoilState(userPicUpload);
@@ -44,8 +45,8 @@ function EditProfile() {
         getData();
     }, [getData])
 
-    const updateProfileHandle = () => {
-        axios.patch(`/affiliate/v1/doctor/profile`, {
+    const updateProfileHandle = async () => {
+        const data = {
             "first_name": docData_.firstName,
             "middle_name": docData_.middleName,
             "last_name": docData_.lastName,
@@ -53,16 +54,12 @@ function EditProfile() {
             "hospital": docData_.hospital,
             "speciality": docData_.specialty,
             "title": docData_.title
-        }, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+        }
+        const res = await ApiServices.updateDoctorProfile(data);
+        if (res.status === 200) {
             Notifications('success', res.data.message);
             history.push('/');
-        }).catch(err => {
-            Notifications('error', err.response.data.data.message);
-        })
+        }
     }
     const submitSignForm = (e) => {
         e.preventDefault();

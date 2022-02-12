@@ -5,9 +5,9 @@ import { userIDedit } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import passIcon1 from '../../assets/img/passwordicon1.png';
 import passIcon2 from '../../assets/img/passwordicon2.png';
-import axios from 'axios';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import ApiServices from '../../services/apiservices';
 
 function EditId() {
 
@@ -25,11 +25,12 @@ function EditId() {
     const [isVerified, setVerified] = useState(false);
 
     const history = useHistory();
-
     const cancelButton = () => {
         history.push('/')
     }
-
+    const pushForgetHandle = () => {
+        history.push('/forget');
+    }
     const emailHandle = (e) => {
         setEmail(e.target.value);
         if (email.includes('@')) {
@@ -39,18 +40,15 @@ function EditId() {
         }
     }
 
-    const sendVerificationHandle = () => {
+    const sendVerificationHandle = async () => {
         if (email.includes('@')) {
-            axios.post(`/affiliate/v1/otp?email=${email}`)
-                .then(res => {
-                    Notifications('success', `${res.data.data.message}`);
-                    setTimerShow(false);
-                    setTimeout(() => {
-                        setTimerShow(true)
-                    }, 200);
-                }).catch(err => {
-                    Notifications('error', `Internal Server Error`)
-                });
+            const res = await ApiServices.postOTP(email);
+            if (res.status === 202) {
+                setTimerShow(false);
+                setTimeout(() => {
+                    setTimerShow(true)
+                }, 200);
+            }
             setshowVer(true);
             setBtnClr('#C6C6C6');
         } else {
@@ -58,7 +56,18 @@ function EditId() {
             setOkBtnClr('#C6C6C6')
         }
     }
-
+    const verOkHandle = async () => {
+        const res = await ApiServices.postVerifyOTP({ email: email, code: verCode });
+        if (res.status === 202) {
+            setInvalidVer(false);
+            setShowVerEmailBtn(false);
+            setshowVer(false);
+            setVerified(true);
+        } else {
+            setInvalidVer(true);
+            setVerified(false);
+        }
+    }
     const verCodeHandle = (e) => {
         setVerCode(e.target.value);
         setInvalidVer(false);
@@ -68,69 +77,30 @@ function EditId() {
             setOkBtnClr('#C6C6C6')
         }
     }
-
-    const verOkHandle = () => {
-        axios.post(`/affiliate/v1/verify`, {
-            email: email,
-            code: verCode
-        }).then(res => {
-            setInvalidVer(false);
-            setShowVerEmailBtn(false);
-            setshowVer(false);
-            setVerified(true);
-
-        }).catch(err => {
-            Notifications('error', `${err.response.data.data.message}`)
-            setInvalidVer(true);
-            setVerified(false);
-        })
-    }
-
     const showPassVisibility = () => {
         setPassVisi(!passVisi);
     }
-
     const showEmailContent = async () => {
         if (pass !== '') {
             let isPass = sessionStorage.getItem('unKnown').slice(9);
-            if (isPass!==pass) {
+            if (isPass !== pass) {
                 return Notifications('warning', 'Incorrect Current Password');
             }
-            if (isPass===pass) {
-                setIDAtom((obj) => ({
-                    currentPass: false,
-                    editEmail: true,
-                    successEmail: false,
-                }))
+            if (isPass === pass) {
+                setIDAtom((obj) => ({ currentPass: false, editEmail: true, successEmail: false, }))
             }
         } else {
             Notifications('warning', 'Enter Current Password');
         }
     }
-
-    const pushForgetHandle = () => {
-        history.push('/forget');
-    }
-
-    const submitSignForm = (e) => {
+    const submitSignForm = async (e) => {
         e.preventDefault();
         if (isVerified) {
-            axios.patch(`/affiliate/v1/doctor/profile`, {
-                email: email
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-                }
-            }).then(res => {
-                setIDAtom((obj) => ({
-                    currentPass: false,
-                    editEmail: false,
-                    successEmail: true,
-                }))
+            const res = await ApiServices.updateDoctorProfile({ email: email });
+            if (res.status === 200) {
+                setIDAtom((obj) => ({ currentPass: false, editEmail: false, successEmail: true, }))
                 sessionStorage.clear();
-            }).catch(err => {
-                Notifications('error', err.response.data.data.message);
-            })
+            }
         } else {
             Notifications('warning', "Please verify your New-Email")
         }

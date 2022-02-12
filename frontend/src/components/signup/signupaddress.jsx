@@ -6,7 +6,7 @@ import picUpload from '../../assets/img/pic_upload_icon.png';
 import { useRecoilState } from 'recoil';
 import { docSignUpData, userPicUpload } from '../../data/atom';
 import axios from 'axios';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 import { useHistory } from 'react-router-dom';
 
 function SignUpAddress() {

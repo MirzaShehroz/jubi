@@ -1,15 +1,14 @@
 import '../dashboard/dashboard.css';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useRecoilState } from "recoil";
-import { useCallback } from 'react';
-import axios from 'axios';
+import _ from 'underscore';
+import { useHistory } from 'react-router-dom';
 import Header from '../../header/header';
 import Dashboard from '../dashboard/dashboard';
 import DashboardStrip from '../dashboard_strip/dashboardstrip';
 import Sidebar from '../../sidebar_components/sidebar/sidebar';
 import { connectUserShow, docData, showHeaderProfile, userChatRooms, userIDedit, userPassEdit } from "../../../data/atom";
-import _ from 'underscore';
+import ApiServices from '../../../services/apiservices';
 
 function DashboardPanel() {
 
@@ -18,19 +17,15 @@ function DashboardPanel() {
     const [/*..*/, setCmpPass] = useRecoilState(userPassEdit);
     const [/*..*/, setUserOverlay] = useRecoilState(showHeaderProfile);
     const [/*..*/, setCnctUser] = useRecoilState(connectUserShow);
-    const [/*usersRoom*/, setUserRooms] = useRecoilState(userChatRooms);
+    const [/*..*/, setUserRooms] = useRecoilState(userChatRooms);
+    const history = useHistory();
 
-    const getData = useCallback(() => {
-
-        axios.options(`/preflight`)
-            .then(res => { })
-            .catch(err => { });
-
-        axios.get(`/affiliate/v1/doctor/profile`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const setPreflight = async () => {
+        await ApiServices.setPreflight();
+    }
+    const getDocProfile = useCallback(async () => {
+        const res = await ApiServices.getDocProfile();
+        if (res.status === 200) {
             setDocData((obj) => ({
                 dId: res.data.data.did,
                 firstName: res.data.data.first_name,
@@ -41,51 +36,36 @@ function DashboardPanel() {
                 specialty: res.data.data.speciality,
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
-            }))
-        }).catch(err => {
-            if (err.response.data.data.code === 403) {
-                sessionStorage.clear();
-            }
-        })
-        axios.get(`/affiliate/v1/chat/doctor`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then((res) => {
-            if (res.data.data) {
-                setUserRooms(_.sortBy(res.data.data, 'Rid'));
-            }}).catch(err => {
-                console.log(err);
-            })
-    }, [setDocData, setUserRooms])
+            }));
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setDocData, history])
+    const getChatRooms = useCallback(async () => {
+        const res = await ApiServices.getDoctorChatRooms();
+        if (res.status === 200) {
+            if (res.data.data) return setUserRooms(_.sortBy(res.data.data, 'Rid'))
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUserRooms, history])
+    const getData = useCallback(() => {
+        setPreflight();
+        getDocProfile();
+        getChatRooms();
+    }, [getDocProfile, getChatRooms])
 
     const resetUseroverlay = useCallback(() => {
-        setUserOverlay((obj) => ({
-            showHProfile: true,
-            paddingTop: "0.8%",
-            showUserPanel: false,
-        }))
+        setUserOverlay((obj) => ({ showHProfile: true, paddingTop: "0.8%", showUserPanel: false, }))
     }, [setUserOverlay])
     const resetEditId = useCallback(() => {
-        setCmpID((obj) => ({
-            currentPass: true,
-            editEmail: false,
-            successEmail: false,
-        }))
+        setCmpID((obj) => ({ currentPass: true, editEmail: false, successEmail: false, }))
     }, [setCmpID])
     const resetEditPass = useCallback(() => {
-        setCmpPass((obj) => ({
-            currentPass: true,
-            editEmail: false,
-            successEmail: false,
-        }))
+        setCmpPass((obj) => ({ currentPass: true, editEmail: false, successEmail: false, }))
     }, [setCmpPass])
     const resetCnctUser = useCallback(() => {
-        setCnctUser((obj) => ({
-            connectMenu: false,
-            csMenu: false,
-            connectClass: 'c_menu'
-        }))
+        setCnctUser((obj) => ({ connectMenu: false, csMenu: false, connectClass: 'c_menu' }))
     }, [setCnctUser])
 
     useEffect(() => {
@@ -95,7 +75,6 @@ function DashboardPanel() {
         resetEditPass();
         resetUseroverlay();
     }, [getData, resetEditId, resetEditPass, resetCnctUser, resetUseroverlay])
-
 
     return (
         <div className='dashboardPanel'>

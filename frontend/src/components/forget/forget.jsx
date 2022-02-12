@@ -1,13 +1,13 @@
 import './forget.css';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import Forget2 from './forget2';
 import Forget3 from './forget3';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import iIcon from '../../assets/img/coolicon.png';
 import { useRecoilState } from 'recoil';
 import { forgetPassDoc } from '../../data/atom';
+import ApiServices from '../../services/apiservices';
 
 function Forget() {
     const [forgetDoc, setForgetDoc] = useRecoilState(forgetPassDoc);
@@ -20,33 +20,26 @@ function Forget() {
     }
 
     const emailHandle = (e) => {
-        setForgetDoc((obj) => ({
-            ...obj,
-            email: e.target.value
-        }))
+        setForgetDoc((obj) => ({ ...obj, email: e.target.value }))
         if (forgetDoc.email.includes('@')) {
             setBtnClr('#3E6578');
-
         } else {
             setBtnClr('#C6C6C6');
         }
     }
-    const sendForgetOTP = () => {
-        axios.post(`/affiliate/v1/otp?email=${forgetDoc.email}`)
-        .then((res) => {
-                setF3(true);
-            }).catch((err) => { })
+    const sendForgetOTP = async () => {
+        const res = await ApiServices.postOTP(forgetDoc.email);
+        if (res.status === 202) {
+            setF3(true);
+        }
     }
-
-    const verifyEmail = () => {
-        axios.post(`/affiliate/v1/doctor/password/forget`, {
-            username: forgetDoc.email,
-            password: 'A*n#.$&^8b.$c86A%.~66%A/A'
-        }).then((res) => {
+    const verifyEmail = async () => {
+        const res = await ApiServices.postForgetPassword({ username: forgetDoc.email, password: 'A*n#.$&^8b.$c86A%.~66%A/A' });
+        if (res.status === 200) {
             sendForgetOTP();
-        }).catch((err) => {
+        } else {
             setF2(true);
-        })
+        }
     }
     const submitForget1Handle = (e) => {
         e.preventDefault();

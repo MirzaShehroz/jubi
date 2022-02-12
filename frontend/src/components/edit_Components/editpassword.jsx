@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory, Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
 import { userPassEdit } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import lockIcon from '../../assets/img/lockicon.png';
@@ -10,7 +9,8 @@ import passIcon2 from '../../assets/img/passwordicon2.png';
 import logo2 from '../../assets/img//passwordcomplete.png';
 import PasswordValidation from '../password_validation/password_validation';
 import ConfirmPasswordValid from '../password_validation/confirm_password_valid';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
+import ApiServices from '../../services/apiservices';
 
 function EditPassword() {
 
@@ -22,11 +22,9 @@ function EditPassword() {
     const [cPass, setCPass] = useState('');
     const [invalidVer, setInvalidVer] = useState(false);
     const history = useHistory();
-
     const cancelButton = () => {
         history.push('/')
     }
-
     const passHandle = () => {
         setPassReq(true);
     }
@@ -34,33 +32,16 @@ function EditPassword() {
         setPassVisi(!passVisi);
     }
 
-    const updatePassword = () => {
-        axios.patch(`/affiliate/v1/doctor/profile`, {
-            password: {
-                current_password: curPass,
-                new_password: pass
-            }
-        }, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then((res) => {
+    const updatePassword = async () => {
+        const res = await ApiServices.updateDoctorProfile({ password: { current_password: curPass, new_password: pass } });
+        if (res.status === 200) {
             setInvalidVer(false);
             setPassReq(false);
-            setPassAtom((obj) => ({
-                currentPass: false,
-                editPass: false,
-                successPass: true,
-            }));
+            setPassAtom((obj) => ({ currentPass: false, editPass: false, successPass: true }));
             sessionStorage.clear();
-        }).catch(err => {
-            Notifications('error', err.response.data.data.message);
-            setPassAtom((obj) => ({
-                currentPass: true,
-                editPass: false,
-                successPass: false,
-            }));
-        })
+        } else {
+            setPassAtom((obj) => ({ currentPass: true, editPass: false, successPass: false, }));
+        }
     }
     const submitSignForm = (e) => {
         e.preventDefault();
@@ -78,11 +59,7 @@ function EditPassword() {
                 return Notifications('warning', 'Incorrect Current Password');
             }
             if (isPass === curPass) {
-                setPassAtom((obj) => ({
-                    currentPass: false,
-                    editPass: true,
-                    successPass: false,
-                }))
+                setPassAtom((obj) => ({ currentPass: false, editPass: true, successPass: false, }))
             }
         } else {
             Notifications('warning', 'Enter Current Password');
@@ -91,7 +68,6 @@ function EditPassword() {
 
     return (
         <div>
-
             <div className="signup" >
                 <div className="signup_cont signup_cont2">
                     <div className="signin_logo_cont idPassLogo">

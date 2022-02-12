@@ -4,7 +4,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
 import { userDataIndividual, watchList, watchListComment } from "../../data/atom";
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 
 function RemoveWatchModal(props) {
 

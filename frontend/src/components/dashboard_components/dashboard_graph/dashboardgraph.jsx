@@ -16,7 +16,6 @@ function DashboardGraph() {
         const radius = innerRadius + (outerRadius - innerRadius) * 0.2;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
         return (
             <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
                 {`${(percent * 100).toFixed(0)}%`}
@@ -24,96 +23,35 @@ function DashboardGraph() {
         );
     };
 
-    const [btnClr1, setBtnClr1] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
-    const [btnClr2, setBtnClr2] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
-    const [btnClr3, setBtnClr3] = useState({
-        background: '#4A7389',
-        color: '#C1D6E1'
-    })
-    const [btnClr4, setBtnClr4] = useState({
-        background: '#FFFFFF',
-        color: '#3E6578'
-    })
+    const [btnClr1, setBtnClr1] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr2, setBtnClr2] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr3, setBtnClr3] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr4, setBtnClr4] = useState({ background: '#FFFFFF', color: '#3E6578' })
 
     const changeBtnClr1 = () => {
-        setBtnClr1({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr2({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr3({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr4({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
+        setBtnClr1({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr4({ background: '#4A7389', color: '#C1D6E1' });
     }
     const changeBtnClr2 = () => {
-        setBtnClr1({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr2({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr3({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr4({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
+        setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr2({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr4({ background: '#4A7389', color: '#C1D6E1' });
     }
     const changeBtnClr3 = () => {
-        setBtnClr1({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr2({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr3({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
-        setBtnClr4({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
+        setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr3({ background: '#FFFFFF', color: '#3E6578' });
+        setBtnClr4({ background: '#4A7389', color: '#C1D6E1' });
     }
     const changeBtnClr4 = () => {
-        setBtnClr1({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr2({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr3({
-            background: '#4A7389',
-            color: '#C1D6E1'
-        });
-        setBtnClr4({
-            background: '#FFFFFF',
-            color: '#3E6578'
-        });
+        setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
+        setBtnClr4({ background: '#FFFFFF', color: '#3E6578' });
     }
-
 
     return (
         <div className='dashboard_child1'>

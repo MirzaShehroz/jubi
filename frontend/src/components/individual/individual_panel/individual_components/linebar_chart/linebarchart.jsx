@@ -21,7 +21,6 @@ ChartJS.register(
     Legend,
     Tooltip
 );
-
 const labels = ['W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5'];
 const options = {
     plugins: {
@@ -65,7 +64,6 @@ function LBChart() {
                 type='bar'
                 data={data}
                 options={options}
-
             />
         </div>
 

@@ -6,21 +6,19 @@ import { Link } from 'react-router-dom';
 import { sidePanelFunc, userChatRooms } from '../../../data/atom';
 import icon from '../../../assets/img/stripicon.png'
 import userPic from '../../../assets/img/user_pic.jpg'
+import { dateTimeSlice1 } from '../../../helpers/datetimeslice';
+import { sliceMessage } from '../../../helpers/slicemessage';
 
 function SidePanel({ display }) {
 
     const usersRoom = useRecoilValue(userChatRooms);
-
+    const [/*..*/, setSP] = useRecoilState(sidePanelFunc);
     const getRoomMessage = useCallback(() => {
-        let data = usersRoom.map(item => {
-            return item.ChatMessages.map((item, i) => item)
-        })
+        usersRoom.map(item => item.ChatMessages.map((item, i) => item))
     }, [usersRoom])
-
     useEffect(() => {
         getRoomMessage();
     }, [getRoomMessage])
-
     const data = [
         {
             id: 1,
@@ -51,14 +49,12 @@ function SidePanel({ display }) {
             image: userPic
         }
     ]
-
-    const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
     const showSidePanelHandle = () => {
-        setSP((obj) => ({
-            showSP: 'none',
-        }))
+        setSP((obj) => ({ showSP: 'none', }))
     }
-
+    const showBadge = (item) => {
+        return item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">N</Badge> : '')
+    }
     return (
 
         <div id='sidePanel' style={{ display: display }} >
@@ -79,10 +75,10 @@ function SidePanel({ display }) {
                                 </div>
                                 <div className='sidePanel_child31_chatDetail'>
                                     <div className='sidePanel_child31_chatDetail1'>
-                                        <h5>{item.FistName} {item.LastName} {item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">N</Badge> : '')}</h5>
-                                        <p style={{ color: '#999999' }}>{item.ChatMessages.slice(-1).map(i => i.created_at.slice(0, 10))}</p>
+                                        <h5>{item.FistName} {item.LastName} {showBadge(item)}</h5>
+                                        <p style={{ color: '#999999' }}>{dateTimeSlice1(item)}</p>
                                     </div>
-                                    <p>{item.ChatMessages.slice(-1).map(i => i.message)}</p>
+                                    <p>{item.ChatMessages.slice(-1).map(i => sliceMessage(i.message))}</p>
                                 </div>
                             </div>
                         )).slice(0, 4)}

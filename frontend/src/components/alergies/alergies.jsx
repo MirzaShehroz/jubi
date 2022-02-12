@@ -1,10 +1,8 @@
 import './alergies.css'
 import { Table } from "react-bootstrap";
-import { useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { userDataIndividual } from '../../data/atom';
-import { useState } from 'react';
-import { useCallback } from 'react';
 
 function Alergies() {
     const userIndData = useRecoilValue(userDataIndividual);

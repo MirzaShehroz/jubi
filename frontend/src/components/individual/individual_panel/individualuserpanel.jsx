@@ -9,8 +9,7 @@ import watchListIcon from "../../../assets/img/bookmark.png";
 import exportIcon from "../../../assets/img/export.png";
 import { usersData_, watchList, userDataIndividual, watchListComment } from '../../../data/atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
-import axios from "axios";
-import { Notifications } from "../../../helpers/helpers";
+import ApiServices from "../../../services/apiservices";
 
 function IndividualUserPanel() {
     const history = useHistory();
@@ -30,23 +29,16 @@ function IndividualUserPanel() {
         history.push('/allergies-condition')
     }
 
-    const getUserWatchList = useCallback(() => {
-        axios.get(`/affiliate/v1/doctor/watchlist`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const getUserWatchList = useCallback(async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
             setUserWatchList(res.data.data);
             let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
             setComment(data.map(item => item.comment));
-        })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
-    }, [setComment, setUserWatchList])
-
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setComment, setUserWatchList, history])
 
     useEffect(() => {
         let data = usersData.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
@@ -140,12 +132,12 @@ function IndividualUserPanel() {
     )
 }
 const ButtonW = ({ id }) => {
-    const [/*userIndData*/, setUserIndData] = useRecoilState(userDataIndividual);
+    const [/*..*/, setUserIndData] = useRecoilState(userDataIndividual);
     const usersData = useRecoilValue(usersData_);
     const [userWatchList, setUserWatchList] = useRecoilState(watchList);
     const [isFound, setFound] = useState(false);
-    const [/*comment*/, setComment] = useRecoilState(watchListComment);
-
+    const [/*..*/, setComment] = useRecoilState(watchListComment);
+    const history = useHistory();
     const filterUser = useCallback(() => {
         let data = usersData.filter(item => {
             return item.uid === id
@@ -159,25 +151,16 @@ const ButtonW = ({ id }) => {
             return;
         }
     }, [id, userWatchList, usersData]);
-
-    const getUserWatchList = () => {
-        axios.get('/affiliate/v1/doctor/watchlist', {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                setUserWatchList(res.data.data);
-                let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
-                setComment(data.map(item => item.comment));
-            })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
+    const getUserWatchList = async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
+            setUserWatchList(res.data.data);
+            let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
+            setComment(data.map(item => item.comment));
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
-
     useEffect(() => {
         if (userWatchList) {
             filterUser();
@@ -185,7 +168,6 @@ const ButtonW = ({ id }) => {
             setFound(false);
         }
     }, [filterUser, userWatchList])
-
     const setUserData = () => {
         let data = usersData.filter(item => {
             return item.uid === id
@@ -197,34 +179,22 @@ const ButtonW = ({ id }) => {
             data = []
         }
     }
-
-    const addUserToList = () => {
-        axios.post(`/affiliate/v1/doctor/watchlist`, {
-            uid: id,
-            comment: ''
-        }, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const addUserToList = async () => {
+        const res = await ApiServices.postWatchlistUser({ uid: id, comment: '' });
+        if (res.status === 200) {
             getUserWatchList();
-        }).catch(err => {
-            Notifications('error', "Interval Server Error!")
-        })
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
-
-    const removeUserToList = () => {
-        axios.delete(`/affiliate/v1/doctor/watchlist?uid=${id}`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const removeUserToList = async () => {
+        const res = await ApiServices.removeWatchlistUser(id);
+        if (res.status === 200) {
             getUserWatchList();
-        }).catch(err => {
-            Notifications('error', "Interval Server Error!")
-        })
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
-
 
     return (
         <>

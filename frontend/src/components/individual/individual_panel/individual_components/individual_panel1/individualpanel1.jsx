@@ -7,50 +7,35 @@ import IndividualPanel2 from "../individual_panel2/individualpanel2";
 import IndividualUserPanel from "../../individualuserpanel";
 import { useRecoilState } from 'recoil';
 import { userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
-import axios from 'axios';
+import ApiServices from '../../../../../services/apiservices';
 
 function IndividualPanel() {
-    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
-    const [/*usersData*/, setUsersData] = useRecoilState(usersData_);
-    const [/*userData*/, setUserData] = useRecoilState(userDataIndividual);
+    const [/*..*/, setUserWatchList] = useRecoilState(watchList);
+    const [/*..*/, setUsersData] = useRecoilState(usersData_);
+    const [/*..*/, setUserData] = useRecoilState(userDataIndividual);
     const history = useHistory();
     const closeHandle = () => {
         history.push('/');
     }
 
-    const getUserWatchList = useCallback(() => {
-        axios.get(`/affiliate/v1/doctor/watchlist`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const getUserWatchList = useCallback(async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
             setUserWatchList(res.data.data);
-        })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
-    }, [setUserWatchList])
-
-    const getUsersData = useCallback(() => {
-        axios.get(`/affiliate/v1/users`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                setUsersData(res.data.data);
-                let data = res.data.data.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
-                setUserData(data);
-            })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            }
-            );
-    }, [setUsersData, setUserData])
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUserWatchList, history])
+    const getUsersData = useCallback(async () => {
+        const res = await ApiServices.getUsersList();
+        if (res.status === 200) {
+            setUsersData(res.data.data);
+            let data = res.data.data.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
+            setUserData(data);
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
+    }, [setUsersData, setUserData, history])
 
     useEffect(() => {
         getUsersData();

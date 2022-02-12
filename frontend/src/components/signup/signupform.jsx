@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil';
 import { docSignUpData, signUpFormValid, userPicUpload } from '../../data/atom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
 function SignUp2() {

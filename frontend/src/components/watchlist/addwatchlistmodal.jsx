@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
-import { Notifications } from '../../helpers/helpers';
+import { Notifications } from '../../helpers/notifications';
 import { userDataIndividual, watchList } from "../../data/atom";
 
 function AddWathListModal(props) {

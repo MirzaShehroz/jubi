@@ -14,18 +14,13 @@ function Sidebar() {
 
     const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
     const history = useHistory();
-
     const showSidePanelHandle = () => {
-        setSP((obj) => ({
-            ...obj,
-            showSP: 'grid',
-        }))
+        setSP((obj) => ({ ...obj, showSP: 'grid', }))
     }
     const logoutHandle = () => {
         sessionStorage.clear();
         history.push('/');
     }
-
     return (
         <>
             <div className='sidebar'>

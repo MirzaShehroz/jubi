@@ -4,9 +4,8 @@ import Forget4 from './forget4';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import { forgetPassDoc } from '../../data/atom';
 import { useRecoilValue } from 'recoil';
-import axios from 'axios';
-import { Notifications } from '../../helpers/helpers';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import ApiServices from '../../services/apiservices';
 
 function Forget3() {
     const forgetDoc = useRecoilValue(forgetPassDoc);
@@ -29,28 +28,24 @@ function Forget3() {
             setBtnClr('#C6C6C6')
         }
     }
-    const sendForgetOTP = () => {
-        axios.post(`/affiliate/v1/otp?email=${forgetDoc.email}`)
-            .then((res) => {
-                Notifications('success', `${res.data.data.message}`);
-                setTimerShow(false);
-                setTimeout(() => {
-                    setTimerShow(true)
-                }, 200);
-            }).catch((err) => { Notifications('error', `Internal Server Error`) })
+    const sendForgetOTP = async () => {
+        const res = await ApiServices.postOTP(forgetDoc.email);
+        if (res.status === 202) {
+            setTimerShow(false);
+            setTimeout(() => {
+                setTimerShow(true)
+            }, 200);
+        }
     }
-    const verifyForgetOTP = () => {
-        axios.post(`/affiliate/v1/verify`, {
-            email: forgetDoc.email,
-            code: emailVer
-        }).then((res) => {
+    const verifyForgetOTP = async() => {
+        const res = await ApiServices.postVerifyOTP({ email: forgetDoc.email, code: emailVer });
+        if (res.status === 202) {
             setF4(true);
-        }).catch((err) => {
+        } else {
             setInvalidVer(true);
             setF4(false);
-        })
+        }
     }
-
     const submitForget3Handle = (e) => {
         e.preventDefault();
         if (btnClr === "#3E6578") {
