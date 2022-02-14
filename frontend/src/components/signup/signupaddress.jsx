@@ -5,9 +5,8 @@ import SignUp2 from './signupform';
 import picUpload from '../../assets/img/pic_upload_icon.png';
 import { useRecoilState } from 'recoil';
 import { docSignUpData, userPicUpload } from '../../data/atom';
-import axios from 'axios';
-import { Notifications } from '../../helpers/notifications';
 import { useHistory } from 'react-router-dom';
+import ApiServices from '../../services/apiservices';
 
 function SignUpAddress() {
     const history = useHistory();
@@ -19,8 +18,7 @@ function SignUpAddress() {
         e.preventDefault();
         postForm();
     }
-
-    const postForm = () => {
+    const postForm =async () => {
         const body = {
             first_name: docSignUp.firstName,
             middle: docSignUp.middleName,
@@ -32,14 +30,10 @@ function SignUpAddress() {
             speciality: docSignUp.specialty,
             title: docSignUp.title
         }
-        axios.post(`/affiliate/v1/doctor/signup`, body)
-            .then(res => {
-                Notifications('success', res.data.data.message);
-                history.push('/');
-            })
-            .catch(err => {
-                Notifications('error', `${err.response.data.data.message}`);
-            });
+        const res = await ApiServices.postSignUp(body);
+        if(res.status===202){
+            history.push('/');
+        }
     }
     const showPrev = () => {
         setShowPrevPage(true);

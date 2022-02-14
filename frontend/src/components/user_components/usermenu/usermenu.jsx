@@ -11,7 +11,6 @@ import {  docData, userPicUpload } from './../../../data/atom';
 function UserMenu({ menu }) {
     const avatar = useRecoilValue(userPicUpload);
     const docDataAtom = useRecoilValue(docData);
-
     const history = useHistory();
     const logoutHandle = () => {
         sessionStorage.clear();

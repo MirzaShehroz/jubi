@@ -1,6 +1,6 @@
 import './sidebar.css'
 import React from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { useHistory } from 'react-router-dom';
 import SidePanel from '../sidepanel/sidepanel'
 import chatIcon from '../../../assets/img/chaticon.png'
@@ -8,10 +8,12 @@ import notiIcon from '../../../assets/img/notiicon.png'
 import hamburgerIcon from '../../../assets/img/hamburgericon.png'
 import settingIcon from '../../../assets/img/settingicon.png'
 import signOutIcon from '../../../assets/img/signouticon.png'
-import { sidePanelFunc } from '../../../data/atom'
+import { showMessageNoti, sidePanelFunc } from '../../../data/atom'
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 
 function Sidebar() {
-
+    const showBadge = useRecoilValue(showMessageNoti);
     const [showSidePanel, setSP] = useRecoilState(sidePanelFunc);
     const history = useHistory();
     const showSidePanelHandle = () => {
@@ -26,7 +28,13 @@ function Sidebar() {
             <div className='sidebar'>
                 <div className='sidebar_icon'>
                     <ul>
-                        <li><img onClick={showSidePanelHandle} src={chatIcon} alt="something" /></li>
+                        <li>
+                            <Box sx={{ color: 'action.active' }}>
+                                <img onClick={showSidePanelHandle} src={chatIcon} alt="something" />
+                                {showBadge ? <Badge color="error" variant="dot">
+                                </Badge> : ''}
+                            </Box>
+                        </li>
                         <li><img onClick={showSidePanelHandle} src={notiIcon} alt="something" /></li>
                         <li><img onClick={showSidePanelHandle} src={hamburgerIcon} alt="something" /></li>
                     </ul>

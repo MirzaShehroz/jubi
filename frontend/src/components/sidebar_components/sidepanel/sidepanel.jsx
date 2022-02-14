@@ -1,9 +1,9 @@
 import './sidepanel.css'
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { sidePanelFunc, userChatRooms } from '../../../data/atom';
+import { showMessageNoti, sidePanelFunc, userChatRooms } from '../../../data/atom';
 import icon from '../../../assets/img/stripicon.png'
 import userPic from '../../../assets/img/user_pic.jpg'
 import { dateTimeSlice1 } from '../../../helpers/datetimeslice';
@@ -13,12 +13,7 @@ function SidePanel({ display }) {
 
     const usersRoom = useRecoilValue(userChatRooms);
     const [/*..*/, setSP] = useRecoilState(sidePanelFunc);
-    const getRoomMessage = useCallback(() => {
-        usersRoom.map(item => item.ChatMessages.map((item, i) => item))
-    }, [usersRoom])
-    useEffect(() => {
-        getRoomMessage();
-    }, [getRoomMessage])
+    const [/*..*/, setShowBadge] = useRecoilState(showMessageNoti);
     const data = [
         {
             id: 1,
@@ -53,6 +48,12 @@ function SidePanel({ display }) {
         setSP((obj) => ({ showSP: 'none', }))
     }
     const showBadge = (item) => {
+        item.ChatMessages.slice(-1).map(i => {
+            if (i.from === item.Uid) {
+                setShowBadge(true);
+                return true;
+            }
+        });
         return item.ChatMessages.slice(-1).map(i => i.from === item.Uid ? <Badge bg="danger">N</Badge> : '')
     }
     return (

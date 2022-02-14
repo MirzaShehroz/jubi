@@ -20,6 +20,8 @@ function Chat() {
     const [userChat, setUserChat] = useState([]);
     const [isShow, setShow] = useState(false);
     const [message, setMessage] = useState('');
+    const [file, setFile] = useState('');
+    const [fileName, setFileName] = useState('');
     const [chatMessages, setChatMessages] = useState([]);
     const history = useHistory();
 
@@ -62,12 +64,18 @@ function Chat() {
             history.push('/sign-in');
         }
     }, [setDocData, history]);
-    const sendMessage = async () => {
+
+    const submitChatHandle = (e) => {
+        e.preventDefault();
+        sendFile();
+        sendMessage(message);
+    }
+    const sendMessage = async (message_) => {
         let uid = parseInt(sessionStorage.getItem('uid'));
         let rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'));
-        if (message.length > 0) {
+        if (message_.length > 0) {
             const data = {
-                rid: rid, from: doctor.dId, to: uid, message: message.trim()
+                rid: rid, from: doctor.dId, to: uid, message: message_
             }
             const res = await ApiServices.postUserMessages(data);
             if (res.status === 200) {
@@ -81,7 +89,28 @@ function Chat() {
             }
         }
     }
-
+    const sendFile = async () => {
+        if (fileName.length > 0) {
+            const data = new FormData();
+            data.append('file', file);
+            data.append('fileName', fileName);
+            data.append('type', 'file');
+            data.append('userType', 'doctor');
+            const res = await ApiServices.postFile(data);
+            sendMessage(`Sent file 📁: ${fileName} `);
+            if (res.status === 200) {
+                setFile('');
+                setFileName('');
+            } else if (res.data.code === 403) {
+                history.push('/sign-in');
+                setFile('');
+                setFileName('');
+            } else {
+                setFile('');
+                setFileName('');
+            }
+        }
+    }
     const filterChatRoom = () => {
         let data = usersRoom.filter(item => item.Uid === parseInt(sessionStorage.getItem('uid')))
         setUserChat(data);
@@ -189,30 +218,36 @@ function Chat() {
                                         )}
                                     </div>
                                     <div className={'msgChild1-3'}>
-                                        <div className='msgChild3-1'>
-                                            <div className="custom-file1">
-                                                <div>
-                                                    <input
-                                                        type="file"
-                                                        className="custom-file1-input"
-                                                        id="files"
-                                                    />
-                                                    <label htmlFor="files" className="custom-file1-label"> <img src={attachPic} alt="avatar" /></label>
+                                        <form onSubmit={submitChatHandle} encType='multipart/form-data'>
+                                            <div className='msgChild3-1'>
+                                                <div className="custom-file1">
+                                                    <div>
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file1-input"
+                                                            id="files"
+                                                            name='file'
+                                                            onChange={(e) => {
+                                                                setFile(e.target.files[0])
+                                                                setFileName(e.target.files[0].name)
+                                                            }}
+                                                        />
+                                                        <label htmlFor="files" className="custom-file1-label"> <img src={attachPic} alt="avatar" /></label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className={'msgChild3-2'}>
-                                            <input
-                                                className={'form-control'}
-                                                placeholder={'Type your message here...'}
-                                                value={message}
-                                                required
-                                                onChange={(e) => setMessage(e.target.value)}
-                                            />
-                                        </div>
-                                        <div className={'msgChild3-3'}>
-                                            <img alt="chatUserPic13" onClick={sendMessage} src={sendPic} />
-                                        </div>
+                                            <div className={'msgChild3-2'}>
+                                                <input
+                                                    className={'form-control'}
+                                                    placeholder={'Type your message here...'}
+                                                    value={message}
+                                                    onChange={(e) => setMessage(e.target.value)}
+                                                />
+                                            </div>
+                                            <div className={'msgChild3-3'}>
+                                                <button type='submit'><img alt="chatUserPic13" src={sendPic} /></button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </>))
                             }
@@ -220,7 +255,7 @@ function Chat() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

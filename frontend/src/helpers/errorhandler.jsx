@@ -7,7 +7,13 @@ export const errorHandler = (error) => {
         Notifications('warning', error.data.message);
     } else if (error.data.code === 403) {
         sessionStorage.clear();
-        Notifications('warning', 'Please login again');
+        if (error.data.message.includes('Username')) {
+            Notifications('error', error.data.message);
+        } else {
+            Notifications('warning', 'Please login again');
+        }
+    } else if (error.data.code === 404) {
+        Notifications('error', error.data.message);
     } else if (error.data.code === 406) {
         Notifications('error', error.data.message);
     } else if (error.data.code === 409) {

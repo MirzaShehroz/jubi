@@ -11,12 +11,12 @@ import { usersData_, watchList, userDataIndividual, watchListComment } from '../
 import { useRecoilValue, useRecoilState } from 'recoil';
 import ApiServices from "../../../services/apiservices";
 
-function IndividualUserPanel() {
+function IndividualUserPanel({ onHandlePrint }) {
     const history = useHistory();
     const usersData = useRecoilValue(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
     const [comment, setComment] = useRecoilState(watchListComment);
-    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
+    const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     let date = new Date().getFullYear();
 
     const showChat = () => {
@@ -96,7 +96,7 @@ function IndividualUserPanel() {
                 <p className={'memoMsg'}>
                     She has heart attack family history.
                 </p>
-                <table>
+                <table id="exportPdf">
                     <tbody>
                         <tr>
                             <td className={'memoHead'}>Watchlist Comments</td>
@@ -124,7 +124,7 @@ function IndividualUserPanel() {
                     :
                     <>
                         <button onClick={showChat}><img src={chatIcon} alt={'chatIcon'} />Send Message</button>
-                        <button><img src={exportIcon} alt={'exportIcon'} />Export to PDF</button>
+                        <button onClick={onHandlePrint} ><img src={exportIcon} alt={'exportIcon'} />Export to PDF</button>
                         <ButtonW id={parseInt(sessionStorage.getItem('uid'))} />
                     </>}
             </div>

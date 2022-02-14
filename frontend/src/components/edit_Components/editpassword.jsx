@@ -51,7 +51,6 @@ function EditPassword() {
             updatePassword();
         }
     }
-
     const showPassContent = async () => {
         if (curPass !== '') {
             let isPass = sessionStorage.getItem('unKnown').slice(9);

@@ -103,7 +103,7 @@ export const signUpFormValid = atom({
 export const forgetPassDoc = atom({
     key: 'forget Doctor Password',
     default: {
-        email: null,
+        email: '',
     }
 })
 
@@ -130,5 +130,10 @@ export const watchListComment = atom({
 export const userChatRooms = atom({
     key: 'User chat rooms',
     default: []
+})
+
+export const showMessageNoti = atom({
+    key: 'show message notification',
+    default: false
 })
 

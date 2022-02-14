@@ -11,7 +11,7 @@ function Forget3() {
     const forgetDoc = useRecoilValue(forgetPassDoc);
     const [btnClr, setBtnClr] = useState('#C6C6C6');
     const [timerShow, setTimerShow] = useState(true);
-    const [emailVer, setEmailVer] = useState(null);
+    const [emailVer, setEmailVer] = useState('');
     const [showF4, setF4] = useState(false);
     const [invalidVer, setInvalidVer] = useState(false);
     const history = useHistory();

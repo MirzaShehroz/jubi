@@ -1,52 +1,39 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import { useHistory } from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
-import { Notifications } from '../../helpers/notifications';
 import { userDataIndividual, watchList } from "../../data/atom";
+import ApiServices from "../../services/apiservices";
 
 function AddWathListModal(props) {
     let date = new Date().getFullYear();
     const [userId, setUserId] = useState(null);
     const [comment, setComment] = useState('');
     const addUser = useRecoilValue(userDataIndividual);
-    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
-
+    const [/*..*/, setUserWatchList] = useRecoilState(watchList);
+    const history = useHistory();
     useEffect(() => {
         addUser.map(item => setUserId(item.uid))
     }, [addUser])
 
-    const getUserWatchList = () => {
-        axios.get(`/affiliate/v1/doctor/watchlist`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                setUserWatchList(res.data.data);
-            })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
+    const getUserWatchList = async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
+            setUserWatchList(res.data.data);
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
 
-    const addUserToList = (id) => {
-        axios.post(`/affiliate/v1/doctor/watchlist`, {
-            uid: id,
-            comment: comment
-        }, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const addUserToList = async (id) => {
+        const res = await ApiServices.postWatchlistUser({ uid: id, comment: comment });
+        if (res.status === 200) {
             getUserWatchList();
             props.onHide();
-        }).catch(err => {
-            Notifications('error', "Interval Server Error!")
-        })
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
 
     return (
@@ -81,7 +68,7 @@ function AddWathListModal(props) {
                 <div className={'container-fluid'}>
                     <div className={'row'}>
                         <div className={'col-lg-12 col-sm-12'}>
-                            <textarea onChange={(e)=>setComment(e.target.value)} className="form-control" placeholder="Comment" id="modalTextarea" rows="3"></textarea>
+                            <textarea onChange={(e) => setComment(e.target.value)} className="form-control" placeholder="Comment" id="modalTextarea" rows="3"></textarea>
                         </div>
                     </div>
                 </div>

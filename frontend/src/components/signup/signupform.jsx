@@ -7,9 +7,9 @@ import passIcon2 from '../../assets/img/passwordicon2.png';
 import { useRecoilState } from 'recoil';
 import { docSignUpData, signUpFormValid, userPicUpload } from '../../data/atom';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { Notifications } from '../../helpers/notifications';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import ApiServices from '../../services/apiservices';
 
 function SignUp2() {
 
@@ -28,7 +28,6 @@ function SignUp2() {
     const cancelButton = () => {
         history.push('/sign-in')
     }
-
     const submitSignForm = (e) => {
         e.preventDefault();
         if (docSignUp.password === docSignUp.cPassword) {
@@ -37,84 +36,50 @@ function SignUp2() {
             Notifications('error', 'Password did not match');
         }
     }
-
     const emailHandle = (e) => {
-        setDocSignUp((obj => ({
-            ...obj,
-            email: e.target.value
-        })))
-
+        setDocSignUp((obj => ({ ...obj, email: e.target.value })))
         if (docSignUp.email.includes('@')) {
             setBtnClr('#3E6578');
-        }
-        else {
+        } else {
             setBtnClr('#C6C6C6');
         }
     }
-
-    const sendVerificationHandle = () => {
+    const sendVerificationHandle = async () => {
         if (docSignUp.email.includes('@')) {
-            axios.post(`/affiliate/v1/otp?email=${docSignUp.email}`)
-                .then(res => {
-                    setTimerShow(false);
-                    setTimeout(() => {
-                        setTimerShow(true);
-                    }, 200);
-                    setSignValid(obj => ({
-                        ...obj,
-                        showVerification: true,
-                    }))
-                    setBtnClr('#C6C6C6');
-                    Notifications('success', `${res.data.data.message}`)
-                }).catch(err => {
-                    Notifications('error', `Internal Server Error`)
-                });
-
+            const res = await ApiServices.postOTP(docSignUp.email);
+            if (res.status === 202) {
+                setTimerShow(false);
+                setTimeout(() => {
+                    setTimerShow(true)
+                }, 200);
+                setSignValid(obj => ({ ...obj, showVerification: true, }))
+                setBtnClr('#C6C6C6');
+            }
         } else {
-            setSignValid(obj => ({
-                ...obj,
-                showVerification: false,
-            }))
+            setSignValid(obj => ({ ...obj, showVerification: false, }))
             setOkBtnClr('#C6C6C6')
         }
     }
-
     const verCodeHandle = (e) => {
         setVerCode(e.target.value);
-        setSignValid(obj => ({
-            ...obj,
-            invalidVer: false,
-        }))
+        setSignValid(obj => ({ ...obj, invalidVer: false, }))
         if (verCode.length >= 5) {
             setOkBtnClr('#3E6578')
         } else {
             setOkBtnClr('#C6C6C6')
         }
     }
-
-    const verOkHandle = () => {
-        axios.post(`/affiliate/v1/verify`, {
-            email: docSignUp.email,
-            code: verCode
-        }).then(res => {
-            Notifications('success', `${res.data.data.message}`)
-            setSignValid(obj => ({
-                invalidVer: false,
-                showVerEmailBtn: false,
-                showVerification: false,
-                showPass: true,
-            }))
+    const verOkHandle = async () => {
+        const res = await ApiServices.postVerifyOTP({ email: docSignUp.email, code: verCode });
+        if (res.status === 202) {
+            setSignValid(obj => ({ invalidVer: false, showVerEmailBtn: false, showVerification: false, showPass: true, }))
             setEmailMsg(true);
-        }).catch(err => {
-            Notifications('error', `${err.response.data.data.message}`)
-            setSignValid(obj => ({
-                ...obj,
-                invalidVer: true,
-            }))
+            setVerCode('');
+        } else {
+            setSignValid(obj => ({ ...obj, invalidVer: true, }))
             setEmailMsg(false);
-        })
+        }
     }
-
     const showPassVisibility = () => {
         setPassVisi(!passVisi);
     }
@@ -122,9 +87,7 @@ function SignUp2() {
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
-                setAvatarPreview((obj) => ({
-                    avatar: reader.result
-                }));
+                setAvatarPreview((obj) => ({ avatar: reader.result }));
             }
         };
         reader.readAsDataURL(e.target.files[0]);

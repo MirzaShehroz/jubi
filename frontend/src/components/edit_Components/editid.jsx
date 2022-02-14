@@ -14,7 +14,7 @@ function EditId() {
     const [timerShow, setTimerShow] = useState(false);
     const [idAtom, setIDAtom] = useRecoilState(userIDedit);
     const [email, setEmail] = useState('');
-    const [verCode, setVerCode] = useState(null);
+    const [verCode, setVerCode] = useState('');
     const [showVerEmailBtn, setShowVerEmailBtn] = useState(true);
     const [showVerification, setshowVer] = useState(false);
     const [btnClr, setBtnClr] = useState('#C6C6C6');

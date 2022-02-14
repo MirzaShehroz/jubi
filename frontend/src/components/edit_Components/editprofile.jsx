@@ -1,3 +1,5 @@
+import '../signin/signin.css'
+import '../signup/signup.css'
 import React, { useCallback, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +8,6 @@ import { docData, userPicUpload } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo2.png';
 import addIcon from '../../assets/img/addicon.png';
 import picUpload from '../../assets/img/pic_upload_icon.png';
-import { Notifications } from '../../helpers/notifications';
 import ApiServices from '../../services/apiservices';
 
 function EditProfile() {
@@ -57,7 +58,6 @@ function EditProfile() {
         }
         const res = await ApiServices.updateDoctorProfile(data);
         if (res.status === 200) {
-            Notifications('success', res.data.message);
             history.push('/');
         }
     }

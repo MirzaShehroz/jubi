@@ -40,7 +40,6 @@ function ConnectUser({ show }) {
     const connectUserApi = async (id, data) => {
         const res = await ApiServices.postConnectUser(id);
         if (res.data.success === true) {
-            console.log(res.data.data);
             setSearchUser(data);
             setCSmenu(false);
             !csMenu ? setCSmenuClass("cs_menu openCSMenu") : setCSmenuClass("cs_menu");

@@ -2,10 +2,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css'
 import './App.css'
-
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Protected from './components/protected';
+import { ToastContainer } from 'react-toastify';
 import SignIn from './components/signin/signin';
+import Protected from './components/protected';
 import SignUp from './components/signup/signupterms';
 import Forget from './components/forget/forget';
 import EditProfile from './components/edit_components/editprofile';
@@ -14,24 +15,8 @@ import EditPassword from './components/edit_components/editpassword';
 import DashboardPanel from './components/dashboard_components/dashboard_panel/dashboardpanel';
 import Chat from "./components/chat/chat";
 import IndividualPanel from './components/individual/individual_panel/individual_components/individual_panel1/individualpanel1';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-
-if (typeof Node === "function" && Node.prototype) {
-  const originalRemoveChild = Node.prototype.removeChild;
-  Node.prototype.removeChild = function (child) {
-    // debugger;
-    if (child.parentNode !== this) {
-      return child;
-    }
-    return originalRemoveChild.apply(this, arguments);
-  };
-}
-
 
 function App() {
-
   return (
     <div className="App">
       <Router>
@@ -59,7 +44,6 @@ function App() {
         pauseOnHover
         theme={"colored"}
       />
-
     </div>
   );
 }

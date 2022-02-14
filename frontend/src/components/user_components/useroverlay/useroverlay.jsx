@@ -13,9 +13,7 @@ function UserOverlay({ display, animate }) {
     const userIndData = useRecoilValue(userDataIndividual);
     const [showHeader, setShowHeader] = useRecoilState(showHeaderProfile);
     const showUPanelHandle = () => {
-        setShowHeader((obj) => ({
-            showUserPanel: !showHeader.showUserPanel,
-        }))
+        setShowHeader((obj) => ({ showUserPanel: !showHeader.showUserPanel, }))
     }
     return (
         <div id='overlay_user' className={animate} style={{ display: display }} >

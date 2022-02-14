@@ -1,50 +1,38 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import user1 from '../../assets/img/user.jpg'
 import { userDataIndividual, watchList, watchListComment } from "../../data/atom";
-import { Notifications } from '../../helpers/notifications';
+import ApiServices from "../../services/apiservices";
 
 function RemoveWatchModal(props) {
 
     let date = new Date().getFullYear();
     const [userId, setUserId] = useState(null);
     const addUser = useRecoilValue(userDataIndividual);
-    const [/*userWatchList*/, setUserWatchList] = useRecoilState(watchList);
+    const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     const comment = useRecoilValue(watchListComment);
-
+    const history = useHistory();
     useEffect(() => {
         addUser.map(item => setUserId(item.uid))
     }, [addUser])
-
-    const getUserWatchList = () => {
-        axios.get(`/affiliate/v1/doctor/watchlist`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        })
-            .then(res => {
-                setUserWatchList(res.data.data);
-            })
-            .catch(error => {
-                if (error.response.data.data.code === 403) {
-                    sessionStorage.clear();
-                }
-            });
+    const getUserWatchList = async () => {
+        const res = await ApiServices.getWatchList();
+        if (res.status === 200) {
+            setUserWatchList(res.data.data);
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
-
-    const removeUserToList = (id) => {
-        axios.delete(`/affiliate/v1/doctor/watchlist?uid=${id}`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const removeUserToList = async (id) => {
+        const res = await ApiServices.removeWatchlistUser(id);
+        if (res.status === 200) {
             getUserWatchList();
             props.onHide();
-        }).catch(err => {
-            Notifications('error', "Interval Server Error!")
-        })
+        } else if (res.data.code === 403) {
+            history.push('/sign-in');
+        }
     }
 
     return (

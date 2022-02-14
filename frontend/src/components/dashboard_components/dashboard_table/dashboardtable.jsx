@@ -1,9 +1,9 @@
 import './dashboarddatatables.css';
 import React, { useEffect, useState, useCallback } from 'react';
 import { Chart } from 'react-google-charts';
-import Badge from '@mui/material/Badge';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
+import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import expandButton from '../../../assets/img/expandButton.png';
 import user from '../../../assets/img/avatar2.png'
@@ -94,7 +94,6 @@ function DashboardTable() {
         const res = await ApiServices.getWatchList();
         if (res.status === 200) {
             setUserWatchList(res.data.data);
-            console.log();
         } else if (res.data.code === 403) {
             history.push('/sign-in');
         }
@@ -128,6 +127,19 @@ function DashboardTable() {
                 });
             }, 1000);
         });
+    }
+
+    const showBadge = (uid) => {
+        // let isFound = false;
+        // usersRoom.map(item => item.ChatMessages.slice(-1).map(i => {
+        //     if (i.from === uid) {
+        //         isFound = true;
+        //         return isFound
+        //     }
+        // }))
+        return (<Badge color="error" variant="dot">
+            <FontAwesomeIcon onClick={() => history.push('/chat')} id={'commentBadge'} icon={faComment} />
+        </Badge>)
     }
     const setUserData = (id) => {
         sessionStorage.setItem('uid', id);
@@ -213,9 +225,7 @@ function DashboardTable() {
                                                 <div className={'col-lg-2 col-sm-12'}></div>
                                                 <div className={'col-lg-4 col-sm-12 badgeClass'}>
                                                     <Box sx={{ color: 'action.active' }}>
-                                                        <Badge color="error" variant="dot">
-                                                            <FontAwesomeIcon onClick={() => history.push('/chat')} id={'commentBadge'} icon={faComment} />
-                                                        </Badge>
+                                                        {showBadge(item.uid)}
                                                     </Box>
                                                 </div>
                                                 <div className={'col-lg-4 col-sm-12'}>

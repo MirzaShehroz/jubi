@@ -8,8 +8,11 @@ import IndividualUserPanel from "../../individualuserpanel";
 import { useRecoilState } from 'recoil';
 import { userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
 import ApiServices from '../../../../../services/apiservices';
+import { useReactToPrint } from 'react-to-print';
+import { useRef } from 'react';
 
 function IndividualPanel() {
+    const componentRef = useRef();
     const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     const [/*..*/, setUsersData] = useRecoilState(usersData_);
     const [/*..*/, setUserData] = useRecoilState(userDataIndividual);
@@ -17,7 +20,9 @@ function IndividualPanel() {
     const closeHandle = () => {
         history.push('/');
     }
-
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    })
     const getUserWatchList = useCallback(async () => {
         const res = await ApiServices.getWatchList();
         if (res.status === 200) {
@@ -47,14 +52,13 @@ function IndividualPanel() {
             <div className='individualPanel_close'>
                 <img onClick={closeHandle} src={closeIcon} alt="" />
             </div>
-            <div className='individualPanel_main'>
+            <div className='individualPanel_main'  id="exportToPdf">
                 <div className='individualPanel_child1'>
-                    <IndividualUserPanel />
+                    <IndividualUserPanel onHandlePrint={handlePrint} />
                 </div>
-                <div className='individualPanel_child2'>
+                <div className='individualPanel_child2' ref={componentRef}>
                     {useLocation().pathname === '/individual' ? <IndividualPanel2 /> : null}
                     {useLocation().pathname === '/allergies-condition' ? <Alergies /> : null}
-
                 </div>
             </div>
         </div>

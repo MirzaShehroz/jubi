@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connectUserShow, docSignUpData, showHeaderProfile, sidePanelFunc, signUpFormValid } from '../../data/atom';
 import { useRecoilState } from 'recoil';
-import axios from "axios";
+import ApiServices from "../../services/apiservices";
 import { useState } from 'react';
 import logo from '../../assets/img/jubiwatch_logo.png';
 import { Notifications } from '../../helpers/notifications';
@@ -12,21 +12,18 @@ import { authData } from '../../data/atom';
 function SignIn() {
 
     const history = useHistory();
-    const [/*csMenuAtom*/, setCsMenuAtom] = useRecoilState(connectUserShow);
-    const [/*showHeader*/, setShowHeader] = useRecoilState(showHeaderProfile);
-    const [/*showSidePanel*/, setSP] = useRecoilState(sidePanelFunc);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    let [/*authData*/, setAuthData] = useRecoilState(authData);
-    const [/*signUpValid*/, setSignValid] = useRecoilState(signUpFormValid);
-    const [/*docSignUp*/, setDocSignUp] = useRecoilState(docSignUpData);
+    const [/*..*/, setCsMenuAtom] = useRecoilState(connectUserShow);
+    const [/*..*/, setShowHeader] = useRecoilState(showHeaderProfile);
+    const [/*..*/, setSP] = useRecoilState(sidePanelFunc);
+    const [/*..*/, setSignValid] = useRecoilState(signUpFormValid);
+    const [/*..*/, setDocSignUp] = useRecoilState(docSignUpData);
+    let [/*..*/, setAuthData] = useRecoilState(authData);
 
     useEffect(() => {
         setSignValid(obj => ({
-            showVerEmailBtn: true,
-            showVerification: false,
-            invalidVer: false,
-            showPass: false,
+            showVerEmailBtn: true, showVerification: false, invalidVer: false, showPass: false,
         }))
         setDocSignUp(obj => ({
             firstName: "",
@@ -44,43 +41,23 @@ function SignIn() {
 
     const loginHandle = async (e) => {
         e.preventDefault();
-        setCsMenuAtom((obj) => ({
-            connectMenu: false,
-            csMenu: false,
-            connectClass: 'c_menu'
-        }));
-        setShowHeader((obj) => ({
-            showHProfile: true,
-            paddingTop: "0.8%",
-            showUserPanel: false,
-            iconRotate: false,
-        }));
-        setSP((obj) => ({
-            showSP: 'none',
-        }));
-
-        const data = {
-            username: username,
-            password: password
+        setCsMenuAtom((obj) => ({ connectMenu: false, csMenu: false, connectClass: 'c_menu' }));
+        setShowHeader((obj) => ({ showHProfile: true, paddingTop: "0.8%", showUserPanel: false, iconRotate: false, }));
+        setSP((obj) => ({ showSP: 'none', }));
+        const data = { username: username, password: password }
+        const response = await ApiServices.postLogin(data);
+        if (response.status === 200) {
+            setAuthData((obj) => ({
+                email: response.data.data.username,
+                token: response.data.data.token.AccessToken,
+                UUID: response.data.data.token.AccessUuid,
+            }))
+            sessionStorage.setItem('authData', response.data.data.token.AccessToken);
+            sessionStorage.setItem('unKnown', '$2a$10$J6' + password);
+            sessionStorage.setItem('authEmail', response.data.data.username);
+            Notifications('success', 'Login Successful')
+            history.push('/');
         }
-
-        axios.post(`/affiliate/v1/doctor/login`, data)
-            .then((response) => {
-                setAuthData((obj) => ({
-                    email: response.data.data.username,
-                    token: response.data.data.token.AccessToken,
-                    UUID: response.data.data.token.AccessUuid,
-                }))
-                sessionStorage.setItem('authData', response.data.data.token.AccessToken);
-                sessionStorage.setItem('unKnown', '$2a$10$J6' + password);
-                sessionStorage.setItem('authEmail', response.data.data.username);
-                Notifications('success', 'Login Successful')
-                history.push('/');
-            })
-            .catch((err) => {
-                Notifications('error', err.response.data.data.message);
-            });
-
     }
 
     return (
