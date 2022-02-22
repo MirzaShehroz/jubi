@@ -27,7 +27,7 @@ function IndividualPanel() {
         const res = await ApiServices.getWatchList();
         if (res.status === 200) {
             setUserWatchList(res.data.data);
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setUserWatchList, history])
@@ -37,7 +37,7 @@ function IndividualPanel() {
             setUsersData(res.data.data);
             let data = res.data.data.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
             setUserData(data);
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setUsersData, setUserData, history])
@@ -52,7 +52,7 @@ function IndividualPanel() {
             <div className='individualPanel_close'>
                 <img onClick={closeHandle} src={closeIcon} alt="" />
             </div>
-            <div className='individualPanel_main'  id="exportToPdf">
+            <div className='individualPanel_main' id="exportToPdf">
                 <div className='individualPanel_child1'>
                     <IndividualUserPanel onHandlePrint={handlePrint} />
                 </div>

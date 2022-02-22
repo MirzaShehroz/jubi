@@ -34,7 +34,7 @@ function Chat() {
         const res = await ApiServices.getDoctorChatRooms();
         if (res.status === 200) {
             if (res.data.data) return setUserRooms(_.sortBy(res.data.data, 'Rid'))
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setUserRooms, history])
@@ -42,7 +42,7 @@ function Chat() {
         const res = await ApiServices.getSingleUserChat();
         if (res.status === 200) {
             setChatMessages(res.data.data);
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }
@@ -60,7 +60,7 @@ function Chat() {
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
             }));
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setDocData, history]);
@@ -83,7 +83,7 @@ function Chat() {
                 setMessage('');
                 getChatRooms();
                 filterChatRoom();
-            } else if (res.data.code === 403) {
+            } else if (res.data.code === 403 || res.data.code === 401) {
                 history.push('/sign-in');
                 setMessage('');
             }
@@ -101,7 +101,7 @@ function Chat() {
             if (res.status === 200) {
                 setFile('');
                 setFileName('');
-            } else if (res.data.code === 403) {
+            } else if (res.data.code === 403 || res.data.code === 401) {
                 history.push('/sign-in');
                 setFile('');
                 setFileName('');

@@ -86,7 +86,7 @@ function DashboardTable() {
         if (res.status === 200) {
             setUsersData(res.data.data);
             setUsersDataClone(res.data.data);
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setUsersData, history])
@@ -94,7 +94,7 @@ function DashboardTable() {
         const res = await ApiServices.getWatchList();
         if (res.status === 200) {
             setUserWatchList(res.data.data);
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setUserWatchList, history])

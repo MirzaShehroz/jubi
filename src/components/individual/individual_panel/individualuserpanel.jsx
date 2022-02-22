@@ -35,7 +35,7 @@ function IndividualUserPanel({ onHandlePrint }) {
             setUserWatchList(res.data.data);
             let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
             setComment(data.map(item => item.comment));
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }, [setComment, setUserWatchList, history])
@@ -157,7 +157,7 @@ const ButtonW = ({ id }) => {
             setUserWatchList(res.data.data);
             let data = res.data.data.filter(item => item.User.uid === parseInt(sessionStorage.getItem('uid')))
             setComment(data.map(item => item.comment));
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }
@@ -183,7 +183,7 @@ const ButtonW = ({ id }) => {
         const res = await ApiServices.postWatchlistUser({ uid: id, comment: '' });
         if (res.status === 200) {
             getUserWatchList();
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }
@@ -191,7 +191,7 @@ const ButtonW = ({ id }) => {
         const res = await ApiServices.removeWatchlistUser(id);
         if (res.status === 200) {
             getUserWatchList();
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }

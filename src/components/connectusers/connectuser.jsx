@@ -46,7 +46,7 @@ function ConnectUser({ show }) {
             setCsMenuAtom((obj) => ({
                 ...obj, csMenu: true
             }))
-        } else if (res.data.code === 403) {
+        } else if (res.data.code === 403 || res.data.code === 401) {
             history.push('/sign-in');
         }
     }
@@ -140,7 +140,7 @@ function ConnectUser({ show }) {
                                     placeholder='Code'
                                     onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
                                     inputProps={{
-                                        inputmode: 'numeric',
+                                        inputMode: 'numeric',
                                         pattern: '[0-9]*',
                                         maxLength: 6
                                     }}

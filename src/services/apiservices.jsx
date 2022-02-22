@@ -3,11 +3,21 @@ import { Notifications } from '../helpers/notifications';
 import { errorHandler } from "../helpers/errorhandler";
 export default class ApiServices {
     // Preflight API
-    static setPreflight = async () => await axios.options(`/preflight`)
+    static setPreflight = async () => {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
+                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+                // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+            }
+        }
+        await axios.options(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/preflight`, config)
+    }
     // Login Doctor API
     static postLogin = async (data) => {
         try {
-            const res = await axios.post(`/affiliate/v1/doctor/login`, data);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/login`, data);
             return res;
         } catch (error) {
             errorHandler(error.response.data);
@@ -17,7 +27,7 @@ export default class ApiServices {
     // Send OTP API
     static postOTP = async (email) => {
         try {
-            const res = await axios.post(`/affiliate/v1/otp?email=${email}`);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/otp?email=${email}`);
             Notifications('success', res.data.data.message);
             return res;
         } catch (error) {
@@ -28,7 +38,7 @@ export default class ApiServices {
     // Verify OTP API
     static postVerifyOTP = async (data) => {
         try {
-            const res = await axios.post(`/affiliate/v1/verify`, data);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/verify`, data);
             Notifications('success', res.data.data.message);
             return res;
         } catch (error) {
@@ -39,7 +49,7 @@ export default class ApiServices {
     // Signup doctor API
     static postSignUp = async (data) => {
         try {
-            const res = await axios.post(`/affiliate/v1/doctor/signup`, data);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/signup`, data);
             Notifications('success', res.data.data.message);
             return res;
         } catch (error) {
@@ -50,7 +60,7 @@ export default class ApiServices {
     // Forget Password API
     static postForgetPassword = async (data) => {
         try {
-            const res = await axios.post(`/affiliate/v1/doctor/password/forget`, data);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/password/forget`, data);
             return res;
         } catch (error) {
             errorHandler(error.response.data);
@@ -61,7 +71,7 @@ export default class ApiServices {
     static postUserMessages = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.post(`/affiliate/v1/chat/room/message`, data, config);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/room/message`, data, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -72,7 +82,7 @@ export default class ApiServices {
     static postConnectUser = async (id) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.post(`/affiliate/v1/chat/room?uid=${id}`, {}, config);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/room?uid=${id}`, {}, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -83,7 +93,7 @@ export default class ApiServices {
     static postWatchlistUser = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.post(`/affiliate/v1/doctor/watchlist`, data, config);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/watchlist`, data, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -94,7 +104,7 @@ export default class ApiServices {
     static postFile = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.post(`/affiliate/v1/s3/upload`, data, config);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/s3/upload`, data, config);
             Notifications('success', 'File uploaded successfully');
             return res;
         } catch (error) {
@@ -106,7 +116,7 @@ export default class ApiServices {
     static updateDoctorProfile = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.patch(`/affiliate/v1/doctor/profile`, data, config);
+            const res = await axios.patch(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/profile`, data, config);
             Notifications('success', res.data.message);
             return res;
         } catch (error) {
@@ -118,7 +128,7 @@ export default class ApiServices {
     static getUsersList = async () => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`/affiliate/v1/users`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/users`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data);
@@ -129,7 +139,7 @@ export default class ApiServices {
     static getWatchList = async () => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`/affiliate/v1/doctor/watchlist`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/watchlist`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data);
@@ -140,7 +150,7 @@ export default class ApiServices {
     static getDoctorChatRooms = async () => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`/affiliate/v1/chat/doctor`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/doctor`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data);
@@ -152,7 +162,7 @@ export default class ApiServices {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         const rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'))
         try {
-            const res = await axios.get(`/affiliate/v1/chat/room/message?rid=${rid}`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/room/message?rid=${rid}`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -163,7 +173,7 @@ export default class ApiServices {
     static getDocProfile = async () => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`/affiliate/v1/doctor/profile`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/profile`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -172,9 +182,12 @@ export default class ApiServices {
     }
     // Remove from watchlist API
     static removeWatchlistUser = async (id) => {
-        const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
+        const config = { headers: {
+            'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
+            "Access-Control-Allow-Origin":"*"
+        } }
         try {
-            const res = await axios.delete(`/affiliate/v1/doctor/watchlist?uid=${id}`, config);
+            const res = await axios.delete(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/watchlist?uid=${id}`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)

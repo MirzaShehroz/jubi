@@ -80,7 +80,7 @@ export const docData = atom({
     default: {
         dId: 0,
         firstName: "",
-        middleName: " ",
+        middleName: "",
         lastName: "",
         email: "",
         hospital: "",

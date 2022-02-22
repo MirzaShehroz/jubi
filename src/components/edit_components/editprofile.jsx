@@ -3,7 +3,6 @@ import '../signup/signup.css'
 import React, { useCallback, useEffect } from 'react'
 import { useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { docData, userPicUpload } from '../../data/atom';
 import logo from '../../assets/img/jubiwatch_logo2.png';
 import addIcon from '../../assets/img/addicon.png';
@@ -17,13 +16,9 @@ function EditProfile() {
     const cancelButton = () => {
         history.push('/')
     }
-
-    const getData = useCallback(() => {
-        axios.get(`/affiliate/v1/doctor/profile`, {
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
-            }
-        }).then(res => {
+    const getDocProfile = useCallback(async () => {
+        const res = await ApiServices.getDocProfile();
+        if (res.status === 200) {
             setDocData((obj) => ({
                 dId: res.data.data.did,
                 firstName: res.data.data.first_name,
@@ -34,17 +29,15 @@ function EditProfile() {
                 specialty: res.data.data.speciality,
                 title: res.data.data.title,
                 phone_number: res.data.data.phone_number,
-            }))
-        }).catch(err => {
-            if (err.response.data.data.code === 403) {
-                sessionStorage.clear();
-            }
-        })
-    }, [setDocData])
+            }));
+        } else if (res.data.code === 403 || res.data.code === 401) {
+            history.push('/sign-in');
+        }
+    }, [setDocData, history])
 
     useEffect(() => {
-        getData();
-    }, [getData])
+        getDocProfile();
+    }, [getDocProfile])
 
     const updateProfileHandle = async () => {
         const data = {
@@ -65,7 +58,6 @@ function EditProfile() {
         e.preventDefault();
         updateProfileHandle();
     }
-
     const updateProfileDataChange = (e) => {
         const reader = new FileReader();
         reader.onload = () => {
