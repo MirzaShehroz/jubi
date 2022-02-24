@@ -4,12 +4,12 @@ import { errorHandler } from "../helpers/errorhandler";
 export default class ApiServices {
     // Preflight API
     static setPreflight = async () => {
+        // "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+        // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
         const config = {
             headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
-                "Access-Control-Allow-Origin": "*",
-                // "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-                // "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`
             }
         }
         await axios.options(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/preflight`, config)
@@ -198,9 +198,9 @@ export default class ApiServices {
         const config = {
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
-                "Access-Control-Allow-Origin": "*"
             }
         }
+        // "Access-Control-Allow-Origin": "*"
         try {
             const res = await axios.delete(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/watchlist?uid=${id}`, config);
             return res;
