@@ -1,26 +1,18 @@
 import './individualpanel2.css';
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import medicAdd from '../../../../../assets/img/medicadd.png';
 import medicDel from '../../../../../assets/img/medicdel.png';
 import frwdBtn from '../../../../../assets/img/forward_arrow.png';
 import prevBtn from '../../../../../assets/img/previous_arrow.png';
 import LBChart from '../linebar_chart/linebarchart';
 import { PieChart, Pie, Sector, Cell } from "recharts";
+import { useHistory } from 'react-router-dom';
+import ApiServices from '../../../../../services/apiservices';
 
 const gdata = [{ name: "Jul 2021", value: 400 }, { name: "Jul 2021", value: 100 }];
 const COLORS = ["#7D9DAE", "#EEEEEE"];
 const renderActiveShape = (props) => {
-    const {
-        cx,
-        cy,
-        innerRadius,
-        outerRadius,
-        startAngle,
-        endAngle,
-        fill,
-        payload
-    } = props;
-
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload } = props;
     return (
         <g>
             <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
@@ -41,6 +33,30 @@ const renderActiveShape = (props) => {
 
 function IndividualPanel2() {
     const [activeIndex] = useState(0);
+    const [medicActiveList, setActiveMedicList] = useState([]);
+    const [medicInactiveList, setInactiveMedicList] = useState([]);
+    const history = useHistory();
+    const getMedicList = useCallback(async () => {
+        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')));
+        if (res.status === 200) {
+            res.data.list.map(item => {
+                if (item.active === 'active') return setActiveMedicList(item.medicine_list)
+                if (item.active === 'inactive') return setInactiveMedicList(item.medicine_list)
+                if (item.active !== 'active' && item.active !== 'inactive') {
+                    setActiveMedicList([]);
+                    setInactiveMedicList([]);
+                }
+            })
+        } else if (res.data.code === 401 || res.data.code === 403) {
+            history.push('/sign-in');
+        } else if (res.data.code === 404) {
+            setActiveMedicList([]);
+            setInactiveMedicList([]);
+        }
+    }, [history]);
+    useEffect(() => {
+        getMedicList();
+    }, [getMedicList])
     const data = [
         {
             date: '2021.07.31',
@@ -91,66 +107,6 @@ function IndividualPanel2() {
                     name: 'Medicine Name 4',
                     time: '12:30 PM',
                     image: medicAdd
-                },
-            ]
-        }
-    ]
-    const data2 = [
-        {
-            head: 'JUBI watch (1/1)',
-            image: medicAdd,
-            checked: true,
-            medic: [
-                {
-                    checked: true,
-                    name: 'Medicine Name 1',
-                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
-                    percentage: '100%'
-                },
-            ]
-        },
-        {
-
-            head: 'Active Medications (2/2)',
-            image: medicAdd,
-            checked: false,
-            medic: [
-                {
-                    checked: true,
-                    name: 'Medicine Name 1',
-                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
-                    percentage: '56%'
-                },
-                {
-                    checked: true,
-                    name: 'Medicine Name 2',
-                    detail: 'Every weekdays(1 pills) / 8:00 AM',
-                    percentage: '16%'
-                },
-            ]
-        },
-        {
-            head: 'Inactive Medications (2/3)',
-            image: medicAdd,
-            checked: false,
-            medic: [
-                {
-                    checked: false,
-                    name: 'Medicine Name 1',
-                    detail: '2 times everyday(2 pills) / 8:00 AM and 1:00PM',
-                    percentage: '16%'
-                },
-                {
-                    checked: false,
-                    name: 'Medicine Name 2',
-                    detail: 'Every weekdays(1 pills) / 8:00 AM',
-                    percentage: '30%'
-                },
-                {
-                    checked: false,
-                    name: 'Medicine Name 3',
-                    detail: 'Every weekdays(1 pills) / 8:00 AM',
-                    percentage: '0%'
                 },
             ]
         }
@@ -249,33 +205,90 @@ function IndividualPanel2() {
                         </div>
                     </div>
                     <div className='individualPanel_child22_12'>
-                        {data2.map((item) => (
-                            < div className='individualPanel_child22_12child'>
-                                <div className='signin_checkout individual2_input'>
-                                    <input type="checkbox" defaultChecked={item.checked} />
-                                    <h5>{item.head}</h5>
+                        {/* ... JUBI watch*/}
+                        <div className='individualPanel_child22_12child'>
+                            <div className='signin_checkout individual2_input'>
+                                <input type="checkbox" defaultChecked={true} />
+                                <h5>JUBI watch (1/1)</h5>
+                            </div>
+                            <div className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
+                                <div className='signin_checkout individual2_input2'>
+                                    <input type="checkbox" defaultChecked={true} />
                                 </div>
-                                {item.medic.map(item2 => (
-                                    <div className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
+                                <div className='medicsImg'>
+                                    <img src={medicAdd} alt="" />
+                                </div>
+                                <div className="individual_History_medic">
+                                    <div className='medicsH5'>
+                                        <h5>Medicine Name 1</h5>
+                                        <p>2 times everyday(2 pills) / 8:00 AM and 1:00PM</p>
+                                    </div>
+                                    <div>
+                                        <h4>100%</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* ... Active Medications */}
+                        <div className='individualPanel_child22_12child'>
+                            {medicActiveList.length > 0 ? <>
+                                <div className='signin_checkout individual2_input'>
+                                    <input type="checkbox" defaultChecked={true} />
+                                    <h5>Active Medications ({medicActiveList.length})</h5>
+                                </div>
+                                {medicActiveList.map(item => (
+                                    <div key={item.mid} className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
                                         <div className='signin_checkout individual2_input2'>
-                                            <input type="checkbox" defaultChecked={item2.checked} />
+                                            <input type="checkbox" defaultChecked={true} />
                                         </div>
                                         <div className='medicsImg'>
                                             <img src={medicAdd} alt="" />
                                         </div>
                                         <div className="individual_History_medic">
                                             <div className='medicsH5'>
-                                                <h5>{item2.name}</h5>
-                                                <p>{item2.detail}</p>
+                                                <h5>{item.name}</h5>
+                                                {item.frequency === 'as_needed' ? <p>As needed</p> : <p>2 times {item.frequency}(2 pills) / 8:00 AM and 1:00PM</p>}
                                             </div>
                                             <div>
-                                                <h4>{item2.percentage}</h4>
+                                                <h4>100%</h4>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
-                            </div>
-                        ))}
+                            </> : <div className='signin_checkout individual2_input'>
+                                <h5>No Active Medications</h5>
+                            </div>}
+                        </div>
+                        {/* ...Inactive Medications */}
+                        <div className='individualPanel_child22_12child'>
+                            {medicInactiveList.length > 0 ? <>
+                                <div className='signin_checkout individual2_input'>
+                                    <input type="checkbox" defaultChecked={false} />
+                                    <h5>Inactive Medications ({medicInactiveList.length})</h5>
+                                </div>
+                                {medicInactiveList.map(item => (
+                                    <div key={item.mid} className='individual_History_medics' style={{ padding: '2% 2.5%' }}>
+                                        <div className='signin_checkout individual2_input2'>
+                                            <input type="checkbox" defaultChecked={false} />
+                                        </div>
+                                        <div className='medicsImg'>
+                                            <img src={medicDel} alt="" />
+                                        </div>
+                                        <div className="individual_History_medic">
+                                            <div className='medicsH5'>
+                                                <h5>{item.name}</h5>
+                                                {item.frequency === 'as_needed' ? <p>As needed</p> : <p>2 times {item.frequency}(2 pills) / 8:00 AM and 1:00PM</p>}
+                                            </div>
+                                            <div>
+                                                <h4>100%</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </> : <div className='signin_checkout individual2_input'>
+                                <h5>No Inactive Medications</h5>
+                            </div>}
+                        </div>
                     </div>
                 </div>
                 <div className='individualPanel_child22_2'>

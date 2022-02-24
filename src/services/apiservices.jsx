@@ -162,7 +162,7 @@ export default class ApiServices {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         const rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'))
         try {
-            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/room/message?rid=${rid}`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/doctor/room/message?rid=${rid}`, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)
@@ -180,12 +180,27 @@ export default class ApiServices {
             return error.response.data;
         }
     }
+    // Get Medication List API
+    static getMedicList = async (uid) => {
+        const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
+        try {
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/medicine/list?group_by=active&uid=${uid}`, config);
+            return res;
+        } catch (error) {
+            if (error.response.data.data.code !== 404) {
+                errorHandler(error.response.data)
+            }
+            return error.response.data;
+        }
+    }
     // Remove from watchlist API
     static removeWatchlistUser = async (id) => {
-        const config = { headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
-            "Access-Control-Allow-Origin":"*"
-        } }
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('authData')}`,
+                "Access-Control-Allow-Origin": "*"
+            }
+        }
         try {
             const res = await axios.delete(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/watchlist?uid=${id}`, config);
             return res;
