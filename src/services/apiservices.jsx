@@ -100,6 +100,17 @@ export default class ApiServices {
             return error.response.data;
         }
     }
+    // Add to Memo API
+    static postMemoUser = async (data) => {
+        const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
+        try {
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/memo`, data, config);
+            return res;
+        } catch (error) {
+            errorHandler(error.response.data)
+            return error.response.data;
+        }
+    }
     // Upload File API
     static postFile = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
@@ -184,12 +195,34 @@ export default class ApiServices {
     static getMedicList = async (uid) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/medicine/list?group_by=active&uid=${uid}`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/medicine/list?group_by=active&uid=${uid}`, config);
             return res;
         } catch (error) {
             if (error.response.data.data.code !== 404) {
                 errorHandler(error.response.data)
             }
+            return error.response.data;
+        }
+    }
+    // Get Memo API
+    static getMemo = async (uid) => {
+        const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
+        try {
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/memo?uid=${uid}`, config);
+            return res;
+        } catch (error) {
+            errorHandler(error.response.data)
+            return error.response.data;
+        }
+    }
+    // Remove Memo API
+    static removeMemo = async (uid) => {
+        const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
+        try {
+            const res = await axios.delete(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/memo?uid=${uid}`, config);
+            return res;
+        } catch (error) {
+            errorHandler(error.response.data)
             return error.response.data;
         }
     }

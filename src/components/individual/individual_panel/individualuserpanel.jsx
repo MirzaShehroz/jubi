@@ -1,20 +1,21 @@
 import user from "../../../assets/img/user.jpg";
 import React, { useEffect, useState, useCallback } from "react";
 import { useHistory, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 import cancelButton from "../../../assets/img/closeButton.png";
 import chatIcon from "../../../assets/img/chaticon.png";
 import watchListIcon from "../../../assets/img/bookmark.png";
 import exportIcon from "../../../assets/img/export.png";
-import { usersData_, watchList, userDataIndividual, watchListComment } from '../../../data/atom';
+import { usersData_, watchList, userDataIndividual, watchListComment, memoAtom, memoList_ } from '../../../data/atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import ApiServices from "../../../services/apiservices";
+import Memo from "../../memo/memo";
 
 function IndividualUserPanel({ onHandlePrint }) {
     const history = useHistory();
     const usersData = useRecoilValue(usersData_);
     const [usersDataClone, setUsersDataClone] = useState([]);
+    const [memo, setMemo] = useRecoilState(memoAtom);
+    const [/*..*/, setMemoList] = useRecoilState(memoList_);
     const [comment, setComment] = useRecoilState(watchListComment);
     const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     let date = new Date().getFullYear();
@@ -40,11 +41,25 @@ function IndividualUserPanel({ onHandlePrint }) {
         }
     }, [setComment, setUserWatchList, history])
 
+    const getUserMemo = useCallback(async () => {
+        const res = await ApiServices.getMemo(parseInt(sessionStorage.getItem('uid')));
+        if (res.status === 200) {
+            if (res.data.data !== null) {
+                setMemoList(res.data.data);
+                setMemo(res.data.data.map(item => item.memo));
+            } else {
+                setMemo('');
+                setMemoList([]);
+            }
+        }
+    }, [setMemo, setMemoList])
+
     useEffect(() => {
         let data = usersData.filter(item => item.uid === parseInt(sessionStorage.getItem('uid')));
         setUsersDataClone(data);
+        getUserMemo();
         getUserWatchList();
-    }, [usersData, getUserWatchList])
+    }, [usersData, getUserMemo, getUserWatchList])
 
     return (
         <>
@@ -89,12 +104,12 @@ function IndividualUserPanel({ onHandlePrint }) {
                     <tbody>
                         <tr>
                             <td className={'memoHead'}>Memo</td>
-                            <td className={'memoHeadIcon'}><FontAwesomeIcon icon={faPen} /></td>
+                            <Memo />
                         </tr>
                     </tbody>
                 </table>
                 <p className={'memoMsg'}>
-                    She has heart attack family history.
+                    {memo}
                 </p>
                 <table id="exportPdf">
                     <tbody>

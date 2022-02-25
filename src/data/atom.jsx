@@ -127,6 +127,16 @@ export const watchListComment = atom({
     default: ''
 })
 
+export const memoAtom = atom({
+    key: 'User memo',
+    default: ''
+})
+
+export const memoList_ = atom({
+    key: 'User memo List',
+    default: []
+})
+
 export const userChatRooms = atom({
     key: 'User chat rooms',
     default: []
