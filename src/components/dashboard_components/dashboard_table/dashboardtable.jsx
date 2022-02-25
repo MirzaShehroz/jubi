@@ -137,7 +137,7 @@ function DashboardTable() {
         //         return isFound
         //     }
         // }))
-        return (<Badge color="error" variant="dot">
+        return (<Badge color="error" /*variant="dot"*/>
             <FontAwesomeIcon onClick={() => history.push('/chat')} id={'commentBadge'} icon={faComment} />
         </Badge>)
     }
