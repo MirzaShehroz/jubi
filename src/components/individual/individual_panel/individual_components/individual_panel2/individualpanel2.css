@@ -52,9 +52,23 @@
     display: flex;
 }
 
-.individualPanel_child22_1::-webkit-scrollbar, .individualPanel_child22_2::-webkit-scrollbar {
+.individualPanel_child22_1::-webkit-scrollbar {
     width: 0;
 }
+
+.individualPanel_child22_2::-webkit-scrollbar {
+    width: 6px;
+}
+
+.individualPanel_child22_2::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.individualPanel_child22_2::-webkit-scrollbar-thumb {
+    background-color: rgb(62 101 120 / 76%);
+    border-radius: 2px;
+}
+
 
 .individualPanel_child22_1 {
     width: 70%;

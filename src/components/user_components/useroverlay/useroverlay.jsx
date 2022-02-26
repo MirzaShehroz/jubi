@@ -20,7 +20,7 @@ function UserOverlay({ display, animate }) {
         setShowHeader((obj) => ({ showUserPanel: !showHeader.showUserPanel, }))
     }
     const getMedicList = useCallback(async () => {
-        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')));
+        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')),'active');
         if (res.status === 200) {
             res.data.list.map(item => {
                 if (item.active === 'active') return setActiveMedicList(item.medicine_list)

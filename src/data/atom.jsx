@@ -122,6 +122,11 @@ export const watchList = atom({
     default: []
 })
 
+export const medicHistoryList = atom({
+    key: 'User medication history logs',
+    default: []
+})
+
 export const watchListComment = atom({
     key: 'User watchlist comment',
     default: ''

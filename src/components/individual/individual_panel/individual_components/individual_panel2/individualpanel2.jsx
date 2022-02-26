@@ -1,13 +1,15 @@
 import './individualpanel2.css';
 import React, { useCallback, useEffect, useState } from 'react'
+import LBChart from '../linebar_chart/linebarchart';
+import { useHistory } from 'react-router-dom';
+import { PieChart, Pie, Sector, Cell } from "recharts";
+import { useRecoilValue } from 'recoil';
+import { medicHistoryList } from '../../../../../data/atom';
+import ApiServices from '../../../../../services/apiservices';
 import medicAdd from '../../../../../assets/img/medicadd.png';
 import medicDel from '../../../../../assets/img/medicdel.png';
 import frwdBtn from '../../../../../assets/img/forward_arrow.png';
 import prevBtn from '../../../../../assets/img/previous_arrow.png';
-import LBChart from '../linebar_chart/linebarchart';
-import { PieChart, Pie, Sector, Cell } from "recharts";
-import { useHistory } from 'react-router-dom';
-import ApiServices from '../../../../../services/apiservices';
 
 const gdata = [{ name: "Jul 2021", value: 400 }, { name: "Jul 2021", value: 100 }];
 const COLORS = ["#7D9DAE", "#EEEEEE"];
@@ -35,9 +37,10 @@ function IndividualPanel2() {
     const [activeIndex] = useState(0);
     const [medicActiveList, setActiveMedicList] = useState([]);
     const [medicInactiveList, setInactiveMedicList] = useState([]);
+    const historyLogs = useRecoilValue(medicHistoryList);
     const history = useHistory();
     const getMedicList = useCallback(async () => {
-        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')));
+        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')), 'active');
         if (res.status === 200) {
             res.data.list.map(item => {
                 if (item.active === 'active') return setActiveMedicList(item.medicine_list)
@@ -57,60 +60,7 @@ function IndividualPanel2() {
     useEffect(() => {
         getMedicList();
     }, [getMedicList])
-    const data = [
-        {
-            date: '2021.07.31',
-            image: medicAdd,
-            medic: [
-                {
-                    name: 'Medicine Name 1',
-                    time: '12:30 PM',
-                    image: medicDel
-                },
-                {
-                    name: 'Medicine Name 2',
-                    time: '12:30 PM',
-                    image: medicAdd
-                },
-                {
-                    name: 'Medicine Name 3',
-                    time: '12:30 PM',
-                    image: medicDel
-                },
-                {
-                    name: 'Medicine Name 4',
-                    time: '12:30 PM',
-                    image: medicAdd
-                },
-            ]
-        },
-        {
-            date: '2021.07.30',
-            image: medicDel,
-            medic: [
-                {
-                    name: 'Medicine Name 1',
-                    time: '12:30 PM',
-                    image: medicAdd
-                },
-                {
-                    name: 'Medicine Name 2',
-                    time: '12:30 PM',
-                    image: medicAdd
-                },
-                {
-                    name: 'Medicine Name 3',
-                    time: '12:30 PM',
-                    image: medicDel
-                },
-                {
-                    name: 'Medicine Name 4',
-                    time: '12:30 PM',
-                    image: medicAdd
-                },
-            ]
-        }
-    ]
+
     const [btnClr1, setBtnClr1] = useState({ background: '#4A7389', color: '#C1D6E1' })
     const [btnClr2, setBtnClr2] = useState({ background: '#4A7389', color: '#C1D6E1' })
     const [btnClr3, setBtnClr3] = useState({ background: '#4A7389', color: '#C1D6E1' })
@@ -193,7 +143,7 @@ function IndividualPanel2() {
                                         fill="#7D9DAE"
                                         dataKey="value"
                                     >
-                                        {data.map((entry, index) => (
+                                        {gdata.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                                         ))}
                                     </Pie>
@@ -291,33 +241,40 @@ function IndividualPanel2() {
                         </div>
                     </div>
                 </div>
+                {/* HistoryLogs */}
                 <div className='individualPanel_child22_2'>
                     <div className='individualPanel_child22_2_child'>
                         <h4>History Logs</h4>
                     </div>
-                    {data.map((item) => (
-                        <div className='individual_History'>
-                            <div className='individual_History_date'>
-                                <p>{item.date}</p>
-                            </div>
-                            {item.medic.map(item1 => (
-                                <div className='individual_History_medics'>
-                                    <div className='medicsImg'>
-                                        <img src={item.image} alt="" />
-                                    </div>
-                                    <div className="individual_History_medic">
-                                        <div className='medicsH5'>
-                                            <h5>{item1.name}</h5>
-                                            <p>{item1.time}</p>
-                                        </div>
-                                        <div>
-                                            <img src={item1.image} style={{ cursor: 'pointer' }} alt="" />
-                                        </div>
-                                    </div>
+                    {historyLogs.length > 0 ?
+                        historyLogs.map((item) => (
+                            <div className='individual_History'>
+                                <div className='individual_History_date'>
+                                    <p>{item.date}</p>
                                 </div>
-                            ))}
-                        </div>
-                    ))}
+                                {item.data.map(item1 => (
+                                    item1.medicine_list.map(item2 => (
+                                        <div className='individual_History_medics'>
+                                            <div className='medicsImg'>
+                                                <img src={medicAdd} alt="" />
+                                            </div>
+                                            <div className="individual_History_medic">
+                                                <div className='medicsH5'>
+                                                    <h5>{item2.name}</h5>
+                                                    <p>{item1.time.slice(0, 5)}</p>
+                                                </div>
+                                                <div>
+                                                    <img src={item2.active ? medicAdd : medicDel} style={{ cursor: 'pointer' }} alt="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+                                ))}
+                            </div>
+                        )) :
+                        <div>
+                            <h5>&nbsp; No History yet</h5>
+                        </div>}
                 </div>
             </div>
         </>

@@ -192,10 +192,10 @@ export default class ApiServices {
         }
     }
     // Get Medication List API
-    static getMedicList = async (uid) => {
+    static getMedicList = async (uid, group_by) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/medicine/list?group_by=active&uid=${uid}`, config);
+            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/medicine/list?group_by=${group_by}&uid=${uid}`, config);
             return res;
         } catch (error) {
             if (error.response.data.data.code !== 404) {
