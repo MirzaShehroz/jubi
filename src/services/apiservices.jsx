@@ -71,7 +71,7 @@ export default class ApiServices {
     static postUserMessages = async (data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/room/message`, data, config);
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/chat/doctor/room/message`, data, config);
             return res;
         } catch (error) {
             errorHandler(error.response.data)

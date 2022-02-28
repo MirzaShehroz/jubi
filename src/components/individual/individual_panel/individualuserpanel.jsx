@@ -5,7 +5,7 @@ import cancelButton from "../../../assets/img/closeButton.png";
 import chatIcon from "../../../assets/img/chaticon.png";
 import watchListIcon from "../../../assets/img/bookmark.png";
 import exportIcon from "../../../assets/img/export.png";
-import { usersData_, watchList, userDataIndividual, watchListComment, memoAtom, memoList_ } from '../../../data/atom';
+import { usersData_, watchList, userDataIndividual, watchListComment, memoAtom, memoList_, userConditions } from '../../../data/atom';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import ApiServices from "../../../services/apiservices";
 import Memo from "../../memo/memo";
@@ -19,6 +19,8 @@ function IndividualUserPanel({ onHandlePrint }) {
     const [comment, setComment] = useRecoilState(watchListComment);
     const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     let date = new Date().getFullYear();
+    const allergies = useRecoilValue(userConditions);
+    const conditions = useRecoilValue(userConditions);
 
     const showChat = () => {
         history.push('/chat')
@@ -97,7 +99,7 @@ function IndividualUserPanel({ onHandlePrint }) {
                 </tbody>
             </table>
             <br />
-            <p onClick={showAllergies} id={'alergies'}><u>Allergies (11) & Conditions (3)</u></p>
+            <p onClick={showAllergies} id={'alergies'}><u>Allergies ({allergies.length}) & Conditions ({conditions.length})</u></p>
             <br />
             <div id={'memo'}>
                 <table>

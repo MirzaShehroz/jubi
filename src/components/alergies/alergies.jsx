@@ -1,32 +1,11 @@
 import './alergies.css'
 import { Table } from "react-bootstrap";
-import { useState, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import { userDataIndividual } from '../../data/atom';
+import { userConditions } from '../../data/atom';
 
 function Alergies() {
-    const userIndData = useRecoilValue(userDataIndividual);
-    const [allergies, setAllergies] = useState([]);
-    const [conditions, setConditions] = useState([]);
-
-    const findUserIndData = useCallback(() => {
-        userIndData.map(item => {
-            if (item.allergies.length > 0) {
-                setAllergies(item.allergies);
-            } else {
-                setAllergies([]);
-            }
-            if (item.conditions.length > 0) {
-                setConditions(item.conditions);
-            } else {
-                setConditions([]);
-            }
-        })
-    }, [userIndData])
-
-    useEffect(() => {
-        findUserIndData();
-    }, [findUserIndData])
+    const allergies = useRecoilValue(userConditions);
+    const conditions = useRecoilValue(userConditions);
 
     return (
         <div className={'individualPanel_child3'}>

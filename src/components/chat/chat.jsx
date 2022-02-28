@@ -74,9 +74,12 @@ function Chat() {
         let uid = parseInt(sessionStorage.getItem('uid'));
         let rid = parseInt(sessionStorage.getItem('%83r%5i$#d%'));
         if (message_.length > 0) {
-            const data = {
-                rid: rid, from: doctor.dId, to: uid, message: message_
-            }
+            let data = new FormData();
+            data.append('rid', `${rid}`);
+            data.append('from', `${doctor.dId}`);
+            data.append('to', `${uid}`);
+            data.append('message', message_);
+
             const res = await ApiServices.postUserMessages(data);
             if (res.status === 200) {
                 getUserChat();

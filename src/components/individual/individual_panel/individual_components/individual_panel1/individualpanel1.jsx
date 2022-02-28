@@ -5,8 +5,8 @@ import Alergies from "../../../../alergies/alergies";
 import closeIcon from '../../../../../assets/img/cancelicon2.png'
 import IndividualPanel2 from "../individual_panel2/individualpanel2";
 import IndividualUserPanel from "../../individualuserpanel";
-import { useRecoilState } from 'recoil';
-import { medicHistoryList, userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { medicHistoryList, userAllergies, userConditions, userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
 import ApiServices from '../../../../../services/apiservices';
 import { useReactToPrint } from 'react-to-print';
 import { useRef } from 'react';
@@ -17,6 +17,9 @@ function IndividualPanel() {
     const [/*..*/, setUsersData] = useRecoilState(usersData_);
     const [/*..*/, setUserData] = useRecoilState(userDataIndividual);
     const [/*..*/, setHistoryLogs] = useRecoilState(medicHistoryList);
+    const userIndData = useRecoilValue(userDataIndividual);
+    const [/*..*/, setAllergies] = useRecoilState(userAllergies);
+    const [/*..*/, setConditions] = useRecoilState(userConditions);
     const history = useHistory();
     const closeHandle = () => {
         history.push('/');
@@ -24,6 +27,21 @@ function IndividualPanel() {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     })
+    const findUserIndData = useCallback(() => {
+        userIndData.map(item => {
+            if (item.allergies.length > 0) {
+                setAllergies(item.allergies);
+            } else {
+                setAllergies([]);
+            }
+            if (item.conditions.length > 0) {
+                setConditions(item.conditions);
+            } else {
+                setConditions([]);
+            }
+        })
+    }, [userIndData, setAllergies, setConditions])
+
     const getUserWatchList = useCallback(async () => {
         const res = await ApiServices.getWatchList();
         if (res.status === 200) {
@@ -46,15 +64,18 @@ function IndividualPanel() {
         const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')), 'date');
         if (res.status === 200) {
             setHistoryLogs(res.data.list);
-        }else if (res.data.code === 404) {
+        } else if (res.data.code === 404) {
             setHistoryLogs([]);
         }
-    }, []);
+    }, [setHistoryLogs]);
     useEffect(() => {
         getUsersData();
         getUserWatchList();
         getHistoryList();
     }, [getUsersData, getUserWatchList, getHistoryList])
+    useEffect(() => {
+        findUserIndData();
+    }, [findUserIndData])
 
     return (
         <div className='individualPanel'>

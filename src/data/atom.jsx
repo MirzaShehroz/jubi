@@ -147,6 +147,16 @@ export const userChatRooms = atom({
     default: []
 })
 
+export const userAllergies = atom({
+    key: 'User Allergies',
+    default: []
+})
+
+export const userConditions = atom({
+    key: 'User Conditions',
+    default: []
+})
+
 export const showMessageNoti = atom({
     key: 'show message notification',
     default: false
