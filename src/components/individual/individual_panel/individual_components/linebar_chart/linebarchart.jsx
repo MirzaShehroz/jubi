@@ -22,7 +22,7 @@ ChartJS.register(
     Legend,
     Tooltip
 );
-const labels = ['W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5', 'W1', 'W2', 'W3', 'W4', 'W5'];
+
 const options = {
     plugins: {
         legend: {
@@ -32,33 +32,33 @@ const options = {
     },
     maintainAspectRatio: false
 }
-const data = {
-    labels,
 
-    datasets: [
-        {
-            type: 'line',
-            label: '',
-            borderColor: 'rgb(255, 99, 132)',
-            borderWidth: 3,
-            fill: false,
-            data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
-        },
-        {
-            type: 'bar',
-            label: '',
-            backgroundColor: '#7D9DAE',
-            data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
-            borderColor: 'white',
-            borderWidth: 0,
-            borderRadius: 100,
+function LBChart({labels}) {
+    const data = {
+        labels,
+        datasets: [
+            {
+                type: 'line',
+                label: '',
+                borderColor: '#305162',
+                borderWidth: 3,
+                fill: false,
+                data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
+            },
+            {
+                type: 'bar',
+                label: '',
+                backgroundColor: '#7D9DAE',
+                data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
+                borderColor: 'white',
+                borderWidth: 0,
+                borderRadius: 100,
 
-        },
+            },
 
-    ],
-};
+        ],
+    };
 
-function LBChart() {
     return (
         <div className={'chartBox'}>
             <Chart

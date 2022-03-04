@@ -11,7 +11,7 @@ import medicDel from '../../../../../assets/img/medicdel.png';
 import frwdBtn from '../../../../../assets/img/forward_arrow.png';
 import prevBtn from '../../../../../assets/img/previous_arrow.png';
 
-const gdata = [{ name: "Jul 2021", value: 400 }, { name: "Jul 2021", value: 100 }];
+
 const COLORS = ["#7D9DAE", "#EEEEEE"];
 const renderActiveShape = (props) => {
     const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill, payload } = props;
@@ -63,22 +63,213 @@ function IndividualPanel2() {
 
     const [btnClr1, setBtnClr1] = useState({ background: '#4A7389', color: '#C1D6E1' })
     const [btnClr2, setBtnClr2] = useState({ background: '#4A7389', color: '#C1D6E1' })
-    const [btnClr3, setBtnClr3] = useState({ background: '#4A7389', color: '#C1D6E1' })
+    const [btnClr3, setBtnClr3] = useState({ background: '#FFFFFF', color: '#3E6578' })
+    const [count, setCount] = useState(3)
+    const [month, setMonth] = useState("Jan")
+    const [year, setYear] = useState(2022)
+    const [filterMedic, setFilterMedic] = useState('annual')
+    const [filterMedicHistory, setFilterMedicHistory] = useState('2022')
+    const [showFilterMedic, setShowFilterMedic] = useState('2022')
+    const [gdata, setGdata] = useState([{ name: "Year", value: 400 }, { name: "Year", value: 100 }]);
+    const [arrBtn, setArrBtn] = useState({ prev: true, frwd: true });
+    const [labels, setLabels] = useState(['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+
     const changeBtnClr1 = () => {
         setBtnClr1({ background: '#FFFFFF', color: '#3E6578' });
         setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
         setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
+        setFilterMedic('weekly');
     }
     const changeBtnClr2 = () => {
         setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
         setBtnClr2({ background: '#FFFFFF', color: '#3E6578' });
         setBtnClr3({ background: '#4A7389', color: '#C1D6E1' });
+        setFilterMedic('monthly');
     }
     const changeBtnClr3 = () => {
         setBtnClr1({ background: '#4A7389', color: '#C1D6E1' });
         setBtnClr2({ background: '#4A7389', color: '#C1D6E1' });
         setBtnClr3({ background: '#FFFFFF', color: '#3E6578' });
+        setFilterMedic('annual');
     }
+    const setFilters = () => {
+        switch (filterMedic) {
+            case 'weekly':
+                setCount(2);
+                setLabels(['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']);
+                setArrBtn({ prev: false, frwd: true })
+                setGdata([{ name: `W1 ${month} ${year}`, value: 400 }, { name: `W1 ${month} ${year}`, value: 100 }]);
+                setShowFilterMedic(`W1 ${month}, ${year}`);
+                break;
+            case 'monthly':
+                setCount(2);
+                setLabels(['W1', 'W2', 'W3', 'W4', 'W5']);
+                setArrBtn({ prev: false, frwd: true })
+                setGdata([{ name: `${month} ${year}`, value: 400 }, { name: `${month} ${year}`, value: 100 }]);
+                setShowFilterMedic(`${month}, ${year}`);
+                break;
+            case 'annual':
+                setCount(3);
+                setLabels(['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']);
+                setArrBtn({ prev: true, frwd: true })
+                setGdata([{ name: "Year", value: 400 }, { name: "Year", value: 100 }]);
+                setShowFilterMedic(`${year}`);
+                setFilterMedicHistory(`${year}`);
+                break;
+            default:
+                break;
+        }
+    }
+    const showYearHandle = () => {
+        console.log(count);
+        switch (count) {
+            case 1:
+                setShowFilterMedic('2021');
+                setArrBtn({ prev: false, frwd: true })
+                setCount(2);
+                break;
+            case 2:
+                setShowFilterMedic('2022');
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 3:
+                setShowFilterMedic('2023');
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 4:
+                setShowFilterMedic('2024');
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 5:
+                setShowFilterMedic('2025');
+                setArrBtn({ prev: true, frwd: false })
+                setCount(4);
+                break;
+            default:
+                break;
+        }
+    }
+    const showMonthHandle = () => {
+        console.log(count);
+        switch (count) {
+            case 1:
+                setShowFilterMedic(`Jan ${year}`);
+                setGdata([{ name: `Jan ${year}`, value: 400 }, { name: `Jan ${year}`, value: 100 }]);
+                setArrBtn({ prev: false, frwd: true })
+                setCount(2);
+                break;
+            case 2:
+                setShowFilterMedic(`Feb ${year}`);
+                setGdata([{ name: `Feb ${year}`, value: 400 }, { name: `Feb ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 3:
+                setShowFilterMedic(`March ${year}`);
+                setGdata([{ name: `March ${year}`, value: 400 }, { name: `March ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 4:
+                setShowFilterMedic(`April ${year}`);
+                setGdata([{ name: `April ${year}`, value: 400 }, { name: `April ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 5:
+                setShowFilterMedic(`May ${year}`);
+                setGdata([{ name: `May ${year}`, value: 400 }, { name: `May ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 6:
+                setShowFilterMedic(`June ${year}`);
+                setGdata([{ name: `June ${year}`, value: 400 }, { name: `June ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 7:
+                setShowFilterMedic(`July ${year}`);
+                setGdata([{ name: `July ${year}`, value: 400 }, { name: `July ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 8:
+                setShowFilterMedic(`Aug ${year}`);
+                setGdata([{ name: `Aug ${year}`, value: 400 }, { name: `Aug ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 9:
+                setShowFilterMedic(`Sep ${year}`);
+                setGdata([{ name: `Sep ${year}`, value: 400 }, { name: `Sep ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 10:
+                setShowFilterMedic(`Oct ${year}`);
+                setGdata([{ name: `Oct ${year}`, value: 400 }, { name: `Oct ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 11:
+                setShowFilterMedic(`Nov ${year}`);
+                setGdata([{ name: `Nov ${year}`, value: 400 }, { name: `Nov ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 12:
+                setShowFilterMedic(`Dec ${year}`);
+                setGdata([{ name: `Dec ${year}`, value: 400 }, { name: `Dec ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: false })
+                setCount(11);
+                break;
+            default:
+                break;
+        }
+    }
+    const showWeekHandle = () => {
+        console.log(count);
+        switch (count) {
+            case 1:
+                setShowFilterMedic(`W1 ${month} ${year}`);
+                setGdata([{ name: `W1 ${month} ${year}`, value: 400 }, { name: `W1 ${month} ${year}`, value: 100 }]);
+                setArrBtn({ prev: false, frwd: true })
+                setCount(2);
+                break;
+            case 2:
+                setShowFilterMedic(`W2 ${month} ${year}`);
+                setGdata([{ name: `W2 ${month} ${year}`, value: 400 }, { name: `W2 ${month} ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 3:
+                setShowFilterMedic(`W3 ${month} ${year}`);
+                setGdata([{ name: `W3 ${month} ${year}`, value: 400 }, { name: `W3 ${month} ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 4:
+                setShowFilterMedic(`W4 ${month} ${year}`);
+                setGdata([{ name: `W4 ${month} ${year}`, value: 400 }, { name: `W4 ${month} ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: true })
+                break;
+            case 5:
+                setShowFilterMedic(`W5 ${month} ${year}`);
+                setGdata([{ name: `W5 ${month} ${year}`, value: 400 }, { name: `W5 ${month} ${year}`, value: 100 }]);
+                setArrBtn({ prev: true, frwd: false })
+                setCount(4);
+                break;
+            default:
+                break;
+        }
+    }
+
+    const arrBtnHandle = () => {
+        switch (filterMedic) {
+            case 'weekly':
+                showWeekHandle();
+                break;
+            case 'monthly':
+                showMonthHandle();
+                break;
+            case 'annual':
+                showYearHandle();
+                break;
+
+            default:
+                break;
+        }
+    }
+
     return (
         <>
             <div className='individualPanel_child21'>
@@ -90,30 +281,28 @@ function IndividualPanel2() {
                 </div>
                 <div className='dashboard_child11_2_1'>
                     <form >
-                        <select name="months" id="dashboard_month_select">
-                            <option value="Jan">Jan</option>
-                            <option value="Feb">Feb</option>
-                            <option value="March">March</option>
-                            <option value="April">April</option>
-                            <option value="May">May</option>
-                            <option value="June">June</option>
-                            <option value="July">July</option>
-                            <option value="Aug">Aug</option>
-                            <option value="Sep">Sep</option>
-                            <option value="Oct">Oct</option>
-                            <option value="Nov">Nov</option>
-                            <option value="Dec">Dec</option>
+                        <select name="months" onChange={(e) => setMonth(e.target.value)} id="dashboard_month_select">
+                            <option value={"Jan"}>Jan</option>
+                            <option value={"Frb"}>Feb</option>
+                            <option value={"March"}>March</option>
+                            <option value={"April"}>April</option>
+                            <option value={"May"}>May</option>
+                            <option value={"June"}>June</option>
+                            <option value={"July"}>July</option>
+                            <option value={"Aug"}>Aug</option>
+                            <option value={"Sep"}>Sep</option>
+                            <option value={"Oct"}>Oct</option>
+                            <option value={"Nov"}>Nov</option>
+                            <option value={"Dec"}>Dec</option>
                         </select>
-                        <select name="years" id="dashboard_year_select">
-                            <option value={2019}>2019</option>
-                            <option value={2020}>2020</option>
+                        <select name="years" onChange={(e) => setYear(e.target.value)} id="dashboard_year_select">
                             <option value={2021}>2021</option>
-                            <option value={2022}>2022</option>
+                            <option selected value={2022}>2022</option>
                             <option value={2023}>2023</option>
                             <option value={2024}>2024</option>
                             <option value={2025}>2025</option>
                         </select>
-                        <button type='button'>G0!</button>
+                        <button onClick={setFilters} type='button'>G0!</button>
                     </form>
                 </div>
             </div>
@@ -121,11 +310,17 @@ function IndividualPanel2() {
                 <div className='individualPanel_child22_1'>
                     <div className='individualPanel_child22_11'>
                         <div className='individualPanel_child22_head'>
-                            <h4>Medications Adherence rate</h4>
+                            <h4 >Medications Adherence rate</h4>
                             <div className='individualPanel_child22_date'>
-                                <img src={prevBtn} alt="" />
-                                <h5 style={{ fontWeight: '400' }}>W4 Jul. 2021</h5>
-                                <img src={frwdBtn} alt="" />
+                                {arrBtn.prev ? <img src={prevBtn} alt="" onClick={() => {
+                                    setCount(count - 1);
+                                    arrBtnHandle();
+                                }} /> : ''}
+                                <h5 style={{ fontWeight: '400', margin: '0 6px' }}>{showFilterMedic}</h5>
+                                {arrBtn.frwd ? <img src={frwdBtn} alt="" onClick={() => {
+                                    setCount(count + 1);
+                                    arrBtnHandle();
+                                }} /> : ''}
                             </div>
                         </div>
                         <div className='individualPanel_child22_graph'>
@@ -150,7 +345,7 @@ function IndividualPanel2() {
                                 </PieChart>
                             </div>
                             <div className='individualPanel_graph2'>
-                                <LBChart />
+                                <LBChart labels={labels} />
                             </div>
                         </div>
                     </div>
@@ -213,7 +408,7 @@ function IndividualPanel2() {
                         <div className='individualPanel_child22_12child'>
                             {medicInactiveList.length > 0 ? <>
                                 <div className='signin_checkout individual2_input'>
-                                    <input type="checkbox" defaultChecked={false} />
+                                    {/* <input type="checkbox" defaultChecked={false} /> */}
                                     <h5>Inactive Medications ({medicInactiveList.length})</h5>
                                 </div>
                                 {medicInactiveList.map(item => (
@@ -245,6 +440,11 @@ function IndividualPanel2() {
                 <div className='individualPanel_child22_2'>
                     <div className='individualPanel_child22_2_child'>
                         <h4>History Logs</h4>
+                        {filterMedic === "annual" ? <div className='individualPanel_child22_date'>
+                            <img src={prevBtn} alt="" />
+                            <h5 style={{ fontWeight: '400', margin: '0 6px' }}>{filterMedicHistory}</h5>
+                            <img src={frwdBtn} alt="" />
+                        </div> : ''}
                     </div>
                     {historyLogs.length > 0 ?
                         historyLogs.map((item) => (

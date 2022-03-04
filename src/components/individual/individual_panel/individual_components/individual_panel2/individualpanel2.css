@@ -89,8 +89,11 @@
 
 .individualPanel_child22_2_child {
     background: white;
+    display: flex;
     padding: 4.5% 5.5%;
     margin-bottom: 2.5px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .individual_History_date {
@@ -140,8 +143,6 @@
 .individualPanel_child22_date {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 125px;
 }
 
 .individualPanel_child22_date img {
