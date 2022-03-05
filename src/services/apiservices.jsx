@@ -208,14 +208,10 @@ export default class ApiServices {
     static getMedicReport = async (uid, data) => {
         const config = { headers: { 'Authorization': `Bearer ${sessionStorage.getItem('authData')}` } }
         try {
-            const res = await axios.get(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/medicine/report?uid=${uid}`,config, {
-                type: "annual",
-                week: 4,
-                month: 1,
-                year: 2022
-            });
+            const res = await axios.post(`http://ec2-13-125-149-247.ap-northeast-2.compute.amazonaws.com:9090/affiliate/v1/doctor/medicine/report?uid=${uid}`, data, config);
             return res;
         } catch (error) {
+            errorHandler(error.response.data)
             return error.response.data;
         }
     }

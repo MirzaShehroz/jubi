@@ -6,7 +6,7 @@ import closeIcon from '../../../../../assets/img/cancelicon2.png'
 import IndividualPanel2 from "../individual_panel2/individualpanel2";
 import IndividualUserPanel from "../../individualuserpanel";
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { medicHistoryList, userAllergies, userConditions, userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
+import {  userAllergies, userConditions, userDataIndividual, usersData_, watchList } from '../../../../../data/atom';
 import ApiServices from '../../../../../services/apiservices';
 import { useReactToPrint } from 'react-to-print';
 import { useRef } from 'react';
@@ -16,7 +16,6 @@ function IndividualPanel() {
     const [/*..*/, setUserWatchList] = useRecoilState(watchList);
     const [/*..*/, setUsersData] = useRecoilState(usersData_);
     const [/*..*/, setUserData] = useRecoilState(userDataIndividual);
-    const [/*..*/, setHistoryLogs] = useRecoilState(medicHistoryList);
     const userIndData = useRecoilValue(userDataIndividual);
     const [/*..*/, setAllergies] = useRecoilState(userAllergies);
     const [/*..*/, setConditions] = useRecoilState(userConditions);
@@ -60,19 +59,11 @@ function IndividualPanel() {
             history.push('/sign-in');
         }
     }, [setUsersData, setUserData, history])
-    const getHistoryList = useCallback(async () => {
-        const res = await ApiServices.getMedicList(parseInt(sessionStorage.getItem('uid')), 'date');
-        if (res.status === 200) {
-            setHistoryLogs(res.data.list);
-        } else if (res.data.code === 404) {
-            setHistoryLogs([]);
-        }
-    }, [setHistoryLogs]);
+
     useEffect(() => {
         getUsersData();
         getUserWatchList();
-        getHistoryList();
-    }, [getUsersData, getUserWatchList, getHistoryList])
+    }, [getUsersData, getUserWatchList])
     useEffect(() => {
         findUserIndData();
     }, [findUserIndData])

@@ -11,7 +11,6 @@ import {
     registerables as registerablesJS
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import faker from 'faker';
 ChartJS.register(...registerablesJS);
 ChartJS.register(
     LinearScale,
@@ -33,7 +32,8 @@ const options = {
     maintainAspectRatio: false
 }
 
-function LBChart({labels}) {
+function LBChart({ label }) {
+    let labels = label.map(item => item.key)
     const data = {
         labels,
         datasets: [
@@ -43,13 +43,13 @@ function LBChart({labels}) {
                 borderColor: '#305162',
                 borderWidth: 3,
                 fill: false,
-                data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
+                data: label.map((item) => item.goal),
             },
             {
                 type: 'bar',
                 label: '',
                 backgroundColor: '#7D9DAE',
-                data: labels.map(() => faker.datatype.number({ min: 1, max: 100 })),
+                data: label.map((item) => item.goal),
                 borderColor: 'white',
                 borderWidth: 0,
                 borderRadius: 100,
